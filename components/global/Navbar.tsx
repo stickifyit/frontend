@@ -9,13 +9,13 @@ type Props = {}
 
 const Navbar = (props: Props) => {
   return (
-    <div style={{height: NavbarHight}} className={'flex items-center border-b fixed w-full top-0'}>
+    <div style={{height: NavbarHight}} className={'flex items-center border-b bg-white z-50 fixed w-full top-0'}>
         <div className='container flex items-center mx-auto'>
             <div className='flex items-center gap-4'>
                 <Image src={LOGO} className='' alt='logo' width={60} height={100}/>
                 <h1 className='text-2xl font-bold text-bblack uppercase'>stickifyit</h1>
             </div>
-            <div className='flex-1 px-4'>
+            <div className='flex-1 pl-8'>
                 <NavbarNavigation/>
             </div>
             <div>

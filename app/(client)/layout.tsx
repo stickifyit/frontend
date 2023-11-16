@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar/>
-        <div style={{marginTop:NavbarHight}}>
+        <div className='text-gray-700' style={{marginTop:NavbarHight}}>
             {children}
         </div>
       </body>
