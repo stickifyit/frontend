@@ -17,11 +17,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" >
       <body className={inter.className}>
+        <div className='text-gray-700 bg-gray-50'>
         <Navbar/>
-        <div className='text-gray-700' style={{marginTop:NavbarHight}}>
+        <div className='' style={{marginTop:NavbarHight}}>
             {children}
+        </div>
         </div>
       </body>
     </html>
