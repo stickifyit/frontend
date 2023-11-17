@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '../ui/button'
-import { LOGO } from '@/constant/constants'
+import { HeroImages } from '@/constant/constants'
 import {ArrowRight} from "lucide-react"
 import Image from 'next/image'
 import { HeroLinksImages } from '@/constant/constants'
@@ -21,8 +21,10 @@ const HeroSection = (props: Props) => {
           <Button size={'lg'} variant={"outline"} className='uppercase flex gap-2  py-7 px-10 text-lg'>Explore collections</Button>
           </div>
         </div>
-        <div className='flex items-center justify-center drop-shadow-2xl py-8 md:py-0'>
-          <Image src={LOGO} alt='logo' width={400} height={400}/>
+        <div className='flex items-center justify-center py-8 md:py-0 relative'>
+          <Image src={HeroImages.carrot} alt='logo' className='absolute top-0 -left-20 drop-shadow-lg animate-updown-slow1' width={200} height={200}/>
+          <Image src={HeroImages.doughnut} alt='logo' className='z-20 drop-shadow-xl  animate-updown' width={500} height={500}/>
+          <Image src={HeroImages.watermelon} alt='logo' className='absolute top-0 right-0 drop-shadow-lg  animate-updown-slow' width={200} height={200}/>
         </div>
       </div>
     </div>

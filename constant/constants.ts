@@ -16,8 +16,19 @@ import rounded from '@/public/custom-stickers/rounded.png'
 import sheets from '@/public/custom-stickers/sheets.png'
 import square from '@/public/custom-stickers/square.png'
 import { CustomStickersImages } from "@/types/types"
+import HeroImage_ from "@/public/hero/hero2.png"
 
+import carrot from "@/public/hero/carrot.png"
+import doughnut from "@/public/hero/doughnut.png"
+import watermelon from "@/public/hero/watermelon.png"
 export const LOGO = Logo
+
+export const HeroImages = {
+    HeroImage_,
+    carrot,
+    doughnut,
+    watermelon
+}
 export const NavbarHight = "100px"
 
 export const HeroLinksImages = { 
