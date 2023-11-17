@@ -11,37 +11,24 @@ type Props = {
 
 
 
-function drawImageOnCanvas(
+function drawImageWithMargin(  
     context: CanvasRenderingContext2D,
     img: HTMLImageElement,
     drawX: number,
     drawY: number,
     drawWidth: number,
     drawHeight: number,
-    margin: number,
-  ) {
-    // Calculate the aspect ratio of the image
+    margin: number) {
     const aspectRatio = img.width / img.height;
-  
-    // Calculate the adjusted dimensions based on the aspect ratio
-    var adjustedWidth = drawWidth;
-    var adjustedHeight = adjustedWidth / aspectRatio;
-  
-    // Check if the adjusted height exceeds the available space
-    if (adjustedHeight > drawHeight) {
-      // If it does, adjust the height and width accordingly
-      const maxHeight = drawHeight - 2 * margin; // Consider margin on both top and bottom
-      adjustedHeight = maxHeight;
-      adjustedWidth = adjustedHeight * aspectRatio;
-    }
-  
-    // Calculate the final coordinates to center the image
-    const offsetX = drawX + (drawWidth - adjustedWidth) / 2;
-    const offsetY = drawY + (drawHeight - adjustedHeight) / 2;
-  
-    // Draw the image on the canvas
-    context.drawImage(img, offsetX, offsetY, adjustedWidth, adjustedHeight);
-  }
+    const newWidth = drawWidth - 2 * margin;
+    const newHeight = newWidth / aspectRatio;
+
+    const newX = drawX + (drawWidth - newWidth) / 2;
+    const newY = drawY + (drawHeight - newHeight) / 2;
+
+    context.drawImage(img, newX, newY, newWidth, newHeight);
+}
+
   
 
 
@@ -81,7 +68,7 @@ function Canvas({type}: Props) {
 
 
             if(type=="die-cut"){
-                drawImageOnCanvas(context, img, drawX, drawY, drawWidth, drawHeight, radius);
+                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight, radius);
                 // Draw a circle at each colored pixel
                 const imageData = context.getImageData(drawX, drawY, drawWidth, drawHeight);
                 for (let i = 0; i < imageData.data.length; i += 4) {
@@ -98,14 +85,14 @@ function Canvas({type}: Props) {
                     context.closePath();
                 }
                 }
-                drawImageOnCanvas(context, img, drawX, drawY, drawWidth, drawHeight, radius);
+                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight, radius);
             }else if(type=="circle"){
                 context.beginPath();
                 context.arc(canvas.width / 2,canvas.height / 2, canvas.width/2, 0, 2 * Math.PI);
                 context.fillStyle = '#ffffffaa'; // Change the color if needed
                 context.fill();
                 context.closePath();
-                drawImageOnCanvas(context, img, drawX, drawY, drawWidth, drawHeight,radius);
+                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
             }
 
 
