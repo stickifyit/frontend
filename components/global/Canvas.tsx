@@ -37,7 +37,9 @@ function Canvas({type}: Props) {
     const [image, setImage] = useState<string | null>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [radius,setRadius] = useState<number>(
-        type==="die-cut"|| type === "circle" ?20:0
+        type==="die-cut"?20: 
+        type === "circle" ?80:
+        type === "square" ? 40:0
     );
 
 
@@ -89,7 +91,13 @@ function Canvas({type}: Props) {
             }else if(type=="circle"){
                 context.beginPath();
                 context.arc(canvas.width / 2,canvas.height / 2, canvas.width/2, 0, 2 * Math.PI);
-                context.fillStyle = '#ffffffaa'; // Change the color if needed
+                context.fillStyle = '#ffffff'; // Change the color if needed
+                context.fill();
+                context.closePath();
+                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
+            }else if(type=="square"){
+                context.fillStyle = '#ffffff'; // Change the color if needed
+                context.rect(0, 0, canvas.width, canvas.height);
                 context.fill();
                 context.closePath();
                 drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
@@ -127,7 +135,7 @@ function Canvas({type}: Props) {
     };
   return (
         <div className="flex-1 bg-secondary overflow-hidden relative border rounded-2xl group flex justify-center items-center">
-                        <input type="range" min="0" max="100" value={radius} onChange={(e) => setRadius(parseInt(e.target.value))} />
+                        <input type="range" min="0" max="150" value={radius} onChange={(e) => setRadius(parseInt(e.target.value))} />
                           <input className='hidden' type="file" accept='image/*' id='upload' onChange={handleImageChange} />
                   {
                         !image &&
@@ -142,8 +150,8 @@ function Canvas({type}: Props) {
                     <Upload/>
                     </Label>
                   <canvas
-                    width={500} // Set the desired canvas width
-                    height={500} // Set the desired canvas height
+                    width={600} // Set the desired canvas width
+                    height={600} // Set the desired canvas height
                     className='p-4 w-[500px] h-[500px] drop-shadow-xl'
                     ref={canvasRef}
                   ></canvas>
