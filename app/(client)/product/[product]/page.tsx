@@ -102,8 +102,8 @@ function Page({}: Props) {
         </div>
       </div>
       <div className="flex gap-6 container mx-auto py-8">
-        <div className="flex-1 overflow-hidden relative bg-secondary border rounded-2xl flex justify-center items-center">
-                <Button className="absolute top-[50%] left-4">
+        <div className="flex-1 overflow-hidden relative bg-secondary border rounded-2xl group flex justify-center items-center">
+                <Button size={"icon"} className="absolute top-[50%] hover:scale-105 left-4 rounded-full scale-0 group-hover:scale-100 duration-300 ease-in-out">
                   <Menu/>
                 </Button>
                   {
