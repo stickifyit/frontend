@@ -33,6 +33,7 @@ const HeroSection = (props: Props) => {
                 {name:"custom stickers",img:HeroLinksImages.Stickers,href:"custom-stickers"},
                 {name:"custom labels",img:HeroLinksImages.Label,href:"custom-labels"},
                 {name:"custom shirts",img:HeroLinksImages.T_Shirt,href:"custom-shirts"},
+                {name:"custom cup",img:HeroLinksImages.Cup,href:"custom-cup"},
             ].map(({name,img,href})=>
             <Link href={href} key={name} className='w-fit p-2 hover:scale-105 duration-300 rounded-2xl border bg-white '>
                 <Image src={img} alt={name} width={250} height={250}/>

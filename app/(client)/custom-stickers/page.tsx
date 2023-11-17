@@ -31,7 +31,7 @@ const page = (props: Props) => {
               {name:"Oval", href:"oval", img:customStickersImages.oval},
               {name:"Sheets", href:"sheets", img:customStickersImages.sheets},
             ].map((item, index) => (
-              <Link href={item.href} key={index} className=' p-4 rounded-2xl border bg-gray-100 flex flex-col items-center justify-center hover:bg-secondary hover:scale-105 duration-300'>
+              <Link href={"/product/"+item.href} key={index} className=' p-4 rounded-2xl border bg-gray-100 flex flex-col items-center justify-center hover:bg-secondary hover:scale-105 duration-300'>
                 <Image src={item.img} alt={item.name} width={250}/>
                 <h3 className='text-xl text-center'>{item.name} stickers</h3>
               </Link>
