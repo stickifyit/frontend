@@ -4,9 +4,10 @@ import React, { useState,ChangeEvent,useRef,useEffect } from 'react';
 import { useParams } from 'next/navigation'
 import ImageNext from "next/image";
 import { productHeroImages } from "@/constant/productsHeroImages";
-import { Circle } from "lucide-react";
+import { Circle, Menu } from "lucide-react";
 import SizeAndQCard from "@/components/global/SizeAndQCard";
 import { Button } from "@/components/ui/button";
+import { Label } from '@/components/ui/label';
 type Props = {
 };
 
@@ -18,6 +19,7 @@ function Page({}: Props) {
     const params = useParams();
     const [image, setImage] = useState<string | null>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [radius,setRadius] = useState<number>(20);
 
 
     useEffect(() => {
@@ -37,12 +39,11 @@ function Page({}: Props) {
             const aspectRatio = img.width / img.height;
             let drawWidth = canvas.width;
             let drawHeight = canvas.width / aspectRatio;
-            const radius = 15;
     
             // Center the image on the canvas
             let drawX = 0;
             let drawY = (canvas.height - drawHeight) / 2;
-    
+
             context.drawImage(img, drawX+radius, drawY+radius, drawWidth-radius*2, drawHeight-radius*2);
     
             // Draw a circle at each colored pixel
@@ -56,12 +57,12 @@ function Page({}: Props) {
                 // Draw a circle at the colored pixel
                 context.beginPath();
                 context.arc(drawX + x, drawY + y, radius, 0, 2 * Math.PI);
-                context.fillStyle = 'white'; // Change the color if needed
+                context.fillStyle = '#ffffffaa'; // Change the color if needed
                 context.fill();
                 context.closePath();
               }
             }
-            context.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+            context.drawImage(img, drawX+radius, drawY+radius, drawWidth-radius*2, drawHeight-radius*2);
           };
     
           img.onerror = (error) => {
@@ -69,7 +70,7 @@ function Page({}: Props) {
           };
         }
       }
-    }, [image, canvasRef.current]);
+    }, [image, canvasRef.current,radius]);
     
     
 
@@ -100,17 +101,23 @@ function Page({}: Props) {
           </div>
         </div>
       </div>
-              <input type="file" />
       <div className="flex gap-6 container mx-auto py-8">
-        <div className="flex-1 bg-secondary border rounded-2xl flex justify-center items-center">
-              {/* <Button size={"lg"}>Upload sticker</Button> */}
-              <input type="file" onChange={handleImageChange} />
-                {image && <img className='hidden' src={image} alt="Selected" style={{ maxWidth: '100%' }} />}
-                {image && (
+        <div className="flex-1 overflow-hidden relative bg-secondary border rounded-2xl flex justify-center items-center">
+                <Button className="absolute top-[50%] left-4">
+                  <Menu/>
+                </Button>
+                  {
+                        !image &&
+                        <Label htmlFor='upload' className='cursor-pointer text-primary-foreground px-10 py-6 text-lg bg-primary rounded-xl'>
+                          Upload sticker
+                          <input className='hidden' type="file" accept='image/*' id='upload' onChange={handleImageChange} />
+                        </Label>
+                  }
+                {(image &&
                   <canvas
                     width={500} // Set the desired canvas width
                     height={500} // Set the desired canvas height
-                    style={{ border: '1px solid #000' }}
+                    className='p-4 w-[500px] h-[500px] drop-shadow-xl'
                     ref={canvasRef}
                   ></canvas>
                 )}
