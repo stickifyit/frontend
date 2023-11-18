@@ -27,7 +27,7 @@ function Page({}: Props) {
           </div>
         </div>
       </div>
-      <div className="flex gap-6 container mx-auto py-8">
+      <div className="flex flex-col lg:flex-row gap-6 container mx-auto py-8">
         <Canvas type={params?.product as keyof typeof productHeroImages}/>
         <SizeAndQCard />
       </div>
