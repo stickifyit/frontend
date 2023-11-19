@@ -37,7 +37,7 @@ function drawImageWithMargin(
 function Canvas({type}: Props) {
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const {color,setColor,radius,setRadius,image, setImage} = useCanvasProps()
+    const {color,setColor,radius,setRadius,image, setImage,setFile} = useCanvasProps()
     useEffect(() => {
         setRadius(
         type==="die-cut"?20: 
@@ -136,8 +136,8 @@ function Canvas({type}: Props) {
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
-  
       if (file) {
+        setFile(file);
         const reader = new FileReader();
   
         reader.onloadend = () => {

@@ -13,11 +13,20 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { qs, sizes } from '@/constant/sizesAndQ';
 import { useSizeAndQ } from '@/store/sizeAndQ';
+import { useCanvasProps } from '@/store/canvasProps';
+import { handleUpload } from '@/lib/uploadImage';
 
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
     const {q,size,setQ,setSize} = useSizeAndQ()
+    const {file} = useCanvasProps()
+    const [loading,setLoading] = React.useState(false)
+    const upload = async ()=>{
+        setLoading(true)
+        await handleUpload(file)
+        setLoading(false)
+    }
   return (
         <Card className="ml-auto">
           <CardHeader></CardHeader>
@@ -57,7 +66,11 @@ const SizeAndQCard = (props: Props) => {
                 ))}
               </RadioGroup>
             </div>
-            <Button size="lg" className="w-full">Continue</Button>
+            <Button onClick={upload} size="lg" className="w-full">
+              {
+                loading? "Uploading..." : "Continue"
+              }
+            </Button>
           </CardContent>
         </Card>
   )
