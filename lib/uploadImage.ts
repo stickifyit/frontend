@@ -48,7 +48,7 @@ export const handleUploadSticker = async (
     file: File | null,
     setLoading:React.Dispatch<React.SetStateAction<boolean>>,
     type: string,
-    radius: number,
+    r: number,
     color:string
     ) => {
     setLoading(true)  
@@ -62,16 +62,18 @@ export const handleUploadSticker = async (
     const context = canvas.getContext('2d');
     const image = new Image();
     image.src = URL.createObjectURL(file);
+    // config
+    const quality = 2;
+    const radius = r * quality;
 
     if(!context) return setLoading(false)
   
     image.onload = async () => {
+        canvas.width = 600 * quality;
+        canvas.height = (type=="rect"? 400: type=="bumper"? 200 : 600) * quality;
 
-        canvas.width = image.width;
-        canvas.height = image.height;
 
 
-        
             // Clear the canvas
             context.clearRect(0, 0, canvas.width, canvas.height);
     
@@ -88,7 +90,7 @@ export const handleUploadSticker = async (
                 drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight, radius);
                 // Draw a circle at each colored pixel
                 const imageData = context.getImageData(drawX, drawY, drawWidth, drawHeight);
-                for (let i = 0; i < imageData.data.length; i += 4*2) {
+                for (let i = 0; i < imageData.data.length; i += 4) {
                 // Check if the pixel is colored
                 if (imageData.data[i + 3] === 255) {
                     const x = (i / 4) % drawWidth;

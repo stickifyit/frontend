@@ -76,7 +76,7 @@ function Canvas({type}: Props) {
                 drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight, radius);
                 // Draw a circle at each colored pixel
                 const imageData = context.getImageData(drawX, drawY, drawWidth, drawHeight);
-                for (let i = 0; i < imageData.data.length; i += 4*2) {
+                for (let i = 0; i < imageData.data.length; i += 4*4) {
                 // Check if the pixel is colored
                 if (imageData.data[i + 3] === 255) {
                     const x = (i / 4) % drawWidth;
@@ -165,8 +165,8 @@ function Canvas({type}: Props) {
                     <>
                     <CanvasButtons/>
                   <canvas
-                    width={600} // Set the desired canvas width
-                    height={type=="rect"? 400: type=="bumper"? 200 : 600} // Set the desired canvas height
+                    width={(600)*.8} // Set the desired canvas width
+                    height={(type=="rect"? 400: type=="bumper"? 200 : 600)*.8} // Set the desired canvas height
                     className='p-4 w-[500px] drop-shadow-xl'
                     ref={canvasRef}
                   ></canvas>
