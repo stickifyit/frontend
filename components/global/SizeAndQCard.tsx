@@ -14,18 +14,18 @@ import { Button } from "@/components/ui/button";
 import { qs, sizes } from '@/constant/sizesAndQ';
 import { useSizeAndQ } from '@/store/sizeAndQ';
 import { useCanvasProps } from '@/store/canvasProps';
-import { handleUpload } from '@/lib/uploadImage';
+import { handleUpload, handleUploadSticker } from '@/lib/uploadImage';
+import { useParams } from 'next/navigation';
 
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
+    const params = useParams();
     const {q,size,setQ,setSize} = useSizeAndQ()
-    const {file} = useCanvasProps()
+    const {file,radius,color} = useCanvasProps()
     const [loading,setLoading] = React.useState(false)
     const upload = async ()=>{
-        setLoading(true)
-        await handleUpload(file)
-        setLoading(false)
+        await handleUploadSticker(file,setLoading,params.product as string,radius,color)
     }
   return (
         <Card className="ml-auto">

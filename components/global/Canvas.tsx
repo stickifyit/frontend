@@ -151,7 +151,7 @@ function Canvas({type}: Props) {
   return (
 
             <>
-        <div className="flex-1 min-h-[550px] bg-secondary overflow-hidden relative border rounded-2xl group flex justify-center items-center">
+        <div className="flex-1 min-h-[500px] bg-secondary overflow-hidden relative border rounded-2xl group flex justify-center items-center">
                         {/* <input type="range" min="0" max="150" value={radius} onChange={(e) => setRadius(parseInt(e.target.value))} /> */}
                           <input className='hidden' type="file" accept='image/*' id='upload' onChange={handleImageChange} />
                   {
