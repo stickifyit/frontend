@@ -16,17 +16,22 @@ import { useSizeAndQ } from '@/store/sizeAndQ';
 import { useCanvasProps } from '@/store/canvasProps';
 import { handleUpload, handleUploadSticker } from '@/lib/uploadImage';
 import { useParams } from 'next/navigation';
-
+import axios from '@/lib/axios';
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
     const params = useParams();
     const {q,size,setQ,setSize} = useSizeAndQ()
-    const {file,radius,color} = useCanvasProps()
+    const {file,radius,color,image} = useCanvasProps()
     const [loading,setLoading] = React.useState(false)
     const upload = async ()=>{
-        await handleUploadSticker(file,setLoading,params.product as string,radius,color)
-        
+        const id = new Promise(async (resolve)=>{
+         await handleUploadSticker(file,setLoading,params.product as string,radius,color).then((id)=>{
+          resolve(id)
+        }).then((id)=>{
+          
+        })
+        })
     }
   return (
         <Card className="ml-auto">
@@ -67,7 +72,7 @@ const SizeAndQCard = (props: Props) => {
                 ))}
               </RadioGroup>
             </div>
-            <Button onClick={upload} size="lg" className="w-full">
+            <Button disabled={!image||loading} onClick={upload} size="lg" className="w-full">
               {
                 loading? "Uploading..." : "Continue"
               }

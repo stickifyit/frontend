@@ -7,7 +7,7 @@ type Props = {
     setFile: (file: File | null) => void,
     radius: number,
     color: string,
-    setRadius: (raduis: number) => void,
+    setRadius: (radius: number) => void,
     setColor: (color: string) => void
 }
 

@@ -1,4 +1,5 @@
 import { productHeroImages } from "@/constant/productsHeroImages";
+import axios from "./axios";
 
 export const handleUpload = async (file:File|null) => {
     if (!file) {
@@ -51,6 +52,7 @@ export const handleUploadSticker = async (
     r: number,
     color:string
     ) => {
+
     setLoading(true)  
     if (!file) {
       console.error('No file selected.');
@@ -147,14 +149,36 @@ export const handleUploadSticker = async (
           // Use FormData to send the new image to the server with a filename
           const formData = new FormData();
           formData.append('image', blob, 'your_desired_filename.png');
+          
+
   
           // Use fetch to send the form data to the server
           await fetch('http://localhost:3001/images/upload', {
             method: 'POST',
             body: formData,
           })
-            .then(() => {
+            .then(async(data) => {
               console.log('Image uploaded successfully:');
+              const name = await data.json()
+              console.log(name.name);
+              setLoading(true)
+              axios.post("/orders/create",{
+                  "customerName": "John Doe",
+                  "serviceType": "sticker",
+                  "quantity": 100,
+                  "sticker": {
+                    "design": name.name,
+                    "type": "die cut",
+                    "image": "sticker-image-url",
+                    "size": "2x2"
+                  }
+              }).then((res)=>{
+                console.log(res.data)
+              }).catch((e)=>{
+                console.log(e)
+              }).finally(()=>{
+                setLoading(false)
+              })
             })
             .catch((error) => {
               console.error('Error uploading image:', error);
