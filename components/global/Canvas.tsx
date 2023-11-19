@@ -13,6 +13,7 @@ type Props = {
 
 
 
+const quality = .8 
 function drawImageWithMargin(  
     context: CanvasRenderingContext2D,
     img: HTMLImageElement,
@@ -22,7 +23,7 @@ function drawImageWithMargin(
     drawHeight: number,
     margin: number) {
     const aspectRatio = img.width / img.height;
-    const newWidth = drawWidth - 2 * margin;
+    const newWidth = drawWidth - 2 * (margin*quality);
     const newHeight = newWidth / aspectRatio;
 
     const newX = drawX + (drawWidth - newWidth) / 2;
@@ -31,7 +32,6 @@ function drawImageWithMargin(
     context.drawImage(img, newX, newY, newWidth, newHeight);
 }
 
-  
 
 
 function Canvas({type}: Props) {

@@ -26,6 +26,7 @@ const SizeAndQCard = (props: Props) => {
     const [loading,setLoading] = React.useState(false)
     const upload = async ()=>{
         await handleUploadSticker(file,setLoading,params.product as string,radius,color)
+        
     }
   return (
         <Card className="ml-auto">
