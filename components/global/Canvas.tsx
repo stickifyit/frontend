@@ -13,7 +13,7 @@ type Props = {
 
 
 
-const quality = .8 
+const quality = 1 
 function drawImageWithMargin(  
     context: CanvasRenderingContext2D,
     img: HTMLImageElement,

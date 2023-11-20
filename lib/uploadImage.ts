@@ -50,7 +50,9 @@ export const handleUploadSticker = async (
     setLoading:React.Dispatch<React.SetStateAction<boolean>>,
     type: string,
     r: number,
-    color:string
+    color:string,
+    q:string,
+    size:string
     ) => {
 
     setLoading(true)  
@@ -163,14 +165,13 @@ export const handleUploadSticker = async (
               console.log(name.name);
               setLoading(true)
               axios.post("/orders/create",{
-                  "customerName": "John Doe",
+                  "customerId": "John Doe",
                   "serviceType": "sticker",
-                  "quantity": 100,
+                  "quantity": q,
                   "sticker": {
                     "design": name.name,
-                    "type": "die cut",
-                    "image": "sticker-image-url",
-                    "size": "2x2"
+                    "type": type,
+                    "size": size
                   }
               }).then((res)=>{
                 console.log(res.data)
