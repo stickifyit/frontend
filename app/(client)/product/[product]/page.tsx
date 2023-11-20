@@ -6,6 +6,7 @@ import ImageNext from "next/image";
 import { productHeroImages } from "@/constant/productsHeroImages";
 import SizeAndQCard from "@/components/global/SizeAndQCard";
 import Canvas from '@/components/global/Canvas';
+import { useCanvasProps } from '@/store/canvasProps';
 type Props = {
 };
 
@@ -15,7 +16,7 @@ type Props = {
 
 function Page({}: Props) {
     const params = useParams();
-  
+    const {image}  = useCanvasProps()
   return (
     <div className="">
       <div className=" bg-secondary gap-6">
@@ -27,7 +28,7 @@ function Page({}: Props) {
           </div>
         </div>
       </div>
-      <div className="flex gap-6 container mx-auto py-8">
+      <div className="flex flex-col lg:flex-row gap-6 container mx-auto py-8">
         <Canvas type={params?.product as keyof typeof productHeroImages}/>
         <SizeAndQCard />
       </div>

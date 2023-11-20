@@ -18,7 +18,7 @@ const page = (props: Props) => {
           </div>
           <div></div>
       </div>
-      <div className='container mx-auto grid grid-cols-4 gap-6 p-6'>
+      <div className='container mx-auto grid grid-cols-5 gap-6 p-6'>
           {
             // bumper , circle , die-cut , oval , rect , rounded , sheets , square
             [

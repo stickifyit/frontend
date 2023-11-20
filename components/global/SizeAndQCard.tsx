@@ -13,11 +13,24 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { qs, sizes } from '@/constant/sizesAndQ';
 import { useSizeAndQ } from '@/store/sizeAndQ';
-
+import { useCanvasProps } from '@/store/canvasProps';
+import { handleUpload, handleUploadSticker } from '@/lib/uploadImage';
+import { useParams } from 'next/navigation';
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
+    const params = useParams();
     const {q,size,setQ,setSize} = useSizeAndQ()
+    const {file,radius,color,image} = useCanvasProps()
+    const [loading,setLoading] = React.useState(false)
+
+    const upload = async ()=>{
+        const id = new Promise(async (resolve)=>{
+         await handleUploadSticker(file,setLoading,params.product as string,radius,color,q,size).then((id)=>{
+          resolve(id)
+        })
+       })
+    }
   return (
         <Card className="ml-auto">
           <CardHeader></CardHeader>
@@ -40,12 +53,12 @@ const SizeAndQCard = (props: Props) => {
             </div>
             <CardTitle>Select a quantity</CardTitle>
             <div className="my-6">
-              <RadioGroup defaultValue="option-10">
+              <RadioGroup value={q} onValueChange={e=>setQ(e)}>
                 {
                 qs
                 .map(({ name:q, save , value }) => (
                   <div key={q} className="flex items-center space-x-2">
-                    <RadioGroupItem value={`option-${q}`} id={`option-${q}`} />
+                    <RadioGroupItem value={`${q}`} id={`option-${q}`} />
                     <Label className="flex w-full" htmlFor={`option-${q}`}>
                       <div className="flex-[2]">{q}</div>
                       <div className="flex-[1]">{(sizes.find(s=>s.size===size)?.price??0) * value}Dh</div>
@@ -57,7 +70,11 @@ const SizeAndQCard = (props: Props) => {
                 ))}
               </RadioGroup>
             </div>
-            <Button size="lg" className="w-full">Continue</Button>
+            <Button disabled={!image||loading} onClick={upload} size="lg" className="w-full">
+              {
+                loading? "Uploading..." : "Continue"
+              }
+            </Button>
           </CardContent>
         </Card>
   )
