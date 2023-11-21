@@ -8,10 +8,11 @@ import { productHeroImages } from '@/constant/productsHeroImages';
 import CanvasButtons from './CanvasButtons';
 import { useCanvasProps } from '@/store/canvasProps';
 import { useSizeAndQ } from '@/store/sizeAndQ';
+import { productsSizes, sizes } from '@/constant/sizesAndQ';
 type Props = {
     type : keyof typeof productHeroImages
 }
-
+import bg from "@/public/canvas.jpg"
 
 
 const quality = 1 
@@ -39,7 +40,7 @@ function Canvas({type}: Props) {
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const {color,setColor,radius,setRadius,image, setImage,setFile} = useCanvasProps()
-    const {size} = useSizeAndQ()
+    const {size,setSize} = useSizeAndQ()
 
     useEffect(() => {
         setRadius(
@@ -50,7 +51,13 @@ function Canvas({type}: Props) {
         type === "bumper" ? 100:
         0
         )
-    },[setRadius,type])
+        setSize(
+          sizes
+          [productsSizes
+          [type as keyof typeof productsSizes] as keyof typeof sizes
+          ][0]
+          )
+    },[setRadius,type,setSize])
 
 
     useEffect(() => {
@@ -168,18 +175,18 @@ function Canvas({type}: Props) {
                     <>
                     <CanvasButtons/>
                   <canvas
-                    width={(600)*.8} // Set the desired canvas width
-                    height={(type=="rect"? 400: type=="bumper"? 200 : 600)*.8} // Set the desired canvas height
-                    className='p-4 w-[500px] drop-shadow-xl '
+                    width={(600)} // Set the desired canvas width
+                    height={(type=="rect"? 400: type=="bumper"? 200 : 600)} // Set the desired canvas height
+                    className='p-2 w-[500px] border-x drop-shadow-xl '
                     ref={canvasRef}
                   ></canvas>
-                  <div style={{width:(600*.8) + "px"}} className='h-[50px] opacity-60 left-[50%] translate-x-[-50%] top-0 absolute py-4 flex   justify-between'>
+                  <div style={{width:(500) + "px"}} className='h-[50px] opacity-60 left-[50%] mx-auto top-0  px- flex   justify-between'>
                       {
                          new Array(size.split("x").map(Number)[0]+1).fill(0).map((_,q) => (
                           <>
                           {
-                            q!==0 && size!=="20x20" &&
-                            new Array(1) .fill(0).map((_,q2) => (
+                            q!==0 && size.slice(0,2)!=="20" &&
+                            new Array(3) .fill(0).map((_,q2) => (
                               <div key={q2} className='text-[6px]'>|</div>
                             ))
                           }

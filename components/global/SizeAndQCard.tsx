@@ -71,8 +71,12 @@ const SizeAndQCard = (props: Props) => {
                 .map((_,q) => (
                   <div key={q} className="flex items-center space-x-2">
                     <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
-                    <Label className="flex w-full" htmlFor={`option-${q}`}>
-                      <div className="flex-[2]">{qs.square[sizes.square.findIndex((s: string) => s === size) as number]*(q+1)} sticker</div>
+                    <Label className="flex w-full" htmlFor={`option-${q+1}`}>
+                      <div className="flex-[2]">{
+                        qs
+                        [productsSizes[params.product as keyof typeof productsSizes] as keyof typeof qs]
+                        [sizes[productsSizes[params.product as keyof typeof productsSizes] as keyof typeof sizes]
+                        .findIndex((s: string) => s === size) as number]*(q+1)} sticker</div>
                       <div className="flex-[1]">{(q+1) * 40}Dh</div>
                       <div className="text-green-700 flex-[1] justify-end flex">
                         {14}%
