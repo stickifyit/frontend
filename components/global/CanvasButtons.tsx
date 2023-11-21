@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Label } from "../ui/label";
-import { Expand, Minus, PaintBucket, Upload } from "lucide-react";
+import { Expand, ImageIcon, Minus, PaintBucket, Upload } from "lucide-react";
 import { Button } from "../ui/button";
 import {
   Popover,
@@ -21,7 +21,7 @@ function CanvasButtons({}: Props) {
         htmlFor="upload"
         className="hover:bg-secondary cursor-pointer h-12 w-12 bg-white border flex items-center justify-center  hover:scale-105 duration-200 rounded-full scale-100 ease-in-out"
       >
-        <Upload />
+        <ImageIcon />
       </Label>
       <Popover>
         <PopoverTrigger>

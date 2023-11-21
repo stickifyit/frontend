@@ -11,11 +11,21 @@ import {
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
-import { qs, sizes } from '@/constant/sizesAndQ';
+import { productsSizes, qs, sizes } from '@/constant/sizesAndQ';
 import { useSizeAndQ } from '@/store/sizeAndQ';
 import { useCanvasProps } from '@/store/canvasProps';
 import { handleUpload, handleUploadSticker } from '@/lib/uploadImage';
 import { useParams } from 'next/navigation';
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
@@ -32,38 +42,40 @@ const SizeAndQCard = (props: Props) => {
        })
     }
   return (
-        <Card className="ml-auto">
+        <Card className="ml-auto h-fit">
           <CardHeader></CardHeader>
-          <CardContent className="min-w-[400px]">
+          <CardContent className="min-w-[400px] h-fit">
             <CardTitle>Select a Size</CardTitle>
             <div className="my-6">
-              <RadioGroup value={size} onValueChange={e=>setSize(e)} >
+            <Select value={size} onValueChange={e=>setSize(e)}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select size" />
+              </SelectTrigger>
+              <SelectContent>
                 {
-                sizes
-                .map(({ size, price }) => (
-                  <div key={size} className="flex items-center space-x-2">
-                    <RadioGroupItem
-                      value={size}
-                      id={`option-${size}`}
-                    />
-                    <Label htmlFor={`option-${size}`}>{size} (cm)</Label>
-                  </div>
-                ))}
-              </RadioGroup>
+                sizes?.[productsSizes[params.product as keyof typeof productsSizes] as keyof typeof sizes].map((size) => (
+                  <SelectItem key={size} value={size}> 
+                    {size} cm
+                  </SelectItem>
+                ))
+                }
+              </SelectContent>
+            </Select>
+
             </div>
             <CardTitle>Select a quantity</CardTitle>
             <div className="my-6">
-              <RadioGroup value={q} onValueChange={e=>setQ(e)}>
+              <RadioGroup value={String(q)} onValueChange={e=>setQ(Number(e))}>
                 {
-                qs
-                .map(({ name:q, save , value }) => (
+                new Array(5).fill(0)
+                .map((_,q) => (
                   <div key={q} className="flex items-center space-x-2">
-                    <RadioGroupItem value={`${q}`} id={`option-${q}`} />
+                    <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
                     <Label className="flex w-full" htmlFor={`option-${q}`}>
-                      <div className="flex-[2]">{q}</div>
-                      <div className="flex-[1]">{(sizes.find(s=>s.size===size)?.price??0) * value}Dh</div>
+                      <div className="flex-[2]">{qs.square[sizes.square.findIndex((s: string) => s === size) as number]*(q+1)} sticker</div>
+                      <div className="flex-[1]">{(q+1) * 40}Dh</div>
                       <div className="text-green-700 flex-[1] justify-end flex">
-                        {save}%
+                        {14}%
                       </div>
                     </Label>
                   </div>

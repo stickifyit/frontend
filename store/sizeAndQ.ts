@@ -2,14 +2,14 @@ import create from "zustand"
 
 type State = {
     size: string
-    q: string
+    q: number
     setSize: (size: string) => void
-    setQ: (q: string) => void
+    setQ: (q: number) => void
 }
 
 export const useSizeAndQ = create<State>((set) => ({
     size: "3x3",
-    q: "10",
+    q: 0,
     setSize: (size: string) => set({ size }),
-    setQ: (q: string) => set({ q }),
+    setQ: (q: number) => set({ q }),
 }))

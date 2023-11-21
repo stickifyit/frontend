@@ -51,7 +51,7 @@ export const handleUploadSticker = async (
     type: string,
     r: number,
     color:string,
-    q:string,
+    q:number,
     size:string
     ) => {
 

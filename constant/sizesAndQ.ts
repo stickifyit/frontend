@@ -1,54 +1,22 @@
-export const sizes = [
-    {
-        size: "2x2",
-        value: 2,
-        price: 2,
-    },
-    {
-        size: "3x3",
-        value: 3,
-        price: 4,
-    },
-    {
-        size: "6x6",
-        value: 6,
-        price: 6,
-    },
-    {
-        size: "9x9",
-        value: 9,
-        price: 8,
-    },
-]
-export const qs = [
-    {
-        name: "10",
-        value: 10,
-        save: 10,
-    },
-    {
-        name: "20",
-        value: 20,
-        save: 20,
-    },
-    {
-        name: "30",
-        value: 30,
-        save: 30,
-    },
-    {
-        name: "40",
-        value: 40,
-        save: 40,
-    },
-    {
-        name: "50",
-        value: 50,
-        save: 50,
-    },
-    {
-        name: "60",
-        value: 60,
-        save: 60,
-    }
-]
+
+export const sizes = {
+    square:[
+        "2x2","3x3","4x4","5x5","6x6","7x7","8x8","9x9","10x10","20x20"
+    ],
+    rect:[
+        "2x1.2","3x2","4x2.6","5x3.2","6x4","7x4.6","8x5.3","10x6.6","20x13.3"
+    ]
+}
+export const qs = {
+    square:[200,91,50,32,18,15,10,8,8,2],
+    rect:[330,140,75,48,30,14,12,3]
+}
+
+
+ export const productsSizes = {
+    "die-cut":"square",
+    "circle":"square",
+    "square":"square",
+    "rect":"rect",
+    "bumper":"bumper",
+ }

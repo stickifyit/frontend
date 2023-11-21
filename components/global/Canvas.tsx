@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { productHeroImages } from '@/constant/productsHeroImages';
 import CanvasButtons from './CanvasButtons';
 import { useCanvasProps } from '@/store/canvasProps';
+import { useSizeAndQ } from '@/store/sizeAndQ';
 type Props = {
     type : keyof typeof productHeroImages
 }
@@ -38,6 +39,8 @@ function Canvas({type}: Props) {
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const {color,setColor,radius,setRadius,image, setImage,setFile} = useCanvasProps()
+    const {size} = useSizeAndQ()
+
     useEffect(() => {
         setRadius(
         type==="die-cut"?20: 
@@ -151,7 +154,7 @@ function Canvas({type}: Props) {
   return (
 
             <>
-        <div className="flex-1 min-h-[500px] bg-secondary overflow-hidden relative border rounded-2xl group flex justify-center items-center">
+        <div className="flex-1 min-h-[500px] bg-secondary overflow-hidden relative border rounded-2xl group flex flex-col-reverse justify-center items-center">
                         {/* <input type="range" min="0" max="150" value={radius} onChange={(e) => setRadius(parseInt(e.target.value))} /> */}
                           <input className='hidden' type="file" accept='image/*' id='upload' onChange={handleImageChange} />
                   {
@@ -167,9 +170,27 @@ function Canvas({type}: Props) {
                   <canvas
                     width={(600)*.8} // Set the desired canvas width
                     height={(type=="rect"? 400: type=="bumper"? 200 : 600)*.8} // Set the desired canvas height
-                    className='p-4 w-[500px] drop-shadow-xl'
+                    className='p-4 w-[500px] drop-shadow-xl '
                     ref={canvasRef}
                   ></canvas>
+                  <div style={{width:(600*.8) + "px"}} className='h-[50px] opacity-60 left-[50%] translate-x-[-50%] top-0 absolute py-4 flex   justify-between'>
+                      {
+                         new Array(size.split("x").map(Number)[0]+1).fill(0).map((_,q) => (
+                          <>
+                          {
+                            q!==0 && size!=="20x20" &&
+                            new Array(1) .fill(0).map((_,q2) => (
+                              <div key={q2} className='text-[6px]'>|</div>
+                            ))
+                          }
+                          <div className={"text-xs flex  flex-col gap-2 items-center"} key={q}>
+                            <div>|</div>
+                          {q}
+                          </div>
+                          </>
+                        ))
+                      }
+                  </div>
                     </>
                 )}
             </div>
