@@ -70,6 +70,9 @@ export const handleUploadSticker = async (
     const quality = 2;
     const radius = r * quality;
 
+    
+
+
     if(!context) return setLoading(false)
   
     image.onload = async () => {
