@@ -13,6 +13,7 @@ type Props = {
     type : keyof typeof productHeroImages
 }
 import bg from "@/public/canvas.jpg"
+import { drawEllipse } from '@/lib/utils';
 
 
 const quality = 1 
@@ -35,7 +36,6 @@ function drawImageWithMargin(
 }
 
 
-
 function Canvas({type}: Props) {
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -49,8 +49,11 @@ function Canvas({type}: Props) {
         type === "square" ? 40:
         type === "rect" ? 100:
         type === "bumper" ? 100:
+        type === "oval" ? 120:
         0
         )
+        setFile(null)
+        setColor("#fff")
         setSize(
           sizes
           [productsSizes
@@ -82,6 +85,7 @@ function Canvas({type}: Props) {
             let drawX = 0;
             let drawY = (canvas.height - drawHeight) / 2;
 
+            context.fillStyle = color; // Change the color if needed
             if(type=="die-cut"){
                 drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight, radius);
                 // Draw a circle at each colored pixel
@@ -95,7 +99,6 @@ function Canvas({type}: Props) {
                     // Draw a circle at the colored pixel
                     context.beginPath();
                     context.arc(drawX + x, drawY + y, radius, 0, 2 * Math.PI);
-                    context.fillStyle = color; // Change the color if needed
                     context.fill();
                     context.closePath();
                 }
@@ -104,27 +107,26 @@ function Canvas({type}: Props) {
             }else if(type=="circle"){
                 context.beginPath();
                 context.arc(canvas.width / 2,canvas.height / 2, canvas.width/2, 0, 2 * Math.PI);
-                context.fillStyle = color; // Change the color if needed
                 context.fill();
                 context.closePath();
                 drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
             }else if(type=="square"){
-                context.fillStyle = color; // Change the color if needed
                 context.rect(0, 0, canvas.width, canvas.height);
                 context.fill();
                 context.closePath();
                 drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
             }else if(type=="rect"){
-                context.fillStyle = color; // Change the color if needed
                 context.rect(0, 0, canvas.width, canvas.height);
                 context.fill();
                 context.closePath();
                 drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
             }else if(type=="bumper"){
-                context.fillStyle = color; // Change the color if needed
                 context.rect(0, 0, canvas.width, canvas.height);
                 context.fill();
                 context.closePath();
+                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
+            }else if(type=="oval"){
+                drawEllipse(context, 0,0, canvas.width,canvas.height);
                 drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
             }
 
@@ -176,7 +178,7 @@ function Canvas({type}: Props) {
                     <CanvasButtons/>
                   <canvas
                     width={(600)} // Set the desired canvas width
-                    height={(type=="rect"? 400: type=="bumper"? 200 : 600)} // Set the desired canvas height
+                    height={((type=="rect"|| type=="oval")? 400: type=="bumper"? 200 : 600)} // Set the desired canvas height
                     className='p-1 w-[500px] border-x drop-shadow-xl '
                     ref={canvasRef}
                   ></canvas>

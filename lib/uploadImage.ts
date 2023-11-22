@@ -1,5 +1,6 @@
 import { productHeroImages } from "@/constant/productsHeroImages";
 import axios from "./axios";
+import { drawEllipse } from "./utils";
 
 export const handleUpload = async (file:File|null) => {
     if (!file) {
@@ -136,6 +137,9 @@ export const handleUploadSticker = async (
                 context.rect(0, 0, canvas.width, canvas.height);
                 context.fill();
                 context.closePath();
+                drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
+            }else if(type=="oval"){
+                drawEllipse(context, 0,0, canvas.width,canvas.height);
                 drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
             }
 

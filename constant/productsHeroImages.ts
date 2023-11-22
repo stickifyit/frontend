@@ -9,5 +9,6 @@ export const productHeroImages = {
     "square": squareSticker,
     "die-cut": dieCutSticker,
     "rect": rectSticker,
-    "bumper":rectSticker
+    "bumper":rectSticker,
+    "oval":circleSticker
 }

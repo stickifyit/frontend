@@ -19,4 +19,5 @@ export const qs = {
     "square":"square",
     "rect":"rect",
     "bumper":"bumper",
+    "oval":"rect",
  }
