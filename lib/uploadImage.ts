@@ -78,7 +78,7 @@ export const handleUploadSticker = async (
   
     image.onload = async () => {
         canvas.width = 600 * quality;
-        canvas.height = (type=="rect"? 400: type=="bumper"? 200 : 600) * quality;
+        canvas.height = ((type=="rect"|| type=="oval")? 400: type=="bumper"? 200 : 600) * quality;
 
 
 
@@ -94,6 +94,7 @@ export const handleUploadSticker = async (
             let drawX = 0;
             let drawY = (canvas.height - drawHeight) / 2;
 
+            context.fillStyle = color; // Change the color if needed
             if(type=="die-cut"){
                 drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight, radius);
                 // Draw a circle at each colored pixel
@@ -107,33 +108,28 @@ export const handleUploadSticker = async (
                     // Draw a circle at the colored pixel
                     context.beginPath();
                     context.arc(drawX + x, drawY + y, radius, 0, 2 * Math.PI);
-                    context.fillStyle = color; // Change the color if needed
                     context.fill();
                     context.closePath();
                 }
                 }
                 drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight, radius);
             }else if(type=="circle"){
-                context.beginPath();
                 context.arc(canvas.width / 2,canvas.height / 2, canvas.width/2, 0, 2 * Math.PI);
                 context.fillStyle = color; // Change the color if needed
                 context.fill();
                 context.closePath();
                 drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
             }else if(type=="square"){
-                context.fillStyle = color; // Change the color if needed
                 context.rect(0, 0, canvas.width, canvas.height);
                 context.fill();
                 context.closePath();
                 drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
             }else if(type=="rect"){
-                context.fillStyle = color; // Change the color if needed
                 context.rect(0, 0, canvas.width, canvas.height);
                 context.fill();
                 context.closePath();
                 drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
             }else if(type=="bumper"){
-                context.fillStyle = color; // Change the color if needed
                 context.rect(0, 0, canvas.width, canvas.height);
                 context.fill();
                 context.closePath();
