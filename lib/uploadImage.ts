@@ -165,9 +165,13 @@ export const handleUploadSticker = async (
               console.log(name.name);
               setLoading(true)
               axios.post("/orders/create",{
-                  "customerId": "John Doe",
+                  "customerId": "3a1fd1dsf5asdf2a1dsf65asd2f1a3",
+                  "number":"0689978614",
                   "serviceType": "sticker",
                   "quantity": q,
+                  "address": "marrakech aitorir",
+                  "email":"N5yPm@example.com",
+                  "fullName":"John Doe",
                   "sticker": {
                     "design": name.name,
                     "type": type,
