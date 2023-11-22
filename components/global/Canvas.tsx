@@ -86,7 +86,7 @@ function Canvas({type}: Props) {
                 drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight, radius);
                 // Draw a circle at each colored pixel
                 const imageData = context.getImageData(drawX, drawY, drawWidth, drawHeight);
-                for (let i = 0; i < imageData.data.length; i += 4*4) {
+                for (let i = 0; i < imageData.data.length; i += 4*2) {
                 // Check if the pixel is colored
                 if (imageData.data[i + 3] === 255) {
                     const x = (i / 4) % drawWidth;
@@ -161,7 +161,7 @@ function Canvas({type}: Props) {
   return (
 
             <>
-        <div className="flex-1 min-h-[500px] bg-secondary overflow-hidden relative border rounded-2xl group flex flex-col-reverse justify-center items-center">
+        <div className="flex-1 min-h-[500px] pb-4 bg-secondary overflow-hidden relative border rounded-2xl group flex flex-col-reverse justify-center items-center">
                         {/* <input type="range" min="0" max="150" value={radius} onChange={(e) => setRadius(parseInt(e.target.value))} /> */}
                           <input className='hidden' type="file" accept='image/*' id='upload' onChange={handleImageChange} />
                   {
@@ -177,7 +177,7 @@ function Canvas({type}: Props) {
                   <canvas
                     width={(600)} // Set the desired canvas width
                     height={(type=="rect"? 400: type=="bumper"? 200 : 600)} // Set the desired canvas height
-                    className='p-2 w-[500px] border-x drop-shadow-xl '
+                    className='p-1 w-[500px] border-x drop-shadow-xl '
                     ref={canvasRef}
                   ></canvas>
                   <div style={{width:(500) + "px"}} className='h-[50px] opacity-60 left-[50%] mx-auto top-0  px- flex   justify-between'>

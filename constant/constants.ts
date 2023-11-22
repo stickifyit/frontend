@@ -45,6 +45,6 @@ export const customStickersImages: CustomStickersImages = {
     oval,
     rect,
     rounded,
-    sheets,
+    // sheets,
     square
 }

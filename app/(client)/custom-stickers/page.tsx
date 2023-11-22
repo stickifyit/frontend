@@ -29,7 +29,7 @@ const page = (props: Props) => {
               {name:"Bumper", href:"bumper", img:customStickersImages.bumper},
               {name:"Rounded", href:"rounded", img:customStickersImages.rounded},
               {name:"Oval", href:"oval", img:customStickersImages.oval},
-              {name:"Sheets", href:"sheets", img:customStickersImages.sheets},
+              // {name:"Sheets", href:"sheets", img:customStickersImages.sheets},
             ].map((item, index) => (
               <Link href={"/product/"+item.href} key={index} className=' p-4 rounded-2xl border bg-gray-100 flex flex-col items-center justify-center hover:bg-secondary hover:scale-105 duration-300'>
                 <Image src={item.img} alt={item.name} width={250}/>
