@@ -10,5 +10,6 @@ export const productHeroImages = {
     "die-cut": dieCutSticker,
     "rect": rectSticker,
     "bumper":rectSticker,
-    "oval":circleSticker
+    "oval":circleSticker,
+    "rounded": squareSticker,
 }

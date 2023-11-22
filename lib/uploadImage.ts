@@ -137,6 +137,39 @@ export const handleUploadSticker = async (
             }else if(type=="oval"){
                 drawEllipse(context, 0,0, canvas.width,canvas.height);
                 drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
+            }else if(type=="rounded"){
+                const m = canvas.width/6
+
+
+                context.beginPath();
+                context.arc(m,m, m, 0, 2 * Math.PI);
+                context.fill();
+                context.closePath();
+
+                context.beginPath();
+                context.arc(canvas.width-m,m, m, 0, 2 * Math.PI);
+                context.fill();
+                context.closePath();
+
+                context.beginPath();
+                context.arc(canvas.width-m,canvas.height-m, m, 0, 2 * Math.PI);
+                context.fill();
+                context.closePath();
+
+                context.beginPath();
+                context.arc(m,canvas.height-m, m, 0, 2 * Math.PI);
+                context.fill();
+                context.closePath();
+
+                context.rect(m, m, canvas.width-m*2, canvas.height-m*2);
+                context.rect(0,m,m,canvas.height-m*2);
+                context.rect(m,0,canvas.width-m*2,m);
+                context.rect(canvas.width-m, m, canvas.width,canvas.height-m*2);
+                context.rect(m,canvas.height-m,canvas.width-m*2,m);
+
+                context.fill();
+                context.closePath();
+                drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
             }
 
 
