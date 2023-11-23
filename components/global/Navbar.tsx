@@ -5,6 +5,7 @@ import { Button } from '../ui/button'
 import { ArrowRight, ShoppingBasket } from 'lucide-react'
 import { NavbarNavigation } from './NavbarNavigation'
 import Link from 'next/link'
+import CartSheet from './CartSheet'
 
 type Props = {}
 
@@ -20,7 +21,7 @@ const Navbar = (props: Props) => {
                 <NavbarNavigation/>
             </div>
             <div className='flex gap-2'>
-                <Button size={"icon"} variant={"outline"}><ShoppingBasket /></Button>
+                <CartSheet/>
                 <Button className='uppercase flex gap-2'>Login<ArrowRight size={16}/></Button>
             </div>
         </div>

@@ -24,6 +24,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useCart } from '@/store/cart';
+import { toast } from '../ui/use-toast';
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
@@ -31,6 +33,7 @@ const SizeAndQCard = (props: Props) => {
     const {q,size,setQ,setSize} = useSizeAndQ()
     const {file,radius,color,image} = useCanvasProps()
     const [loading,setLoading] = React.useState(false)
+    const {addToCart} = useCart() 
 
     const upload = async ()=>{
         const id = new Promise(async (resolve)=>{
@@ -40,6 +43,23 @@ const SizeAndQCard = (props: Props) => {
         })
        })
     }
+  const handelAddToCart =()=>{
+    setLoading(true)
+    if(!file||!radius||!color||!q||!size) return
+      addToCart({
+        file:file,
+        radius,
+        color,
+        quantity:q,
+        size,
+        type:params.product as string
+      })
+      toast({
+        title: 'Added to cart',
+        description: 'Your item has been added to the cart.',
+      })
+      setLoading(false)
+  }
   return (
         <Card className="ml-auto h-fit">
           <CardHeader></CardHeader>
@@ -85,7 +105,7 @@ const SizeAndQCard = (props: Props) => {
                 ))}
               </RadioGroup>
             </div>
-            <Button disabled={!image||loading} onClick={upload} size="lg" className="w-full">
+            <Button disabled={!image||loading} onClick={handelAddToCart} size="lg" className="w-full">
               {
                 loading? "Uploading..." : "Continue"
               }
