@@ -221,7 +221,7 @@ function Canvas({type}: Props) {
                           <>
                           {
                             q!==0 && size.slice(0,2)!=="20" &&
-                            new Array(3) .fill(0).map((_,q2) => (
+                            new Array(7) .fill(0).map((_,q2) => (
                               <div key={q2} className='text-[6px]'>|</div>
                             ))
                           }
