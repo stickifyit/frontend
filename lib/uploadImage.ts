@@ -1,6 +1,7 @@
 import { productHeroImages } from "@/constant/productsHeroImages";
 import axios from "./axios";
 import { drawEllipse } from "./utils";
+import socket from "./socket";
 
 export const handleUpload = async (file:File|null) => {
     if (!file) {
@@ -215,10 +216,10 @@ export const handleUploadSticker = async (
                   }
               }).then((res)=>{
                 console.log(res.data)
+                socket.emit("add order")
               }).catch((e)=>{
                 console.log(e)
               }).finally(()=>{
-                setLoading(false)
               })
             })
             .catch((error) => {

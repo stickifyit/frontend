@@ -24,8 +24,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
-
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
@@ -38,6 +36,7 @@ const SizeAndQCard = (props: Props) => {
         const id = new Promise(async (resolve)=>{
          await handleUploadSticker(file,setLoading,params.product as string,radius,color,q,size).then((id)=>{
           resolve(id)
+        }).then(()=>{
         })
        })
     }
