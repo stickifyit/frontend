@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Card,
   CardContent,
@@ -28,6 +28,7 @@ import { useCart } from '@/store/cart';
 import { toast } from '../ui/use-toast';
 import { handleDraw } from '@/lib/canvas';
 import { ToastAction } from '../ui/toast';
+import { Product, getProductInfo } from '@/constant/allProductControlers';
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
@@ -36,24 +37,7 @@ const SizeAndQCard = (props: Props) => {
     const {file,radius,color,image} = useCanvasProps()
     const [loading,setLoading] = React.useState(false)
     const {addToCart} = useCart() 
-
-    const upload = async ()=>{
-      setLoading(true)
-      const type= params.product
-      try {
-        const canvas = await handleDraw(file,type as string,radius,color,2)
-        handleUploadSticker(q,size,type as string,canvas).then((url)=>{
-          setLoading(false)
-          toast({
-            title: "Item Added",
-            description: 'Your item has been added to the cart.',
-          })
-          setLoading(false)
-        })
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    const [product,setProduct] = React.useState<Product|null>()
 
   const handelAddToCart =async()=>{
     setLoading(true)
@@ -79,6 +63,13 @@ const SizeAndQCard = (props: Props) => {
       })
       setLoading(false)
   }
+
+  useEffect(()=>{
+    setProduct(getProductInfo(params?.service as string,params?.product as string))
+    setSize(
+      getProductInfo(params?.service as string,params?.product as string)?.sizes[0] as string
+      )
+  },[setProduct,params?.product,params?.service,setSize])
   return (
         <Card className="ml-auto h-fit">
           <CardHeader></CardHeader>
@@ -91,9 +82,12 @@ const SizeAndQCard = (props: Props) => {
               </SelectTrigger>
               <SelectContent>
                 {
-                sizes?.[productsSizes[params.product as keyof typeof productsSizes] as keyof typeof sizes].map((size) => (
+                product?.sizes?.map((size) => (
                   <SelectItem key={size} value={size}> 
-                    {size} cm
+                    {size} {
+                      params?.service === "stickers" ? "cm":
+                      ""
+                    }
                   </SelectItem>
                 ))
                 }
@@ -110,11 +104,9 @@ const SizeAndQCard = (props: Props) => {
                   <div key={q} className="flex items-center space-x-2">
                     <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
                     <Label className="flex w-full" htmlFor={`option-${q+1}`}>
-                      <div className="flex-[2]">{
-                        qs
-                        [productsSizes[params.product as keyof typeof productsSizes] as keyof typeof qs]
-                        [sizes[productsSizes[params.product as keyof typeof productsSizes] as keyof typeof sizes]
-                        .findIndex((s: string) => s === size) as number]*(q+1)} sticker</div>
+                      <div className="flex-[2]">{(product?.quantities[product.sizes.indexOf(size)]??0)*(q+1)} {
+                        params?.service === "stickers" ?  "sticker": "t-shirt"
+                      }</div>
                       <div className="flex-[1]">{(q+1) * 40}Dh</div>
                       <div className="text-green-700 flex-[1] justify-end flex">
                         {14}%

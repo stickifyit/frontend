@@ -10,12 +10,15 @@ import {
 } from "@/components/ui/popover";
 import { Slider } from "../ui/slider";
 import { useCanvasProps } from "@/store/canvasProps";
+import { useParams } from "next/navigation";
 
 type Props = {};
 
 function CanvasButtons({}: Props) {
     const {color,setColor,radius,setRadius} = useCanvasProps()
+    const params = useParams()
   return (
+    
     <div className="absolute top-[50%] -translate-y-1/2 flex flex-col gap-2 left-4">
       <Label
         htmlFor="upload"
@@ -23,6 +26,8 @@ function CanvasButtons({}: Props) {
       >
         <ImageIcon />
       </Label>
+      {
+            params?.service !== "t-shirts" &&
       <Popover>
         <PopoverTrigger>
           <Button
@@ -37,12 +42,16 @@ function CanvasButtons({}: Props) {
             <input className="w-full" value={radius} onChange={(e) => setRadius(parseInt(e.target.value))} type="range" min="0" max="150" ></input>
         </PopoverContent>
       </Popover>
+        }
+      {
+            params?.service !== "t-shirts" &&
       <Label
         htmlFor="color"
         className="hover:bg-secondary cursor-pointer h-12 w-12 bg-white border flex items-center justify-center  hover:scale-105 duration-200 rounded-full scale-100 ease-in-out"
       >
         <PaintBucket />
       </Label>
+        }
       <input value={color} onChange={(e) => setColor(e.target.value)} type="color" id="color" className="opacity-0 w-0 h-0"></input>
     </div>
   );

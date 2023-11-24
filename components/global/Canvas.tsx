@@ -1,5 +1,5 @@
 "use client"
-import React, { useState,ChangeEvent,useRef,useEffect } from 'react';
+import React, { useState,ChangeEvent,useRef,useEffect, useMemo } from 'react';
 
 import { Circle, Menu, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,37 +14,23 @@ type Props = {
 }
 import bg from "@/public/canvas.jpg"
 import { drawEllipse } from '@/lib/utils';
+import { getProductInfo } from '@/constant/allProductControlers';
+import { useParams } from 'next/navigation';
+import { bumper_Behive, centerChest_Behive, circle_Behive, dieCut_Behive, drawImageWithMargin, leftChest_Behive, oval_Behive, rect_Behive, rounded_Behive, square_Behive } from '@/lib/canvasProductBehive';
 
 
-const quality = 1 
-function drawImageWithMargin(  
-    context: CanvasRenderingContext2D,
-    img: HTMLImageElement,
-    drawX: number,
-    drawY: number,
-    drawWidth: number,
-    drawHeight: number,
-    margin: number) {
-    const aspectRatio = img.width / img.height;
-    const newWidth = drawWidth - 2 * (margin*quality);
-    const newHeight = newWidth / aspectRatio;
-
-    const newX = drawX + (drawWidth - newWidth) / 2;
-    const newY = drawY + (drawHeight - newHeight) / 2;
-
-    context.drawImage(img, newX, newY, newWidth, newHeight);
-}
 
 
 function Canvas({type}: Props) {
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const {color,setColor,radius,setRadius,image, setImage,setFile} = useCanvasProps()
+    const {color,setColor,setRadius,image, setImage,setFile,radius} = useCanvasProps()
     const {size,setSize} = useSizeAndQ()
+    const params = useParams()
 
     useEffect(() => {
         setRadius(
-        type==="die-cut"?20: 
+        type === "die-cut"?20: 
         type === "circle" ?80:
         type === "square" ? 40:
         type === "rect" ? 100:
@@ -55,14 +41,16 @@ function Canvas({type}: Props) {
         setFile(null)
         setImage(null)
         setColor("#ffffff")
-        setSize(
-          sizes
-          [productsSizes
-          [type as keyof typeof productsSizes] as keyof typeof sizes
-          ][0]
-          )
-    },[setRadius,type,setSize,setColor,setFile,setImage])
-
+    },[setRadius,type,setSize,setColor,setFile,setImage,params?.service,params?.product])
+    // useMemo(()=>{
+    //     setSize(
+    //       getProductInfo(params?.service as string,params?.product as string)?.sizes[0] as string
+    //     )
+    //     setImage(null);
+    //     setFile(null);
+    //     setRadius(0);
+    //     setColor("#ffffff")
+    // },[params?.service,params?.product,setSize,setFile,setRadius,setColor])
 
     useEffect(() => {
       if (image && canvasRef.current) {
@@ -75,7 +63,6 @@ function Canvas({type}: Props) {
     
           img.onload = () => {
             // Clear the canvas
-            context.clearRect(0, 0, canvas.width, canvas.height);
     
             // Draw the image on the canvas
             const aspectRatio = img.width / img.height;
@@ -87,83 +74,33 @@ function Canvas({type}: Props) {
             let drawY = (canvas.height - drawHeight) / 2;
 
             context.fillStyle = color; // Change the color if needed
-            if(type=="die-cut"){
-                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight, radius);
-                // Draw a circle at each colored pixel
-                const imageData = context.getImageData(drawX, drawY, drawWidth, drawHeight);
-                for (let i = 0; i < imageData.data.length; i += 4*2) {
-                // Check if the pixel is colored
-                if (imageData.data[i + 3] === 255) {
-                    const x = (i / 4) % drawWidth;
-                    const y = Math.floor(i / 4 / drawWidth);
-        
-                    // Draw a circle at the colored pixel
-                    context.beginPath();
-                    context.arc(drawX + x, drawY + y, radius, 0, 2 * Math.PI);
-                    context.fill();
-                    context.closePath();
+
+            if(params.service == "stickers"){
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                if(type=="die-cut"){
+                  dieCut_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius)
+                }else if(type=="circle"){
+                  circle_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                }else if(type=="square"){
+                  square_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                }else if(type=="rect"){
+                  rect_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                }else if(type=="bumper"){
+                  bumper_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                }else if(type=="oval"){
+                  oval_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                }else if(type=="rounded"){
+                  rounded_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
                 }
+
+            }else if(params.service == "t-shirts"){
+                if (params.product == "left-chest") {
+                  leftChest_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                } else if(params.product == "center-chest") {
+                  centerChest_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
                 }
-                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight, radius);
-            }else if(type=="circle"){
-                context.beginPath();
-                context.arc(canvas.width / 2,canvas.height / 2, canvas.width/2, 0, 2 * Math.PI);
-                context.fill();
-                context.closePath();
-                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
-            }else if(type=="square"){
-                context.rect(0, 0, canvas.width, canvas.height);
-                context.fill();
-                context.closePath();
-                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
-            }else if(type=="rect"){
-                context.rect(0, 0, canvas.width, canvas.height);
-                context.fill();
-                context.closePath();
-                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
-            }else if(type=="bumper"){
-                context.rect(0, 0, canvas.width, canvas.height);
-                context.fill();
-                context.closePath();
-                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
-            }else if(type=="oval"){
-                drawEllipse(context, 0,0, canvas.width,canvas.height);
-                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
-            }else if(type=="rounded"){
-                const m = canvas.width/6
-
-
-                context.beginPath();
-                context.arc(m,m, m, 0, 2 * Math.PI);
-                context.fill();
-                context.closePath();
-
-                context.beginPath();
-                context.arc(canvas.width-m,m, m, 0, 2 * Math.PI);
-                context.fill();
-                context.closePath();
-
-                context.beginPath();
-                context.arc(canvas.width-m,canvas.height-m, m, 0, 2 * Math.PI);
-                context.fill();
-                context.closePath();
-
-                context.beginPath();
-                context.arc(m,canvas.height-m, m, 0, 2 * Math.PI);
-                context.fill();
-                context.closePath();
-
-                context.rect(m, m, canvas.width-m*2, canvas.height-m*2);
-                context.rect(0,m,m,canvas.height-m*2);
-                context.rect(m,0,canvas.width-m*2,m);
-                context.rect(canvas.width-m, m, canvas.width,canvas.height-m*2);
-                context.rect(m,canvas.height-m,canvas.width-m*2,m);
-
-                context.fill();
-                context.closePath();
-                drawImageWithMargin(context, img, drawX, drawY, drawWidth, drawHeight,radius);
             }
-
 
 
 
@@ -217,7 +154,10 @@ function Canvas({type}: Props) {
                   ></canvas>
                   <div style={{width:(500) + "px"}} className='h-[50px] opacity-60 left-[50%] mx-auto top-0  px- flex   justify-between'>
                       {
-                         new Array(size.split("x").map(Number)[0]+1).fill(0).map((_,q) => (
+                        ["stickers"].includes(params?.service as string) &&
+                        size.includes("x")
+                        && 
+                         new Array((size.split("x")?.map(Number)[0]+1)??0).fill(0).map((_,q) => (
                           <>
                           {
                             q!==0 && size.slice(0,2)!=="20" &&
