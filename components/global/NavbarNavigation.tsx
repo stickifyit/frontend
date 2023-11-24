@@ -13,22 +13,28 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-
-const components: { title: string; href: string; description: string }[] = [
+import editor from "@/public/tools/editor.png"
+import qrcode from "@/public/tools/qrcode.png"
+import ai from "@/public/tools/ai.png"
+import Image, { StaticImageData } from "next/image"
+const components: { title: string; href: string; description: string,icon: StaticImageData }[] = [
   {
     "title": "Sticker Editor ",
     "href": "/docs/tools/sticker-maker",
-    "description": "Craft custom stickers with our user-friendly online editor."
+    "description": "Craft custom stickers with our user-friendly online editor.",
+    "icon": editor
   },
   {
     "title": "AI Sticker Generator",
     "href": "/docs/tools/ai-sticker-generator",
-    "description": "Let AI create unique stickers based on your preferences."
+    "description": "Let AI create unique stickers based on your preferences.",
+    "icon": ai
   },
   {
     "title": "QR Code Maker",
     "href": "/docs/tools/qr-code-maker",
-    "description": "Generate QR codes effortlessly for diverse applications."
+    "description": "Generate QR codes effortlessly for diverse applications.",
+    "icon": qrcode
   }
 ]
 
@@ -43,13 +49,13 @@ export function NavbarNavigation() {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <Link
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-4 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary to-[#F6D14F] p-4 no-underline outline-none focus:shadow-md"
                     href="/services/stickers"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium">
                       Stickers
                     </div>
-                    <p className="text-sm leading-tight text-muted-foreground">
+                    <p className="text-sm leading-tight text-black opacity-80">
                     Express yourself with custom adhesive art and messages.
                     </p>
                   </Link>
@@ -72,13 +78,19 @@ export function NavbarNavigation() {
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {components.map((component) => (
-                <ListItem
-                  key={component.title}
-                  title={component.title}
+                <Link
                   href={component.href}
+                  className="flex gap-4 p-2 hover:bg-secondary rounded-xl"
+                  key={component.title}
                 >
-                  {component.description}
-                </ListItem>
+                  <div>
+                  <Image alt="" src={component.icon.src} width={90} height={90}></Image>
+                  </div>
+                  <div>
+                  <h3 className="text-sm font-medium"> {component.title} </h3>
+                  <p className="text-xs">{component.description}</p>
+                  </div>
+                </Link>
               ))}
             </ul>
           </NavigationMenuContent>
@@ -95,6 +107,9 @@ export function NavbarNavigation() {
   )
 }
 
+type Icon = {
+  icon : StaticImageData
+}
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">
@@ -110,10 +125,14 @@ const ListItem = React.forwardRef<
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
+          <div className="flex gap-2">
+              <div>
+                        <div className="text-sm font-medium leading-none">{title}</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                          {children}
+                        </p>
+              </div>
+          </div>
         </a>
       </NavigationMenuLink>
     </li>
