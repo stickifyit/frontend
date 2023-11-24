@@ -18,6 +18,14 @@ import square from '@/public/custom-stickers/square.png'
 import { CustomStickersImages } from "@/types/types"
 import HeroImage_ from "@/public/hero/hero2.png"
 
+// import t-shirts images
+import leftChest from '@/public/custom-t-shirts/left-chest.png'
+import centerChest from '@/public/custom-t-shirts/center chest.png'
+import backSide from '@/public/custom-t-shirts/back side.png'
+
+
+
+
 import carrot from "@/public/hero/carrot.png"
 import doughnut from "@/public/hero/doughnut.png"
 import watermelon from "@/public/hero/watermelon.png"
@@ -47,4 +55,11 @@ export const customStickersImages: CustomStickersImages = {
     rounded,
     // sheets,
     square
+}
+
+
+export const customTShirtsImages = {
+    leftChest,
+    centerChest,
+    backSide    
 }

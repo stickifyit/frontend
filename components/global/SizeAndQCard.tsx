@@ -27,6 +27,7 @@ import {
 import { useCart } from '@/store/cart';
 import { toast } from '../ui/use-toast';
 import { handleDraw } from '@/lib/canvas';
+import { ToastAction } from '../ui/toast';
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
@@ -71,6 +72,10 @@ const SizeAndQCard = (props: Props) => {
       toast({
         title: "Item Added",
         description: 'Your item has been added to the cart.',
+        action: (
+          <ToastAction altText="Try again">close</ToastAction>
+        ),
+        dir: "bottom-center",
       })
       setLoading(false)
   }
@@ -121,7 +126,7 @@ const SizeAndQCard = (props: Props) => {
             </div>
             <Button disabled={!image||loading} onClick={handelAddToCart} size="lg" className="w-full">
               {
-                loading? "Uploading..." : "Continue"
+                loading? "Uploading..." : "Add to cart"
               }
             </Button>
           </CardContent>

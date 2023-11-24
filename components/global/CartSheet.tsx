@@ -9,14 +9,45 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 import { Button } from '../ui/button'
-import { ShoppingBasket } from 'lucide-react'
+import { ShoppingBasket, X } from 'lucide-react'
 import { useCart } from '@/store/cart'
-  
+import Image from 'next/image'
+import { productsSizes, qs, sizes } from '@/constant/sizesAndQ'
+import { handleUploadSticker } from '@/lib/uploadImage'
+import { toast } from '../ui/use-toast'
+import socket from '@/lib/socket'
+
+import cat from "@/public/cart/cat.png"
 
 type Props = {}
 
 function CartSheet({}: Props) {
-    const {cart} = useCart()
+    const {cart,setCart} = useCart()
+    const [loading,setLoading] = React.useState(false)
+    const checkout = async ()=>{
+      setLoading(true);
+
+      for (const { canvas, color, file, radius, size, type, quantity } of cart) {
+        try {
+          const url = await handleUploadSticker(quantity, size, type, canvas);
+          // Do something with the URL if needed
+        } catch (error) {
+          // Handle individual upload error if needed
+        }
+      }
+    
+      toast({
+        title: "checkout done",
+        description: "your order has been placed",
+        dir: "bottom-center",
+      });
+    
+      setCart([]);
+      socket.emit("add order");
+      setLoading(false);
+    }
+
+
   return (
 <Sheet>
   <SheetTrigger asChild>
@@ -28,25 +59,42 @@ function CartSheet({}: Props) {
     </SheetHeader>
       <SheetDescription className='flex flex-col pt-14 h-full '>
         <div className={"flex flex-col gap-2 flex-1"}>
-            {
+          {
+            cart.length===0 &&
+            <div className='flex items-center flex-col justify-center flex-1 gap-0'>
+            <Image src={cat} width={200} height={200} alt=""></Image>
+            <h1 className='text-xl'>Your cart is empty</h1>
+            </div>
+          }
+            { 
                 cart.map((item,i)=>{
                      const Canvas=item.canvas
                     return (
                         <div key={i} className='flex gap-6 items-center border rounded-md p-4 bg-white shadow-sm'>
-                            <img src={URL.createObjectURL(item.file)} className='w-14 h-14 object-contain' alt="" />
+                            <Image width={60} height={60} alt="" src={URL.createObjectURL(item.file)} className='w-14 h-14 object-contain rounded'  />
                             <div >
                                 <div className='font-bold text-lg'>{item.type}</div>
-                                <div>{item.size}</div>
+                                <div>{item.size} cm</div>
+                                <div className=''> {item.quantity} Sheet{item.quantity>1?'s':''}</div>
                             </div>
-                            <div className='ml-auto p-2 text-lg'> {item.quantity}</div>
+                            <div className='ml-auto p-2 text-lg'>
+                              <Button size="icon" variant={"secondary"} onClick={()=>{setCart(cart.filter((c,_i)=>i!==_i))}}><X/></Button>
+                            </div>
                         </div>
                     )
                 })
             }
         </div>
+        {
+          cart.length>0 &&
             <div className='mt-auto py-6'>
-                <Button size={"lg"} className='w-full hover:scale-[1.01] scale-100 duration-200'>Checkout</Button>
+                <Button onClick={checkout} size={"lg"} className='w-full hover:scale-[1.01] scale-100 duration-200'>
+                  {
+                    loading? "Uploading..." : "Checkout"
+                  }
+                </Button>
             </div>
+        }
       </SheetDescription>
   </SheetContent>
 </Sheet>

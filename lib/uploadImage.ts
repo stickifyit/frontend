@@ -88,7 +88,6 @@ export const handleUploadSticker = async (
                   }
               }).then((res)=>{
                 console.log(res.data)
-                socket.emit("add order")
                 resolve(res.data)
               }).catch((e)=>{
                 console.log(e)

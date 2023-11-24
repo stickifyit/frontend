@@ -54,14 +54,14 @@ function Canvas({type}: Props) {
         )
         setFile(null)
         setImage(null)
-        setColor("#fff")
+        setColor("#ffffff")
         setSize(
           sizes
           [productsSizes
           [type as keyof typeof productsSizes] as keyof typeof sizes
           ][0]
           )
-    },[setRadius,type,setSize])
+    },[setRadius,type,setSize,setColor,setFile,setImage])
 
 
     useEffect(() => {

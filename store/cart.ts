@@ -19,5 +19,13 @@ type State = {
 export const useCart = create<State>((set) => ({
     cart: [],
     setCart: (cart:CartItem[]) => set({ cart }),
-    addToCart: (cart:CartItem) => set((state) => ({ cart: [...state.cart, cart] })),
+    addToCart: (cart:CartItem) => set((state) => {
+        const item = state.cart.find(item => item.file.name === cart.file.name && item.type === cart.type && item.size === cart.size && item.color === cart.color && item.radius === cart.radius);
+        if (item) {
+            item.quantity += cart.quantity;
+            return ({ cart: [...state.cart] });
+        }else{
+            return ({ cart: [...state.cart, cart] })
+        }
+    }),
 }))

@@ -1,24 +1,13 @@
-"use client"
-import React, { useState,ChangeEvent,useRef,useEffect } from 'react';
-
-import { useParams } from 'next/navigation'
+import React from 'react'
 import ImageNext from "next/image";
-import { productHeroImages } from "@/constant/productsHeroImages";
-import SizeAndQCard from "@/components/global/SizeAndQCard";
-import Canvas from '@/components/global/Canvas';
-import { useCanvasProps } from '@/store/canvasProps';
-type Props = {
-};
+import { productHeroImages } from '@/constant/productsHeroImages';
+import { useParams } from 'next/navigation';
 
+type Props = {}
 
-
-
-
-function Page({}: Props) {
+function HeroSectionStickers({}: Props) {
     const params = useParams();
-    const {image}  = useCanvasProps()
   return (
-    <div className="">
       <div className=" bg-secondary gap-6">
         <div className="flex container  py-6 mx-auto  gap-4 items-center ">
           <ImageNext src={productHeroImages[params?.product as keyof typeof productHeroImages]} alt="" width={350} height={350} className="drop-shadow-xl"></ImageNext>
@@ -28,12 +17,7 @@ function Page({}: Props) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row gap-6 container mx-auto py-8">
-        <Canvas type={params?.product as keyof typeof productHeroImages}/>
-        <SizeAndQCard />
-      </div>
-    </div>
-  );
+  )
 }
 
-export default Page;
+export default HeroSectionStickers
