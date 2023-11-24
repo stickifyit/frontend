@@ -18,18 +18,20 @@ import { toast } from '../ui/use-toast'
 import socket from '@/lib/socket'
 
 import cat from "@/public/cart/cat.png"
+import { useParams } from 'next/navigation'
 
 type Props = {}
 
 function CartSheet({}: Props) {
     const {cart,setCart} = useCart()
     const [loading,setLoading] = React.useState(false)
+    const params = useParams()
     const checkout = async ()=>{
       setLoading(true);
 
-      for (const { canvas, color, file, radius, size, type, quantity } of cart) {
+      for (const { canvas, size, type, quantity,service } of cart) {
         try {
-          const url = await handleUploadSticker(quantity, size, type, canvas);
+          const url = await handleUploadSticker(quantity, size, type, canvas,service);
           // Do something with the URL if needed
         } catch (error) {
           // Handle individual upload error if needed
@@ -73,9 +75,9 @@ function CartSheet({}: Props) {
                         <div key={i} className='flex gap-6 items-center border rounded-md p-4 bg-white shadow-sm'>
                             <Image width={60} height={60} alt="" src={URL.createObjectURL(item.file)} className='w-14 h-14 object-contain rounded'  />
                             <div >
-                                <div className='font-bold text-lg'>{item.type}</div>
-                                <div>{item.size} cm</div>
-                                <div className=''> {item.quantity} Sheet{item.quantity>1?'s':''}</div>
+                                <div className='font-bold text-md '>{item.service} | {item.type}</div>
+                                <div>size : {item.size} {item.service=="stickers"?"cm":""}</div>
+                                <div className=''> {item.quantity} item{item.quantity>1?'s':''}</div>
                             </div>
                             <div className='ml-auto p-2 text-lg'>
                               <Button size="icon" variant={"secondary"} onClick={()=>{setCart(cart.filter((c,_i)=>i!==_i))}}><X/></Button>

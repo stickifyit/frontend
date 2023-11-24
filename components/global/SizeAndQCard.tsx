@@ -29,6 +29,7 @@ import { toast } from '../ui/use-toast';
 import { handleDraw } from '@/lib/canvas';
 import { ToastAction } from '../ui/toast';
 import { Product, getProductInfo } from '@/constant/allProductControlers';
+import { Stick } from 'next/font/google';
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
@@ -41,9 +42,11 @@ const SizeAndQCard = (props: Props) => {
 
   const handelAddToCart =async()=>{
     setLoading(true)
-    if(!file||!radius||!color||!q||!size) return
+      if(!file||!color||!q||!size) return setLoading(false)
       const type= params.product
-      const canvas = await handleDraw(file,type as string,radius,color,.2)
+      try {
+      const canvas = await handleDraw(params as any,file,type as string,radius,color,.2)
+
       addToCart({
         canvas,
         file:file,
@@ -51,6 +54,7 @@ const SizeAndQCard = (props: Props) => {
         color,
         quantity:q,
         size,
+        service:params.service as string,
         type:params.product as string
       })
       toast({
@@ -62,6 +66,9 @@ const SizeAndQCard = (props: Props) => {
         dir: "bottom-center",
       })
       setLoading(false)
+      } catch (error) {
+        console.log(error)
+      }
   }
 
   useEffect(()=>{

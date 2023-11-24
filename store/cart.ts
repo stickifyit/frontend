@@ -7,7 +7,8 @@ export type CartItem ={
     size: string
     color: string
     radius: number,
-    canvas: HTMLCanvasElement
+    canvas: HTMLCanvasElement,
+    service: string
 }
 
 type State = {
@@ -25,7 +26,7 @@ export const useCart = create<State>((set) => ({
             item.quantity += cart.quantity;
             return ({ cart: [...state.cart] });
         }else{
-            return ({ cart: [...state.cart, cart] })
+            return ({ cart: [ cart ,...state.cart] })
         }
     }),
 }))
