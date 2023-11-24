@@ -25,9 +25,12 @@ function CartSheet({}: Props) {
   <SheetContent>
     <SheetHeader>
       <SheetTitle>Cart</SheetTitle>
-      <SheetDescription className='space-y-2 pt-14 h-screen'>
+    </SheetHeader>
+      <SheetDescription className='flex flex-col pt-14 h-full '>
+        <div className={"flex flex-col gap-2 flex-1"}>
             {
                 cart.map((item,i)=>{
+                     const Canvas=item.canvas
                     return (
                         <div key={i} className='flex gap-6 items-center border rounded-md p-4 bg-white shadow-sm'>
                             <img src={URL.createObjectURL(item.file)} className='w-14 h-14 object-contain' alt="" />
@@ -40,11 +43,11 @@ function CartSheet({}: Props) {
                     )
                 })
             }
-            <div className='mt-auto'>
-                <
+        </div>
+            <div className='mt-auto py-6'>
+                <Button size={"lg"} className='w-full hover:scale-[1.01] scale-100 duration-200'>Checkout</Button>
             </div>
       </SheetDescription>
-    </SheetHeader>
   </SheetContent>
 </Sheet>
 

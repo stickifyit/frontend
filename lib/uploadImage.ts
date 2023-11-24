@@ -2,6 +2,7 @@ import { productHeroImages } from "@/constant/productsHeroImages";
 import axios from "./axios";
 import { drawEllipse } from "./utils";
 import socket from "./socket";
+import { handleDraw } from "./canvas";
 
 export const handleUpload = async (file:File|null) => {
     if (!file) {
@@ -48,139 +49,14 @@ function drawImageWithMargin(
   
 
 export const handleUploadSticker = async (
-    file: File | null,
-    setLoading:React.Dispatch<React.SetStateAction<boolean>>,
-    type: string,
-    r: number,
-    color:string,
     q:number,
-    size:string
+    size:string,
+    type:string,
+    canvas:HTMLCanvasElement,
     ) => {
 
-    setLoading(true)  
-    if (!file) {
-      console.error('No file selected.');
-      return;
-    }
-  
-    // Create a canvas and draw the image with a red background
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    const image = new Image();
-    image.src = URL.createObjectURL(file);
-    // config
-    const quality = 2;
-    const radius = r * quality;
 
-    
-
-
-    if(!context) return setLoading(false)
-  
-    image.onload = async () => {
-        canvas.width = 600 * quality;
-        canvas.height = ((type=="rect"|| type=="oval")? 400: type=="bumper"? 200 : 600) * quality;
-
-
-
-            // Clear the canvas
-            context.clearRect(0, 0, canvas.width, canvas.height);
-    
-            // Draw the image on the canvas
-            const aspectRatio = image.width / image.height;
-            let drawWidth = canvas.width;
-            let drawHeight = canvas.width / aspectRatio;
-    
-            // Center the image on the canvas
-            let drawX = 0;
-            let drawY = (canvas.height - drawHeight) / 2;
-
-            context.fillStyle = color; // Change the color if needed
-            if(type=="die-cut"){
-                drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight, radius);
-                // Draw a circle at each colored pixel
-                const imageData = context.getImageData(drawX, drawY, drawWidth, drawHeight);
-                for (let i = 0; i < imageData.data.length; i += 4) {
-                // Check if the pixel is colored
-                if (imageData.data[i + 3] === 255) {
-                    const x = (i / 4) % drawWidth;
-                    const y = Math.floor(i / 4 / drawWidth);
-        
-                    // Draw a circle at the colored pixel
-                    context.beginPath();
-                    context.arc(drawX + x, drawY + y, radius, 0, 2 * Math.PI);
-                    context.fill();
-                    context.closePath();
-                }
-                }
-                drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight, radius);
-            }else if(type=="circle"){
-                context.arc(canvas.width / 2,canvas.height / 2, canvas.width/2, 0, 2 * Math.PI);
-                context.fillStyle = color; // Change the color if needed
-                context.fill();
-                context.closePath();
-                drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
-            }else if(type=="square"){
-                context.rect(0, 0, canvas.width, canvas.height);
-                context.fill();
-                context.closePath();
-                drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
-            }else if(type=="rect"){
-                context.rect(0, 0, canvas.width, canvas.height);
-                context.fill();
-                context.closePath();
-                drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
-            }else if(type=="bumper"){
-                context.rect(0, 0, canvas.width, canvas.height);
-                context.fill();
-                context.closePath();
-                drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
-            }else if(type=="oval"){
-                drawEllipse(context, 0,0, canvas.width,canvas.height);
-                drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
-            }else if(type=="rounded"){
-                const m = canvas.width/6
-
-
-                context.beginPath();
-                context.arc(m,m, m, 0, 2 * Math.PI);
-                context.fill();
-                context.closePath();
-
-                context.beginPath();
-                context.arc(canvas.width-m,m, m, 0, 2 * Math.PI);
-                context.fill();
-                context.closePath();
-
-                context.beginPath();
-                context.arc(canvas.width-m,canvas.height-m, m, 0, 2 * Math.PI);
-                context.fill();
-                context.closePath();
-
-                context.beginPath();
-                context.arc(m,canvas.height-m, m, 0, 2 * Math.PI);
-                context.fill();
-                context.closePath();
-
-                context.rect(m, m, canvas.width-m*2, canvas.height-m*2);
-                context.rect(0,m,m,canvas.height-m*2);
-                context.rect(m,0,canvas.width-m*2,m);
-                context.rect(canvas.width-m, m, canvas.width,canvas.height-m*2);
-                context.rect(m,canvas.height-m,canvas.width-m*2,m);
-
-                context.fill();
-                context.closePath();
-                drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight,radius);
-            }
-
-
-
-
-
-
-
-
-  
+      return new Promise((resolve, reject) => {
   
       // Convert the canvas content to a new image
       canvas.toBlob(async (blob) => {
@@ -188,9 +64,6 @@ export const handleUploadSticker = async (
           // Use FormData to send the new image to the server with a filename
           const formData = new FormData();
           formData.append('image', blob, 'your_desired_filename.png');
-          
-
-  
           // Use fetch to send the form data to the server
           await fetch('http://localhost:3001/images/upload', {
             method: 'POST',
@@ -200,7 +73,6 @@ export const handleUploadSticker = async (
               console.log('Image uploaded successfully:');
               const name = await data.json()
               console.log(name.name);
-              setLoading(true)
               axios.post("/orders/create",{
                   "customerId": "3a1fd1dsf5asdf2a1dsf65asd2f1a3",
                   "number":"0689978614",
@@ -217,6 +89,7 @@ export const handleUploadSticker = async (
               }).then((res)=>{
                 console.log(res.data)
                 socket.emit("add order")
+                resolve(res.data)
               }).catch((e)=>{
                 console.log(e)
               }).finally(()=>{
@@ -225,14 +98,10 @@ export const handleUploadSticker = async (
             .catch((error) => {
               console.error('Error uploading image:', error);
             })
-            .finally(() => {
-              setLoading(false)
-            })
         } else {
           console.error('Error creating blob from canvas.');
-          setLoading(false)
         }
       }, 'image/png');
+      })
     };
-  };
   

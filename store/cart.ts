@@ -7,6 +7,7 @@ export type CartItem ={
     size: string
     color: string
     radius: number,
+    canvas: HTMLCanvasElement
 }
 
 type State = {

@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/select"
 import { useCart } from '@/store/cart';
 import { toast } from '../ui/use-toast';
+import { handleDraw } from '@/lib/canvas';
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
@@ -36,17 +37,30 @@ const SizeAndQCard = (props: Props) => {
     const {addToCart} = useCart() 
 
     const upload = async ()=>{
-        const id = new Promise(async (resolve)=>{
-         await handleUploadSticker(file,setLoading,params.product as string,radius,color,q,size).then((id)=>{
-          resolve(id)
-        }).then(()=>{
+      setLoading(true)
+      const type= params.product
+      try {
+        const canvas = await handleDraw(file,type as string,radius,color,2)
+        handleUploadSticker(q,size,type as string,canvas).then((url)=>{
+          setLoading(false)
+          toast({
+            title: "Item Added",
+            description: 'Your item has been added to the cart.',
+          })
+          setLoading(false)
         })
-       })
+      } catch (error) {
+        console.log(error)
+      }
     }
-  const handelAddToCart =()=>{
+
+  const handelAddToCart =async()=>{
     setLoading(true)
     if(!file||!radius||!color||!q||!size) return
+      const type= params.product
+      const canvas = await handleDraw(file,type as string,radius,color,.2)
       addToCart({
+        canvas,
         file:file,
         radius,
         color,
@@ -55,7 +69,7 @@ const SizeAndQCard = (props: Props) => {
         type:params.product as string
       })
       toast({
-        title: 'Added to cart',
+        title: "Item Added",
         description: 'Your item has been added to the cart.',
       })
       setLoading(false)
