@@ -1,13 +1,35 @@
+"use client"
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import axios from '@/lib/axios'
 import { Heart, Search } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 type Props = {}
+interface Sticker {
+  _id: string;
+  name: string;
+  imageURL: string;
+  keywords: string[];
+  category: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+const Page = (props: Props) => {
 
-const page = (props: Props) => {
+  const [stickers, setStickers] = React.useState<Sticker[]|[]>([])
+  React.useEffect(() => {
+    axios.post<Sticker[]>("/sticker/get-by-category", {
+      category: "test category"
+    }).then(res => {
+      setStickers(res.data)
+    })
+  },[])
+  
   return (
     <div className='min-h-screen'>
         <div className='container mx-auto'>
@@ -21,13 +43,12 @@ const page = (props: Props) => {
 
             <div className='grid grid-cols-5 gap-3'>
                 {
-                    [
-                        "https://ih1.redbubble.net/image.3361100626.1870/st,small,507x507-pad,600x600,f8f8f8.jpg",
-                        "https://ih1.redbubble.net/image.1593458887.3216/st,small,507x507-pad,600x600,f8f8f8.u1.jpg"
-                    ].map((item, index) => (
-                        <Card key={index} className='w-full rounded-xl overflow-hidden relative'>
-                            <img src={item} alt="" className='aspect-square object-cover'/>
-                            <Button className='absolute top-3 right-3' size={"icon"} variant={"outline"}><Heart/></Button>
+                    stickers.map((item, index) => (
+                        <Card key={item._id} className='w-full rounded-xl overflow-hidden relative'>
+                            <Image src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" width={200} height={200} className='aspect-square w-full bg-white object-cover p-4'/>
+                            <div className='p-3 text-center'>
+                                <h3 className='text-center font-semibold'>{item.name}</h3>
+                            </div>
                         </Card>
                     ))
                 }
@@ -38,4 +59,4 @@ const page = (props: Props) => {
   )
 }
 
-export default page
+export default Page
