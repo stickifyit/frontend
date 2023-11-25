@@ -3,9 +3,10 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import axios from '@/lib/axios'
-import { Heart, Search } from 'lucide-react'
+import { CheckCheckIcon, CheckCircle, CheckCircle2, Heart, Search } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 import React from 'react'
 
 type Props = {}
@@ -20,11 +21,11 @@ interface Sticker {
   __v: number;
 }
 const Page = (props: Props) => {
-
+    const params = useParams()
   const [stickers, setStickers] = React.useState<Sticker[]|[]>([])
   React.useEffect(() => {
-    axios.post<Sticker[]>("/sticker/get-by-category", {
-      category: "test category"
+    axios.post<Sticker[]>("/sticker/get-by-pack", {
+      pack: params.pack
     }).then(res => {
       setStickers(res.data)
     })
@@ -44,12 +45,7 @@ const Page = (props: Props) => {
             <div className='grid grid-cols-5 gap-3'>
                 {
                     stickers.map((item, index) => (
-                        <Card key={item._id} className='w-full rounded-xl overflow-hidden relative'>
-                            <Image src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" width={200} height={200} className='aspect-square w-full bg-white object-cover p-4'/>
-                            <div className='p-3 text-center'>
-                                <h3 className='text-center font-semibold'>{item.name}</h3>
-                            </div>
-                        </Card>
+                      <StickerCard item={item} key={item._id}/>
                     ))
                 }
             </div>
@@ -57,6 +53,20 @@ const Page = (props: Props) => {
     </div>
 
   )
+}
+
+
+const StickerCard = ({item}: {item: Sticker}) => {
+  const [selected, setSelected] = React.useState(false)
+  return (
+        <Card onClick={() => setSelected(!selected)} className={'w-full rounded-xl relative cursor-pointer overflow-hidden duration-150  '+ (selected ? "opacity-80 scale-95 border-[3px] border-primary" : "opacity-100")}>
+            <Image src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" width={200} height={200} className='aspect-square w-full bg-white object-cover p-4'/>
+            <div className='p-3 text-center'>
+                <h3 className='text-center font-semibold'>{item.name}</h3>
+            </div>
+            <CheckCircle2 size={25} className={"absolute z-10 top-4 left-4 duration-150 text-primary "+ (selected ? "opacity-100" : "opacity-0")}/>
+        </Card>
+        )
 }
 
 export default Page

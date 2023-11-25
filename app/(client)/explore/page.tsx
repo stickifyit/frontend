@@ -1,13 +1,30 @@
+"use client"
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import axios from '@/lib/axios'
 import { Heart, Search } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 type Props = {}
-
-const page = (props: Props) => {
+interface PackItem {
+    _id: string;
+    name: string;
+    imageURL: string;
+    keywords: string[];
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+}
+const Page = (props: Props) => {
+  const [packs, setPacks] = React.useState<PackItem[]|[]>([])
+  React.useEffect(() => {
+    axios.get<PackItem[]>("/packs/all").then(res => {
+      setPacks(res.data)
+    })
+  },[])
   return (
     <div className='min-h-screen'>
         <div className='container mx-auto'>
@@ -21,25 +38,12 @@ const page = (props: Props) => {
 
             <div className='grid grid-cols-5 gap-3'>
                 {
-                    [
-                        "https://ooblets.com/images/VnYUVC4.jpg",
-                        "https://i.pinimg.com/736x/3a/43/b6/3a43b6907339290401f22f40514fb7cc.jpg",
-                        "https://ooblets.com/images/VnYUVC4.jpg",
-                        "https://i.pinimg.com/736x/3a/43/b6/3a43b6907339290401f22f40514fb7cc.jpg",
-                        "https://ooblets.com/images/VnYUVC4.jpg",
-                        "https://i.pinimg.com/736x/3a/43/b6/3a43b6907339290401f22f40514fb7cc.jpg",
-                        "https://ooblets.com/images/VnYUVC4.jpg",
-                        "https://i.pinimg.com/736x/3a/43/b6/3a43b6907339290401f22f40514fb7cc.jpg",
-                        "https://ooblets.com/images/VnYUVC4.jpg",
-                        "https://i.pinimg.com/736x/3a/43/b6/3a43b6907339290401f22f40514fb7cc.jpg",
-                        "https://ooblets.com/images/VnYUVC4.jpg",
-                        "https://i.pinimg.com/736x/3a/43/b6/3a43b6907339290401f22f40514fb7cc.jpg",
-                    ].map((item, index) => (
-                        <Link key={index} href="/explore/packet">
+                    packs.map((item, index) => (
+                        <Link key={index} href={"/explore/"+item._id}>
                             <Card className='w-full rounded-xl overflow-hidden relative'>
-                                <img src={item} alt="" className='aspect-square object-cover'/>
+                                <Image width={200} height={200} src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" className='aspect-square object-cover p-4 w-full'/>
                                 <div className='p-3'>
-                                    <h3>Name of the pack</h3>
+                                    <h3 className='text-center'>{item.name}</h3>
                                 </div>
                                 <Button className='absolute top-3 right-3' size={"icon"} variant={"outline"}><Heart/></Button>
                             </Card>
@@ -53,4 +57,4 @@ const page = (props: Props) => {
   )
 }
 
-export default page
+export default Page
