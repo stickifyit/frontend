@@ -146,7 +146,7 @@ function Canvas({type}: Props) {
                           <input className='hidden' type="file" accept='image/*' id='upload' onChange={handleImageChange} />
                   {
                         !image &&
-                        <Label htmlFor='upload' className='cursor-pointer px-8 flex gap-2 border shadow py-4 text-lg bg-white rounded-xl'>
+                        <Label htmlFor='upload' className='cursor-pointer px-8 flex gap-2 text-primary-foreground shadow py-4 text-lg bg-primary rounded-xl'>
                           Upload sticker
                             <Upload/>
                         </Label>

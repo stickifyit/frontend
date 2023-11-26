@@ -123,7 +123,7 @@ const SizeAndQCard = (props: Props) => {
                 ))}
               </RadioGroup>
             </div>
-            <Button disabled={!image||loading} onClick={handelAddToCart} size="lg" className="w-full">
+            <Button variant={"secondary"} disabled={!image||loading} onClick={handelAddToCart} size="lg" className="w-full">
               {
                 loading? "Uploading..." : "Add to cart"
               }
