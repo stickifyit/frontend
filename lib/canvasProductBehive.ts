@@ -32,12 +32,13 @@ export const dieCut_Behive = (
   drawWidth: number,
   drawHeight: number,
   radius: number,
-  quality: number = 1
+  quality: number = 1,
+  smooth: number = 2
 ) => {
-  drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight, radius,quality);
+  drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight, radius/2,quality);
   // Draw a circle at each colored pixel
   const imageData = context.getImageData(drawX, drawY, drawWidth, drawHeight);
-  for (let i = 0; i < imageData.data.length; i += 4 * 2) {
+  for (let i = 0; i < imageData.data.length; i += 4 * smooth) {
     // Check if the pixel is colored
     if (imageData.data[i + 3] === 255) {
       const x = (i / 4) % drawWidth;
@@ -45,12 +46,12 @@ export const dieCut_Behive = (
 
       // Draw a circle at the colored pixel
       context.beginPath();
-      context.arc(drawX + x, drawY + y, radius, 0, 2 * Math.PI);
+      context.arc(drawX + x, drawY + y, radius*quality/2, 0, 2 * Math.PI);
       context.fill();
       context.closePath();
     }
   }
-  drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight, radius,quality);
+  drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight, radius/2,quality);
 };
 
 
@@ -65,7 +66,7 @@ export const circle_Behive = (
   drawHeight: number,
   radius: number,
   canvas: HTMLCanvasElement,
-  quality: number = 1
+  quality: number = 2
 )=>{
     context.beginPath();
     context.arc(canvas.width / 2,canvas.height / 2, canvas.width/2, 0, 2 * Math.PI);

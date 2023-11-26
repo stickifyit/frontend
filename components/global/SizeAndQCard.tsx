@@ -42,14 +42,14 @@ const SizeAndQCard = (props: Props) => {
 
   const handelAddToCart =async()=>{
     setLoading(true)
-      if(!file||!color||!q||!size) return setLoading(false)
+      if(!image||!color||!q||!size) return setLoading(false)
       const type= params.product
       try {
-      const canvas = await handleDraw(params as any,file,type as string,radius,color,.2)
+      const canvas = await handleDraw(params as any,image,type as string,radius,color,2)
 
       addToCart({
         canvas,
-        file:file,
+        image:image,
         radius,
         color,
         quantity:q,

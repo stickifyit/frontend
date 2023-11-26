@@ -1,4 +1,5 @@
 "use client"
+import StickerDialog from '@/components/global/StickerDialog'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -10,7 +11,7 @@ import { useParams } from 'next/navigation'
 import React from 'react'
 
 type Props = {}
-interface Sticker {
+export interface Sticker {
   _id: string;
   name: string;
   imageURL: string;
@@ -45,7 +46,7 @@ const Page = (props: Props) => {
             <div className='grid grid-cols-5 gap-3'>
                 {
                     stickers.map((item, index) => (
-                      <StickerCard item={item} key={item._id}/>
+                      <StickerDialog item={item} key={item._id}/>
                     ))
                 }
             </div>
@@ -56,15 +57,5 @@ const Page = (props: Props) => {
 }
 
 
-const StickerCard = ({item}: {item: Sticker}) => {
-  return (
-        <Card className={'w-full rounded-xl relative cursor-pointer overflow-hidden duration-150  '}>
-            <Image src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" width={200} height={200} className='aspect-square w-full bg-white object-cover p-4'/>
-            <div className='p-3 text-center'>
-                <h3 className='text-center font-semibold'>{item.name}</h3>
-            </div>
-        </Card>
-        )
-}
 
 export default Page

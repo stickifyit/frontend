@@ -24,7 +24,7 @@ import { backSide_Behive, bumper_Behive, centerChest_Behive, circle_Behive, dieC
 function Canvas({type}: Props) {
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const {color,setColor,setRadius,image, setImage,setFile,radius} = useCanvasProps()
+    const {color,setColor,setRadius,image, setImage,setFile,radius : defaultRadius} = useCanvasProps()
     const {size,setSize} = useSizeAndQ()
     const params = useParams()
 
@@ -39,7 +39,6 @@ function Canvas({type}: Props) {
         0
         )
         setFile(null)
-        setImage(null)
         setColor("#ffffff")
     },[setRadius,type,setSize,setColor,setFile,setImage,params?.service,params?.product])
     // useMemo(()=>{
@@ -53,16 +52,22 @@ function Canvas({type}: Props) {
     // },[params?.service,params?.product,setSize,setFile,setRadius,setColor])
 
     useEffect(() => {
+      const quality = .75
       if (image && canvasRef.current) {
         const canvas = canvasRef.current;
         const context = canvas.getContext('2d');
+
     
         if (context) {
           const img = new Image();
           img.src = image;
+
+          const radius = defaultRadius;
     
           img.onload = () => {
             // Clear the canvas
+            canvas.width= 600 * quality;
+            canvas.height=((type=="rect"|| type=="oval")? 400: type=="bumper"? 200 : 600) * quality
     
             // Draw the image on the canvas
             const aspectRatio = img.width / img.height;
@@ -79,28 +84,28 @@ function Canvas({type}: Props) {
                 context.clearRect(0, 0, canvas.width, canvas.height);
 
                 if(type=="die-cut"){
-                  dieCut_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius)
+                  dieCut_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,quality,3)
                 }else if(type=="circle"){
-                  circle_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                  circle_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 }else if(type=="square"){
-                  square_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                  square_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 }else if(type=="rect"){
-                  rect_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                  rect_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 }else if(type=="bumper"){
-                  bumper_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                  bumper_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 }else if(type=="oval"){
-                  oval_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                  oval_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 }else if(type=="rounded"){
-                  rounded_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                  rounded_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 }
 
             }else if(params.service == "t-shirts"){
                 if (params.product == "left-chest") {
-                  leftChest_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                  leftChest_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 } else if(params.product == "center-chest") {
-                  centerChest_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                  centerChest_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 } else if(params.product == "back-side") {
-                  backSide_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas)
+                  backSide_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 }
             }
 
@@ -113,7 +118,7 @@ function Canvas({type}: Props) {
           };
         }
       }
-    }, [image, canvasRef,radius,color,type]);
+    }, [image, canvasRef,defaultRadius,color,type]);
     
     
 
@@ -126,16 +131,17 @@ function Canvas({type}: Props) {
   
         reader.onloadend = () => {
           const imageDataUrl = reader.result as string;
-          setImage(imageDataUrl);
+          setImage(imageDataUrl); 
         };
   
         reader.readAsDataURL(file);
       }
     };
+    
   return (
 
             <>
-        <div className="flex-1 min-h-[500px] pb-4 bg-secondary overflow-hidden relative border rounded-2xl group flex flex-col-reverse justify-center items-center">
+        <div className="flex-1 min-h-[500px] pb-4 bg-slate-100 overflow-hidden relative border rounded-2xl group flex flex-col-reverse justify-center items-center">
                         {/* <input type="range" min="0" max="150" value={radius} onChange={(e) => setRadius(parseInt(e.target.value))} /> */}
                           <input className='hidden' type="file" accept='image/*' id='upload' onChange={handleImageChange} />
                   {
@@ -149,13 +155,13 @@ function Canvas({type}: Props) {
                     <>
                     <CanvasButtons/>
                   <canvas
-                    width={(600)} // Set the desired canvas width
-                    height={((type=="rect"|| type=="oval")? 400: type=="bumper"? 200 : 600)} // Set the desired canvas height
                     className='p-1 w-[500px] border-x drop-shadow-xl '
                     ref={canvasRef}
                   ></canvas>
                   <div style={{width:(500) + "px"}} className='h-[50px] opacity-60 left-[50%] mx-auto top-0  px- flex   justify-between'>
                       {
+                        size &&
+                        (
                         ["stickers"].includes(params?.service as string) &&
                         size.includes("x")
                         && 
@@ -173,6 +179,7 @@ function Canvas({type}: Props) {
                           </div>
                           </>
                         ))
+                        )
                       }
                   </div>
                     </>

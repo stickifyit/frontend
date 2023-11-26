@@ -73,7 +73,7 @@ function CartSheet({}: Props) {
                      const Canvas=item.canvas
                     return (
                         <div key={i} className='flex gap-6 items-center border rounded-md p-4 bg-white shadow-sm'>
-                            <Image width={60} height={60} alt="" src={URL.createObjectURL(item.file)} className='w-14 h-14 object-contain rounded'  />
+                            <Image width={60} height={60} alt="" src={item.image} className='w-14 h-14 object-contain rounded'  />
                             <div >
                                 <div className='font-bold text-md '>{item.service} | {item.type}</div>
                                 <div>size : {item.size} {item.service=="stickers"?"cm":""}</div>

@@ -2,7 +2,7 @@ import { LOGO, NavbarHight } from '@/constant/constants'
 import Image from 'next/image'
 import React from 'react'
 import { Button } from '../ui/button'
-import { ArrowRight, ShoppingBasket } from 'lucide-react'
+import { ArrowRight, Backpack, ShoppingBasket } from 'lucide-react'
 import { NavbarNavigation } from './NavbarNavigation'
 import Link from 'next/link'
 import CartSheet from './CartSheet'
@@ -22,7 +22,10 @@ const Navbar = (props: Props) => {
             </div>
             <div className='flex gap-2'>
                 <CartSheet/>
-                <Button className='uppercase flex gap-2'>Login<ArrowRight size={16}/></Button>
+                <Link href={"/mysheet"}>
+                <Button className='uppercase flex gap-2' variant={"secondary"}>my bag<Backpack size={16}/></Button>
+                </Link>
+                {/* <Button className='uppercase flex gap-2'>Login<ArrowRight size={16}/></Button> */}
             </div>
         </div>
     </div>
