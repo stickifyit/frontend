@@ -57,14 +57,12 @@ const Page = (props: Props) => {
 
 
 const StickerCard = ({item}: {item: Sticker}) => {
-  const [selected, setSelected] = React.useState(false)
   return (
-        <Card onClick={() => setSelected(!selected)} className={'w-full rounded-xl relative cursor-pointer overflow-hidden duration-150  '+ (selected ? "opacity-80 scale-95 border-[3px] border-primary" : "opacity-100")}>
+        <Card className={'w-full rounded-xl relative cursor-pointer overflow-hidden duration-150  '}>
             <Image src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" width={200} height={200} className='aspect-square w-full bg-white object-cover p-4'/>
             <div className='p-3 text-center'>
                 <h3 className='text-center font-semibold'>{item.name}</h3>
             </div>
-            <CheckCircle2 size={25} className={"absolute z-10 top-4 left-4 duration-150 text-primary "+ (selected ? "opacity-100" : "opacity-0")}/>
         </Card>
         )
 }
