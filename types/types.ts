@@ -7,7 +7,7 @@ export type CustomStickersImages = {
     oval: StaticImageData;
     rect: StaticImageData;
     rounded: StaticImageData;
-    sheets: StaticImageData;
+    // sheets: StaticImageData;
     square: StaticImageData;
   };
   

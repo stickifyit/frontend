@@ -16,8 +16,8 @@
     --primary: 49 100% 69%;
     --primary-foreground:  49 100% 25%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary:  240 100% 87%;
+    --secondary-foreground: 240 33% 60%;
  
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -32,7 +32,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
  
-    --radius: 0.5rem;
+    --radius: 1.1rem;
   }
  
   .dark {
@@ -96,3 +96,19 @@
     transform: translateY(0);
   }
 }
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+  background: #CACAFF;
+  }

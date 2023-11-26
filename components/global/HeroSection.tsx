@@ -32,12 +32,12 @@ const HeroSection = (props: Props) => {
         <div className='container  justify-center py-4 mx-auto flex gap-6'>
             {
             [
-                {name:"custom stickers",img:HeroLinksImages.Stickers,href:"custom-stickers"},
-                {name:"custom labels",img:HeroLinksImages.Label,href:"custom-labels"},
-                {name:"custom shirts",img:HeroLinksImages.T_Shirt,href:"custom-shirts"},
-                {name:"custom cup",img:HeroLinksImages.Cup,href:"custom-cup"},
+                {name:"custom stickers",img:HeroLinksImages.Stickers,href:"stickers"},
+                {name:"custom labels",img:HeroLinksImages.Label,href:"labels"},
+                {name:"custom shirts",img:HeroLinksImages.T_Shirt,href:"t-shirts"},
+                {name:"custom cup",img:HeroLinksImages.Cup,href:"cup"},
             ].map(({name,img,href})=>
-            <Link href={href} key={name} className='w-fit p-2 hover:scale-105 duration-300 rounded-2xl border bg-white '>
+            <Link href={"/services/"+href} key={name} className='w-fit p-2 hover:scale-105 duration-300 rounded-2xl border bg-white '>
                 <Image src={img} alt={name} width={200} height={200}/>
                 <h2 className='text-center text-xl'>{name}</h2>
             </Link>)

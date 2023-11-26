@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/global/Navbar'
 import { NavbarHight } from '@/constant/constants'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" >
       <body className={inter.className}>
+        <Toaster />
         <div className='text-gray-700 bg-gray-50'>
         <Navbar/>
         <div className='' style={{marginTop:NavbarHight}}>
