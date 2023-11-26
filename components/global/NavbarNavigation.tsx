@@ -80,7 +80,7 @@ export function NavbarNavigation() {
               {components.map((component) => (
                 <Link
                   href={component.href}
-                  className="flex gap-4 p-2 hover:bg-secondary rounded-xl"
+                  className="flex gap-4 p-2 hover:bg-slate-100 rounded-xl duration-200"
                   key={component.title}
                 >
                   <div>

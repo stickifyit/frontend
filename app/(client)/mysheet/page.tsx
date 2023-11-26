@@ -28,7 +28,8 @@ export default function Page({}: Props) {
             <div  ref={sheetRef} className='relative shadow-xl border max-w-[70vw]  mx-auto bg-white aspect-[22/40]'>
                 <div className='mx-auto w-fit '>
                 {
-                    sheet.map((item,i) => (
+                    sheet
+                    .map((item,i) => (
                         <div className='w-full h-full' key={i}>
                             {
                                 new Array(item.quantity).fill(0).map((_,index) => (
