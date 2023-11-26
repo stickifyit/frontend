@@ -2,7 +2,10 @@ import { LayoutPanelTop, Shapes, Upload } from 'lucide-react'
 import React from 'react'
 import { Button } from '../ui/button'
 
-type Props = {}
+type Props = {
+    selected:number
+    setSelected:(i:number) => void
+}
 
 const iconSize = 28
 const navButtons = [
@@ -21,8 +24,7 @@ const navButtons = [
 ]
 
 
-export default function CustomSheetNavBar({}: Props) {
-    const [selected , setSelected] = React.useState(0)
+export default function CustomSheetNavBar({selected,setSelected}: Props) {
   return (
     <div className='border-r flex flex-col p-2 gap-2 w-fit'>
         {

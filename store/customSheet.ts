@@ -5,8 +5,8 @@ export type SheetItem = {
     image: string,
     type: string,
     size: number,
-    color: string,
-    radius: number,
+    color?: string,
+    radius?: number,
     id: string,
 }
 
