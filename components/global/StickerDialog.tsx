@@ -9,7 +9,6 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
-import { Sticker } from '@/app/(client)/explore/[pack]/page'
 import { Card } from '../ui/card'
 import Image from 'next/image'
 import {
@@ -24,6 +23,7 @@ import { Separator } from '../ui/separator'
 import { useCanvasProps } from '@/store/canvasProps'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
+import { Sticker } from '@/utils/fetchExplore'
   
 type Props = {
     item : Sticker
