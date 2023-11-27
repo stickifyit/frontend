@@ -16,18 +16,37 @@ export default function Page({}: Props) {
     const {sheet} = useSheet()
     const [w,setW] = React.useState(1)
     const [selected , setSelected] = React.useState(0)
+    const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
     useEffect(() => {
+
         if(sheetRef!==null){
             setW(sheetRef?.current?.offsetWidth??1) 
         }
-    },[sheetRef])
+    },[sheetRef,windowWidth])
+
+    const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+    
+      useEffect(() => {
+        // Update windowWidth when the window is resized
+        window.addEventListener('resize', handleResize);
+    
+        // Cleanup: remove the event listener when the component unmounts
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }, []); // Empty dependency array to run effect only once
+
+
+
   return (
     <div className='flex relative'>
         <div  style={{top:NavbarHight,height: 'calc(100vh - '+NavbarHight+')'}} className='w-[500px] bg-white flex border-r sticky overflow-y-auto'>
             <CustomSheetNavBar {...{selected,setSelected}}/>
             <CustomSheetNavMore {...{selected,setSelected}}/>
         </div>
-        <div className='container flex-1 overflow-auto  m-auto min-h-screen p-4'>
+        <div className='max-w-[50vw] flex-1 overflow-auto  m-auto min-h-screen p-4'>
             <div className='h-[50px] w-full opacity-60 left-[0] mx-auto top-[0px]   z-20 flex   justify-between'>
                 {
                 new Array(23).fill(0).map((_,q) => (
@@ -46,7 +65,7 @@ export default function Page({}: Props) {
                 ))
                 }
             </div>
-            <div  ref={sheetRef} className='relative shadow-xl border max-w-[70vw]  mx-auto bg-white aspect-[22/40]'>
+            <div  ref={sheetRef} className='relative shadow-xl border max-w-[50vw]  mx-auto bg-white aspect-[22/40]'>
                 <RenderSheet w={w}/>
             </div>
         </div>

@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react'
 import { SheetItem, useSheet } from '@/store/customSheet'
 import fitContainer, { PlacedElement } from '@/lib/itemsSheetfitter'
+import Image from 'next/image'
 
 type Props = {
     w:number
@@ -25,16 +26,13 @@ export default function RenderSheet({w}: Props) {
         setFinalSheet(flat)
             const Cm = w/22
             setCm(w/22)
-            console.log(22*Cm,40*Cm)
-            console.log(w)
-            console.log(fitContainer(22*Cm,40*Cm,flat))
             setProcess(fitContainer(22*Cm,40*Cm,flat))
         }
     },[sheet,w])
 
     return(
-    process.map((item,i) => <div onClick={()=>setSelectedSticker(item.id)} key={i} className='absolute rounded m-0 border-2 p-2 ' style={{width:item.width +"px",height:item.height +"px",top:item.y ,left:item.x, borderColor: selectedSticker == item.id? "#cacaff":"" }}>
-        <img src={item.image} alt="" className='w-full hover:bg-[#0000001a] cursor-pointer duration-200' />
+    process.map((item,i) => <div onClick={()=>setSelectedSticker(item.id)} key={i} className={'absolute rounded m-0 p-1'} style={{width:item.width +"px",height:item.height +"px",top:item.y ,left:item.x}}>
+        <Image width={item.width} height={item.height} src={item.image} alt="" className={'w-full hover:bg-[#0000001a] border cursor-pointer rounded-md duration-200 p-2'+ (selectedSticker == item.id? " z-10 outline  outline-secondary":"")} />
     </div>)
     )
 }
