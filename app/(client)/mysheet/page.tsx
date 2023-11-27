@@ -3,6 +3,8 @@ import CustomSheetNavBar from '@/components/global/CustomSheetNavBar'
 import CustomSheetNavMore from '@/components/global/CustomSheetNavMore'
 import { Button } from '@/components/ui/button'
 import { NavbarHight } from '@/constant/constants'
+import RenderSheet from '@/hooks/useRenderSheet'
+import useRenderSheet from '@/hooks/useRenderSheet'
 import { useSheet } from '@/store/customSheet'
 import { Plus } from 'lucide-react'
 import React, { useEffect, useRef } from 'react'
@@ -12,11 +14,11 @@ type Props = {}
 export default function Page({}: Props) {
     const sheetRef = useRef<HTMLDivElement|null>(null)
     const {sheet} = useSheet()
-    const [w,setW] = React.useState(0)
+    const [w,setW] = React.useState(1)
     const [selected , setSelected] = React.useState(0)
     useEffect(() => {
         if(sheetRef!==null){
-            setW(sheetRef?.current?.offsetWidth??0) 
+            setW(sheetRef?.current?.offsetWidth??1) 
         }
     },[sheetRef])
   return (
@@ -27,16 +29,7 @@ export default function Page({}: Props) {
         </div>
         <div className='container flex-1 overflow-auto  m-auto min-h-screen p-4'>
             <div  ref={sheetRef} className='relative shadow-xl border max-w-[70vw]  mx-auto bg-white aspect-[22/40]'>
-                <div className='mx-auto w-fit '>
-                {
-                    sheet
-                    .map((item,i) => (
-                                new Array(item.quantity).fill(0).map((_,index) => (
-                                    <img key={index} src={item.image} style={{width: w*item.size/22-1}} className='aspect-[1/1] border p-4 inline-block object-cover'/>
-                                ))
-                    ))
-                }
-                </div>
+                <RenderSheet w={w}/>
             </div>
         </div>
     </div>

@@ -19,15 +19,7 @@ export type State = {
 }
 
 export const useSheet = create<State>((set) => ({
-    sheet : [{
-        quantity: 3,
-        image: "http://localhost:3000/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Fstickify-storage%2Fstickers%2Fva9zm4ig42a-mvtckomg5f-tkx1ygz5rwe.png&w=256&q=75",
-        type: "die cut",
-        size: 5,
-        color: "",
-        radius: 0,
-        id: "qwerty123",
-    }],
+    sheet : [],
     setSheet: (sheet:SheetItem[]) => set({ sheet }),
     // update by id
     update: (id:string,props: SheetItem) => {

@@ -4,33 +4,18 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import axios from '@/lib/axios'
+import { fetchStickers } from '@/utils/fetchExplore'
 import { CheckCheckIcon, CheckCircle, CheckCircle2, Heart, Search } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import React from 'react'
+import { useQueries, useQuery } from 'react-query'
 
 type Props = {}
-export interface Sticker {
-  _id: string;
-  name: string;
-  imageURL: string;
-  keywords: string[];
-  category: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
 const Page = (props: Props) => {
     const params = useParams()
-  const [stickers, setStickers] = React.useState<Sticker[]|[]>([])
-  React.useEffect(() => {
-    axios.post<Sticker[]>("/sticker/get-by-pack", {
-      pack: params.pack
-    }).then(res => {
-      setStickers(res.data)
-    })
-  },[])
+    const {data:stickers} = useQuery("fetchStickers",()=>fetchStickers(params?.pack as string))
   
   return (
     <div className='min-h-screen'>
@@ -45,7 +30,7 @@ const Page = (props: Props) => {
 
             <div className='grid grid-cols-5 gap-3'>
                 {
-                    stickers.map((item, index) => (
+                    stickers?.map((item, index) => (
                       <StickerDialog item={item} key={item._id}/>
                     ))
                 }

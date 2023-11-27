@@ -3,28 +3,15 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import axios from '@/lib/axios'
+import { PackItem, fetchPacks } from '@/utils/fetchExplore'
 import { Heart, Search } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-
+import { useQuery } from "react-query";
 type Props = {}
-interface PackItem {
-    _id: string;
-    name: string;
-    imageURL: string;
-    keywords: string[];
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-}
 const Page = (props: Props) => {
-  const [packs, setPacks] = React.useState<PackItem[]|[]>([])
-  React.useEffect(() => {
-    axios.get<PackItem[]>("/packs/all").then(res => {
-      setPacks(res.data)
-    })
-  },[])
+  const {data:packs} = useQuery("packs", fetchPacks)
   return (
     <div className='min-h-screen'>
         <div className='container mx-auto'>
@@ -38,14 +25,13 @@ const Page = (props: Props) => {
 
             <div className='grid grid-cols-5 gap-3'>
                 {
-                    packs.map((item, index) => (
+                    packs?.map((item, index) => (
                         <Link key={index} href={"/explore/"+item._id}>
                             <Card className='w-full rounded-xl overflow-hidden relative'>
                                 <Image width={200} height={200} src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" className='aspect-square object-cover p-4 w-full'/>
                                 <div className='p-3'>
                                     <h3 className='text-center'>{item.name}</h3>
                                 </div>
-                                <Button className='absolute top-3 right-3' size={"icon"} variant={"outline"}><Heart/></Button>
                             </Card>
                         </Link>
                     ))
