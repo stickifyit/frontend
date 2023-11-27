@@ -28,6 +28,24 @@ export default function Page({}: Props) {
             <CustomSheetNavMore {...{selected,setSelected}}/>
         </div>
         <div className='container flex-1 overflow-auto  m-auto min-h-screen p-4'>
+            <div className='h-[50px] w-full opacity-60 left-[0] mx-auto top-[0px]   z-20 flex   justify-between'>
+                {
+                new Array(23).fill(0).map((_,q) => (
+                <>
+                {
+                    q!== 0  &&
+                    new Array(3) .fill(0).map((_,q2) => (
+                    <div key={q2} className='text-[6px] flex justify-center flex-1'>|</div>
+                    ))
+                }
+                <div className={"text-[8px] flex flex-1 flex-col gap-2 items-center"} key={q+1}>
+                    <div>|</div>
+                {q} {q===0?"":""}
+                </div>
+                </>
+                ))
+                }
+            </div>
             <div  ref={sheetRef} className='relative shadow-xl border max-w-[70vw]  mx-auto bg-white aspect-[22/40]'>
                 <RenderSheet w={w}/>
             </div>
