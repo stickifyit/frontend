@@ -16,6 +16,8 @@ export type State = {
     sheet : SheetItem[]
     setSheet: (sheet:SheetItem[]) => void,
     update: (id:string,props:  SheetItem) => void
+    selectedSticker : string
+    setSelectedSticker: (id:string) => void
 }
 
 export const useSheet = create<State>((set) => ({
@@ -37,5 +39,7 @@ export const useSheet = create<State>((set) => ({
                 return ({ sheet: [ props ,...state.sheet] })
             }
         })
-    }
+    },
+    selectedSticker : "",
+    setSelectedSticker: (id:string) => set({ selectedSticker: id }),
 }))

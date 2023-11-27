@@ -10,7 +10,7 @@ type Props = {
 export default function RenderSheet({w}: Props) {
     // flating the sheet
     const [finalSheet,setFinalSheet] = React.useState<SheetItem[]>([])
-    const {sheet,setSheet} = useSheet()
+    const {sheet,setSheet,setSelectedSticker,selectedSticker} = useSheet()
     const [process,setProcess] = React.useState<PlacedElement[]>([])
     const [cm,setCm] = React.useState(0)
     useEffect(() => {
@@ -19,7 +19,7 @@ export default function RenderSheet({w}: Props) {
         const  flat:SheetItem[] = []
         sheet.forEach((item,i) => {
             for(let i=0;i<item.quantity;i++){
-                flat.push({...item,quantity:1,size:item.size*w/22-7})
+                flat.push({...item,quantity:1,size:item.size*w/22-0})
             }
         })
         setFinalSheet(flat)
@@ -33,7 +33,7 @@ export default function RenderSheet({w}: Props) {
     },[sheet,w])
 
     return(
-    process.map((item,i) => <div key={i} className='absolute m-0 border p-2' style={{width:item.width +"px",height:item.height +"px",top:item.y ,left:item.x }}>
+    process.map((item,i) => <div onClick={()=>setSelectedSticker(item.id)} key={i} className='absolute rounded m-0 border-2 p-2 ' style={{width:item.width +"px",height:item.height +"px",top:item.y ,left:item.x, borderColor: selectedSticker == item.id? "#cacaff":"" }}>
         <img src={item.image} alt="" className='w-full hover:bg-[#0000001a] cursor-pointer duration-200' />
     </div>)
     )
