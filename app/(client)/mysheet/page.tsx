@@ -13,7 +13,7 @@ type Props = {}
 
 export default function Page({}: Props) {
     const sheetRef = useRef<HTMLDivElement|null>(null)
-    const {sheet} = useSheet()
+    const {sheet,setSelectedSticker} = useSheet()
     const [w,setW] = React.useState(1)
     const [selected , setSelected] = React.useState(0)
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
@@ -65,7 +65,7 @@ export default function Page({}: Props) {
                 ))
                 }
             </div>
-            <div  ref={sheetRef} className='relative shadow-2xl border max-w-[50vw]  mx-auto bg-white aspect-[22/40]'>
+            <div  onClick={() => {setSelectedSticker("")}} ref={sheetRef} className='relative shadow-2xl border max-w-[50vw]  mx-auto bg-white aspect-[22/40]'>
                 <RenderSheet w={w}/>
             </div>
         </div>
