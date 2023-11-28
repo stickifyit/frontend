@@ -66,6 +66,8 @@ const Stickers = ({id}:{id:string})=>{
                 image:"https://storage.googleapis.com/stickify-storage/"+item.imageURL,
                 size: 5,
                 type: "die cut",
+                fileType:"url"
+
             },
         ])
     }

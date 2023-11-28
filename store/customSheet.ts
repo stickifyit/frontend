@@ -1,8 +1,11 @@
+import { StaticImport } from "next/dist/shared/lib/get-img-props"
 import create from "zustand"
 
 export type SheetItem = {
+    fileType : "upload" | "url",
+    file?: File,
     quantity: number,
-    image: string,
+    image: string | StaticImport,
     type: string,
     size: number,
     color?: string,
@@ -10,9 +13,15 @@ export type SheetItem = {
     id: string,
 }
 
-
+export type UploadType= {
+    file:File,
+    image: string | StaticImport
+}
 
 export type State = {
+    uploads: UploadType[]
+    setUpload: (uploads: UploadType[]) => void,
+
     sheet : SheetItem[]
     setSheet: (sheet:SheetItem[]) => void,
     update: (id:string,props:  SheetItem) => void
@@ -21,8 +30,12 @@ export type State = {
 }
 
 export const useSheet = create<State>((set) => ({
+    uploads:[],
+    setUpload: (uploads: UploadType[]) => set({ uploads }),
+
     sheet : [],
     setSheet: (sheet:SheetItem[]) => set({ sheet }),
+
     // update by id
     update: (id:string,props: SheetItem) => {
         set((state) => {

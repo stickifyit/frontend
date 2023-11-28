@@ -6,6 +6,7 @@ import CustomSheetItemCard from "./CustomSheetItemCard";
 import { useSheet } from "@/store/customSheet";
 import LayoutBar from "./LayoutBar";
 import ExploreBar from "./ExploreBar";
+import UploadBar from "./UploadBar";
 
 type Props = {
     selected: number;
@@ -15,7 +16,9 @@ type Props = {
 export default function CustomSheetNavMore({selected,setSelected}: Props) {
   if(selected == 0){
   return <LayoutBar/>
-  }else{
+  }else if(selected == 1){
     return <ExploreBar/>
+  }else{
+    return <UploadBar/>
   }
 }

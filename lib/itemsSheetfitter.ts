@@ -1,5 +1,15 @@
 import { SheetItem } from "@/store/customSheet";
-export type PlacedElement = { id: string, x: number, y: number, width: number, height: number, image: string };
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+export type PlacedElement = { 
+    id: string, 
+    x: number, 
+    y: number, 
+    width: number, 
+    height: number, 
+    image: string| StaticImport
+    fileType : "upload" | "url"
+    file : File
+ };
 function fitContainer(cWidth:number, cHeight:number, buckets:SheetItem[]) {
     // Sort buckets
     const sortedBuckets = buckets.sort((a, b) => b.size - a.size);
@@ -23,7 +33,9 @@ function addElement(x: number, y: number, container:any, buckets: SheetItem[], i
             width: buckets[i].size,
             height:buckets[i].size,
             image: buckets[i].image,
-            id: buckets[i].id
+            id: buckets[i].id,
+            fileType: buckets[i].fileType,
+            file: buckets[i].file as File
         });
     
         return;
@@ -39,7 +51,16 @@ function addElement(x: number, y: number, container:any, buckets: SheetItem[], i
         }
     }
 
-    placedElements.push({ x, y, width: size, height: size, image: buckets[i].image , id: buckets[i].id});
+    placedElements.push({ 
+        x, 
+        y, 
+        width: size, 
+        height: size, 
+        image: buckets[i].image , 
+        id: buckets[i].id, 
+        fileType: buckets[i].fileType,
+        file: buckets[i].file as File
+    });
 
     const nextIndex = i + 1;
 

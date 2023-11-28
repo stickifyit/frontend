@@ -46,7 +46,7 @@ export default function Page({}: Props) {
             <CustomSheetNavBar {...{selected,setSelected}}/>
             <CustomSheetNavMore {...{selected,setSelected}}/>
         </div>
-        <div className='max-w-[50vw] flex-1 overflow-auto  m-auto min-h-screen p-4'>
+        <div className='max-w-[50vw] flex-1 overflow-auto  m-auto min-h-screen px-10 pb-10'>
             <div className='h-[50px] w-full opacity-60 left-[0] mx-auto top-[0px]   z-20 flex   justify-between'>
                 {
                 new Array(23).fill(0).map((_,q) => (
@@ -65,7 +65,7 @@ export default function Page({}: Props) {
                 ))
                 }
             </div>
-            <div  ref={sheetRef} className='relative shadow-xl border max-w-[50vw]  mx-auto bg-white aspect-[22/40]'>
+            <div  ref={sheetRef} className='relative shadow-2xl border max-w-[50vw]  mx-auto bg-white aspect-[22/40]'>
                 <RenderSheet w={w}/>
             </div>
         </div>

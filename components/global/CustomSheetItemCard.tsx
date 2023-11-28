@@ -18,6 +18,8 @@ import {
 import { Input } from '../ui/input'
 import { Minus, Plus } from 'lucide-react'
 import { SheetItem, useSheet } from '@/store/customSheet'
+import Image from 'next/image'
+import { StaticImport } from 'next/dist/shared/lib/get-img-props'
   
 type Props = {
     item:SheetItem
@@ -30,7 +32,9 @@ export default function CustomSheetItemCard({item}: Props) {
     }, [item.quantity,update,item])
   return (
     <Card onClick={()=>setSelectedSticker(item.id)} className={'text-gray-500 text-lg p-2 flex gap-4 items-center '+(selectedSticker == item.id?"bg-[#00000005] outline outline-secondary":"")}>
-        <img className='h-16 aspect-square rounded' src={item.image}></img>
+        {
+            <Image width={300} height={300} className='h-16 w-16 object-contain aspect-square rounded' src={item.image} alt=""></Image>
+        }
         <div className='flex flex-1 gap-2'>
             <Popover>
                 <PopoverTrigger asChild>
