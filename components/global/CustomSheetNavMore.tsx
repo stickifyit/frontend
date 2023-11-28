@@ -9,8 +9,8 @@ import ExploreBar from "./ExploreBar";
 import UploadBar from "./UploadBar";
 
 type Props = {
-    selected: number;
-    setSelected: (i: number) => void;
+    selected:number | null
+    setSelected:(i:number|null) => void
 };
 
 export default function CustomSheetNavMore({selected,setSelected}: Props) {
