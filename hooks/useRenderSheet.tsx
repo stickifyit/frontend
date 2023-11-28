@@ -46,7 +46,7 @@ export default function RenderSheet({w}: Props) {
     } key={i} className={'absolute rounded m-0 p-1'} style={{width:item.width +"px",height:item.height +"px",top:item.y ,left:item.x}}>
         <Image width={300} height={300} src={ item.image  } 
             alt="" 
-            className={'w-full hover:drop-shadow-lg aspect-square object-contain  border cursor-pointer rounded-md duration-200 p-2'+ (selectedSticker == item.id? " z-10 outline  outline-secondary":"")} />
+            className={'w-full hover:scale-105 aspect-square object-contain  border cursor-pointer rounded-md duration-200 p-2'+ (selectedSticker == item.id? " z-10 outline  outline-secondary":"")} />
     </div>)
     )
 }
