@@ -41,7 +41,7 @@ export default function CustomSheetItemCard({item}: Props) {
                     <Button className='min-w-[80px]' variant={"outline"}>{item.size} cm</Button>
                 </PopoverTrigger>
                 <PopoverContent>
-                    <input type='range' className='w-full' value={item.size} onChange={(e:any)=>update(item.id,{...item,size:e.target.value as number})} step={.1} min={2} max={20}/>
+                    <input type='range' className='w-full' value={item.size} onChange={(e:any)=>update(item.id,{...item,size:e.target.value as number})} step={1} min={2} max={20}/>
                 </PopoverContent>
             </Popover>
             <Select value={item.type} onValueChange={(value) => update(item.id,{...item,type:value})}>
