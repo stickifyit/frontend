@@ -6,7 +6,7 @@ import { NavbarHight } from '@/constant/constants'
 import RenderSheet from '@/hooks/useRenderSheet'
 import useRenderSheet from '@/hooks/useRenderSheet'
 import { useSheet } from '@/store/customSheet'
-import { Plus } from 'lucide-react'
+import { ChevronRight, Plus } from 'lucide-react'
 import React, { useEffect, useRef } from 'react'
 
 type Props = {}
@@ -15,7 +15,7 @@ export default function Page({}: Props) {
     const sheetRef = useRef<HTMLDivElement|null>(null)
     const {sheet,setSelectedSticker} = useSheet()
     const [w,setW] = React.useState(1)
-    const [selected , setSelected] = React.useState(0)
+    const [selected , setSelected] = React.useState<number|null>(null)
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
     useEffect(() => {
 
@@ -42,9 +42,14 @@ export default function Page({}: Props) {
 
   return (
     <div className='flex relative'>
-        <div  style={{top:NavbarHight,height: 'calc(100vh - '+NavbarHight+')'}} className='w-[500px] bg-white flex border-r sticky overflow-y-auto'>
+        <div  style={{top:NavbarHight,height: 'calc(100vh - '+NavbarHight+')'}} className=' bg-white flex border-r sticky overflow-y-auto'>
             <CustomSheetNavBar {...{selected,setSelected}}/>
-            <CustomSheetNavMore {...{selected,setSelected}}/>
+            {
+                selected !== null &&
+                <div className='w-[400px]'>
+                    <CustomSheetNavMore {...{selected,setSelected}}/>
+                </div>
+            }
         </div>
         <div className='max-w-[50vw] flex-1 overflow-auto  m-auto min-h-screen px-10 pb-10'>
             <div className='h-[50px] w-full opacity-60 left-[0] mx-auto top-[0px]   z-20 flex   justify-between'>
