@@ -16,6 +16,20 @@ import { StaticImageData } from 'next/image'
 
 
 
+
+import heroBumper from "@/public/product pages images/bumper.png"
+import heroCircle from "@/public/product pages images/circle.png"
+import heroDieCut from "@/public/product pages images/die cut.png"
+import heroOval from "@/public/product pages images/oval.png"
+import heroRect from "@/public/product pages images/rect.png"
+import heroRounded from "@/public/product pages images/rounded.png"
+import heroSquare from "@/public/product pages images/square.png"
+
+
+
+
+
+
 export interface Services {
     stickers: Service;
     "t-shirts": Service;
@@ -27,6 +41,7 @@ export interface Product {
     aspect: string;
     sizes: string[];
     quantities: number[];
+    hero: StaticImageData;
 }
 
 export interface Service {
@@ -62,7 +77,8 @@ const stickers = {
         href: "/product/stickers/die-cut",
         aspect: "square",
         sizes: sizes.square,
-        quantities: qs.square
+        quantities: qs.square,
+        hero: heroDieCut
     },
     "circle": {
         name: "circle",
@@ -70,7 +86,8 @@ const stickers = {
         href: "/product/stickers/circle",
         aspect: "square",
         sizes: sizes.square,
-        quantities: qs.square
+        quantities: qs.square,
+        hero: heroCircle
     },
     "oval": {
         name: "oval",
@@ -78,7 +95,8 @@ const stickers = {
         href: "/product/stickers/oval",
         aspect: "rect",
         sizes: sizes.rect,
-        quantities: qs.rect
+        quantities: qs.rect,
+        hero: heroOval
     },
     "rect": {
         name: "rect",
@@ -86,7 +104,8 @@ const stickers = {
         href: "/product/stickers/rect",
         aspect: "rect",
         sizes: sizes.rect,
-        quantities: qs.rect
+        quantities: qs.rect,
+        hero: heroRect
     },
     "rounded": {
         name: "rounded",
@@ -94,7 +113,8 @@ const stickers = {
         href: "/product/stickers/rounded",
         aspect: "square",
         sizes: sizes.square,
-        quantities: qs.square
+        quantities: qs.square,
+        hero: heroRounded
     },
     "square": {
         name: "square",
@@ -102,7 +122,8 @@ const stickers = {
         href: "/product/stickers/square",
         aspect: "square",
         sizes: sizes.square,
-        quantities: qs.square
+        quantities: qs.square,
+        hero: heroSquare
     },
     "bumper": {
         name: "bumper",
@@ -110,7 +131,8 @@ const stickers = {
         href: "/product/stickers/bumper",
         aspect: "bumper",
         sizes: sizes.bumper,
-        quantities: qs.bumper
+        quantities: qs.bumper,
+        hero: heroBumper
     },
 }
 const tShirts = {
@@ -120,7 +142,8 @@ const tShirts = {
         href: "/product/t-shirts/left-chest",
         aspect: "square",
         sizes : sizes.tShirts,
-        quantities: qs.static
+        quantities: qs.static,
+        hero: leftChest
     },
     "center-chest": {
         name: "center-chest",
@@ -128,7 +151,8 @@ const tShirts = {
         href: "/product/t-shirts/center-chest",
         aspect: "square",
         sizes : sizes.tShirts,
-        quantities: qs.static
+        quantities: qs.static,
+        hero: centerChest
     },
     "back-side": {
         name: "back-side",
@@ -136,7 +160,8 @@ const tShirts = {
         href: "/product/t-shirts/back-side",
         aspect: "square",
         sizes : sizes.tShirts,
-        quantities: qs.static
+        quantities: qs.static,
+        hero : backSide
     },
 }
 

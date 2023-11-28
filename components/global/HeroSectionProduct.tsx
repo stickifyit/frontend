@@ -12,7 +12,7 @@ function HeroSection({}: Props) {
   return (
       <div className=" bg-slate-100 gap-6 ">
         <div className="flex container  py-6 mx-auto  gap-4 items-center ">
-          <ImageNext src={product?.img ?? ""} alt="" width={400} height={400} className="drop-shadow-xl w-[250px] h-[250px]"></ImageNext>
+          <ImageNext src={product?.hero ?? ""} alt="" width={400} height={400} className="drop-shadow-2xl -rotate-6 w-[350px] h-[350px]"></ImageNext>
           <div className="space-y-4">
           <h1 className="text-6xl">{params?.product}</h1>
           <p className="max-w-2xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem perspiciatis similique omnis maxime corporis. Aliquid modi hic sapiente, nobis, ipsa quod nisi tenetur non deleniti dolor temporibus explicabo quibusdam laboriosam.</p>
