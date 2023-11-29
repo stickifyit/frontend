@@ -1,16 +1,19 @@
+import { PlacedElement } from "@/lib/itemsSheetfitter"
 import { StaticImport } from "next/dist/shared/lib/get-img-props"
 import create from "zustand"
 
 export type SheetItem = {
     fileType : "upload" | "url",
     file?: File,
-    quantity: number,
+    quantity: number  ,
     image: string | StaticImport,
     type: string,
     size: number,
     color?: string,
     radius?: number,
     id: string,
+    
+
 }
 
 export type UploadType= {
@@ -25,11 +28,20 @@ export type State = {
     sheet : SheetItem[]
     setSheet: (sheet:SheetItem[]) => void,
     update: (id:string,props:  SheetItem) => void
-    selectedSticker : string
-    setSelectedSticker: (id:string) => void
+
+
+    process : PlacedElement[]
+    setProcess : (a:PlacedElement[]) => void;
+
+    selected : string[]
+    setSelected : (selected: string[]) => void
+    selectItem : (id:string) => void
+    toggleSelected : (id:string) => void
 }
 
 export const useSheet = create<State>((set) => ({
+
+
     uploads:[],
     setUpload: (uploads: UploadType[]) => set({ uploads }),
 
@@ -53,6 +65,35 @@ export const useSheet = create<State>((set) => ({
             }
         })
     },
-    selectedSticker : "",
-    setSelectedSticker: (id:string) => set({ selectedSticker: id }),
+
+
+    process : [],
+    setProcess : (a:PlacedElement[]) => set({ process : a }),
+
+    // seclection section
+
+    
+    selected : [],
+    setSelected: (selected: string[]) => set({ selected }),
+    selectItem: (id: string) => {
+        set((state) => {
+            const item = state.selected.find(item => item === id);
+            if (item) {
+                return ({ selected: state.selected.filter(item => item !== id) })
+            }else{
+                return ({ selected: [...state.selected, id] })
+            }
+        })
+    },
+    toggleSelected: (id: string) => {
+        set((state) => {
+            const item = state.selected.find(item => item === id);
+            if (item) {
+                return ({ selected: state.selected.filter(item => item !== id) })
+            }else{
+                return ({ selected: [...state.selected, id] })
+            }
+        })
+    }
+
 }))

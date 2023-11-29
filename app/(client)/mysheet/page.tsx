@@ -5,18 +5,63 @@ import { Button } from '@/components/ui/button'
 import { NavbarHight } from '@/constant/constants'
 import RenderSheet from '@/hooks/useRenderSheet'
 import useRenderSheet from '@/hooks/useRenderSheet'
-import { useSheet } from '@/store/customSheet'
+import fitContainer from '@/lib/itemsSheetfitter'
+import { SheetItem, useSheet } from '@/store/customSheet'
 import { ChevronRight, Plus } from 'lucide-react'
-import React, { useEffect, useRef } from 'react'
+import React, { DragEvent, useEffect, useRef } from 'react'
 
 type Props = {}
 
 export default function Page({}: Props) {
     const sheetRef = useRef<HTMLDivElement|null>(null)
-    const {sheet,setSelectedSticker} = useSheet()
+    const {sheet,setSheet,setSelected:setSelectedSticker,
+        process,
+        selected: selectedStickers,
+    } = useSheet()
     const [w,setW] = React.useState(1)
     const [selected , setSelected] = React.useState<number|null>(null)
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+
+
+
+
+    // handle drag and drop
+
+    const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+  
+      const droppedFiles = Array.from(e.dataTransfer.files) as File[];
+      const stickers: SheetItem[] = []
+      droppedFiles.forEach((file) => {
+        if(!file.type.startsWith("image")) return
+        stickers.push({
+          fileType:"upload",
+          type:"die cut",
+          size:5,
+          color:"white",
+          radius:0,
+          id:Math.random() + " x " + Math.random(),
+          quantity:1,
+          image:URL.createObjectURL(file),
+          file
+        })
+      })
+    setSheet([...sheet,...stickers] )
+
+
+    };
+  
+    const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+    };
+
+
+
+
+
+
+
+
     useEffect(() => {
 
         if(sheetRef!==null){
@@ -37,6 +82,11 @@ export default function Page({}: Props) {
           window.removeEventListener('resize', handleResize);
         };
       }, []); // Empty dependency array to run effect only once
+
+
+
+
+
 
 
 
@@ -69,10 +119,13 @@ export default function Page({}: Props) {
                 </>
                 ))
                 }
-            </div>
-            <div  onClick={() => {setSelectedSticker("")}} ref={sheetRef} className='relative shadow-2xl border max-w-[50vw]  mx-auto bg-white aspect-[22/40]'>
-                <RenderSheet w={w}/>
-            </div>
+                </div>
+                <div       
+                    onDrop={handleDrop}
+                    onDragOver={handleDragOver}  
+                    onClick={() => {setSelectedSticker([])}} ref={sheetRef} className='select-none shadow-2xl border relative  mx-auto bg-white aspect-[22/40]'>
+                    <RenderSheet w={w}/>
+                </div>
         </div>
     </div>
   )

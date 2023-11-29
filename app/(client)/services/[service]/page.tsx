@@ -21,7 +21,7 @@ const Page = (props: Props) => {
   return (
     <div className='min-h-screen'>
       <div className='bg- flex gap-4'>
-          <div className='container flex gap-12 items-center mx-auto space-y-4'>
+          <div className='container flex gap-12 items-center mx-auto space-y-4 drop-shadow-2xl'>
           <div className=''>
                  {/* i want to take the service and show image of it  */}
                 <Image width={450} src={heroImages[params?.service as 'stickers'|'t-shirts' ]??''} alt=""></Image>
@@ -37,6 +37,10 @@ const Page = (props: Props) => {
               }
             </div>
           </div>
+      </div>
+
+      <div className='container'>
+            <h1 className='text-5xl opacity-70'>Products</h1>
       </div>
       <div className='container mx-auto grid grid-cols-5 gap-6 p-6'>
           {
