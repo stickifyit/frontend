@@ -17,8 +17,12 @@ const HeroSection = (props: Props) => {
           <h1 className='text-6xl font-extrabold max-w-3xl uppercase '>Turn Your Designs into Stunning Reality</h1>
           <h1 className='text-xl max-w-3xl uppercase '>Experience the joy of holding your creativity with our high-quality printed stickers</h1>
           <div className='flex gap-4'>
-          <Button size={'lg'} className='uppercase flex gap-2 py-7 px-10 text-lg'>Shop Now <ArrowRight size={16}/></Button>
-          <Button size={'lg'} variant={"outline"} className='uppercase flex gap-2  py-7 px-10 text-lg'>Explore collections</Button>
+            <Link href={"/mysheet"}>
+                <Button size={'lg'} variant={"secondary"} className='uppercase flex gap-2 py-7 px-10 text-lg '>Make your sheet <ArrowRight size={16}/></Button>
+            </Link>
+            <Link href={"/explore"}>
+                <Button size={'lg'} variant={"outline"} className='uppercase flex gap-2  py-7 px-10 text-lg'>Explore collections</Button>
+            </Link>
           </div>
         </div>
         <div className='flex items-center justify-center py-8 md:py-0 relative'>

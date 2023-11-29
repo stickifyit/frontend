@@ -2,11 +2,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import {ArrowRight} from "lucide-react"
+import {ArrowRight, Stars} from "lucide-react"
 import { getProductsByService } from '@/constant/allProductControlers'
 import { useParams } from 'next/navigation'
 import stickersHero from "@/public/product pages images/stickers hero.png"
 import tshirtHero from "@/public/product pages images/t-shirt hero.png"
+import { Button } from '@/components/ui/button'
 type Props = {}
 
 
@@ -28,6 +29,12 @@ const Page = (props: Props) => {
             <div className='space-y-4'>
               <h1 className=' text-5xl'>Custom {params?.service}</h1>
               <p className='max-w-2xl opacity-60'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere dolorum recusandae voluptates dolor quas ab at dignissimos sint pariatur ut, voluptatum libero, quam minus illo repudiandae similique laudantium vel quasi.</p>
+              {
+                params?.service == "stickers" &&
+                  <Link className='block' href={"/mysheet"} >
+                    <Button size="lg" variant="secondary" className='text-white  uppercase'>Custom sheet<Stars/></Button>
+                  </Link>
+              }
             </div>
           </div>
       </div>

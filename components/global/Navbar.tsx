@@ -22,10 +22,10 @@ const Navbar = (props: Props) => {
             </div>
             <div className='flex gap-2'>
                 <CartSheet/>
-                <Link href={"/mysheet"}>
+                {/* <Link href={"/mysheet"}>
                 <Button className='uppercase flex gap-2' variant={"secondary"}>my bag<Backpack size={16}/></Button>
-                </Link>
-                {/* <Button className='uppercase flex gap-2'>Login<ArrowRight size={16}/></Button> */}
+                </Link> */}
+                <Button className='uppercase flex gap-2'>Login<ArrowRight size={16}/></Button>
             </div>
         </div>
     </div>

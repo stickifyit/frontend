@@ -30,7 +30,7 @@ function Canvas({type}: Props) {
 
     useEffect(() => {
         setRadius(
-        type === "die-cut"?20: 
+        type === "die-cut"?50: 
         type === "circle" ?80:
         type === "square" ? 40:
         type === "rect" ? 100:
