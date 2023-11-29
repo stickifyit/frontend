@@ -4,13 +4,15 @@ import create from "zustand"
 export type SheetItem = {
     fileType : "upload" | "url",
     file?: File,
-    quantity: number,
+    quantity: number  ,
     image: string | StaticImport,
     type: string,
     size: number,
     color?: string,
     radius?: number,
     id: string,
+    
+
 }
 
 export type UploadType= {
@@ -25,8 +27,19 @@ export type State = {
     sheet : SheetItem[]
     setSheet: (sheet:SheetItem[]) => void,
     update: (id:string,props:  SheetItem) => void
+
+    // selectStartX : number,
+    // setSelectStartX : (selectStartX: number) => void,
+    // selectStartY : number,
+    // setSelectStartY : (selectStartY: number) => void,
+    // selectEndX : number,
+    // setSelectEndX : (selectEndX: number) => void,
+    // selectEndY : number,
+    // setSeletedEndY : (selectEndY: number) => void,
+
     selectedSticker : string
-    setSelectedSticker: (id:string) => void
+    setSelectedSticker: (id:string) => void,
+    // selected : string[]
 }
 
 export const useSheet = create<State>((set) => ({
