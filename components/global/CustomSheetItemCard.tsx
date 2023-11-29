@@ -26,12 +26,12 @@ type Props = {
 }
 
 export default function CustomSheetItemCard({item}: Props) {
-    const {update,selectedSticker,setSelectedSticker} = useSheet()
+    const {update,selected,setSelected,selectItem} = useSheet()
     useEffect(() => {
         if(item.quantity<0) update(item.id,{...item,quantity:0})
     }, [item.quantity,update,item])
   return (
-    <Card onClick={()=>setSelectedSticker(item.id)} className={'text-gray-500 cursor-pointer text-lg p-2 flex gap-4 items-center '+(selectedSticker == item.id?"bg-[#00000005] outline outline-secondary":"")}>
+    <Card onClick={()=>setSelected([item.id])} className={'text-gray-500 cursor-pointer text-lg p-2 flex gap-4 items-center '+(selected.includes(item.id)?"bg-[#00000005] outline outline-secondary":"")}>
         {
             <Image width={300} height={300} draggable={false} className='h-16 w-16 object-contain aspect-square rounded' src={item.image} alt=""></Image>
         }
