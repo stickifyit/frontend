@@ -32,14 +32,15 @@ export default function RenderSheet({w}: Props) {
     },[sheet,w,setProcess])
 
     return(
-    process.map((item,i) => <div onClick={(e)=>{
-        // the way number 1 
-        // setTimeout(() => {
-        //     setSelectedSticker(item.id)
-        // }, 0)
-        // the way number 2 
+    process.map((item,i) => <div onClick={(e:React.MouseEvent)=>{
         e.stopPropagation()
-        setSelected([item.id])
+        // if i'm not clicking the shift btn
+        if (e.shiftKey || e.ctrlKey) {
+            selectItem(item.id);
+          } else {
+            // If the shift key is not pressed, select only the clicked item
+            setSelected([item.id]);
+        }
 
     }
     } key={i} className={'absolute rounded m-0 p-1'} style={{width:item.width +"px",height:item.height +"px",top:item.y ,left:item.x}}>
