@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { NavbarHight } from '@/constant/constants'
 import RenderSheet from '@/hooks/useRenderSheet'
 import useRenderSheet from '@/hooks/useRenderSheet'
+import fitContainer from '@/lib/itemsSheetfitter'
 import { SheetItem, useSheet } from '@/store/customSheet'
 import { ChevronRight, Plus } from 'lucide-react'
 import React, { DragEvent, useEffect, useRef } from 'react'
@@ -13,7 +14,10 @@ type Props = {}
 
 export default function Page({}: Props) {
     const sheetRef = useRef<HTMLDivElement|null>(null)
-    const {sheet,setSheet,setSelectedSticker} = useSheet()
+    const {sheet,setSheet,setSelected:setSelectedSticker,
+        process,
+        selected: selectedStickers,
+    } = useSheet()
     const [w,setW] = React.useState(1)
     const [selected , setSelected] = React.useState<number|null>(null)
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
@@ -81,6 +85,11 @@ export default function Page({}: Props) {
 
 
 
+
+
+
+
+
   return (
     <div className='flex'  style={{height: 'calc(100vh - '+NavbarHight+')'}}>
         <div  style={{top:NavbarHight,height: 'calc(100vh - '+NavbarHight+')'}} className=' bg-white flex border-r sticky overflow-y-auto'>
@@ -114,7 +123,7 @@ export default function Page({}: Props) {
                 <div       
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}  
-                    onClick={() => {setSelectedSticker("")}} ref={sheetRef} className='select-none shadow-2xl border relative  mx-auto bg-white aspect-[22/40]'>
+                    onClick={() => {setSelectedSticker([])}} ref={sheetRef} className='select-none shadow-2xl border relative  mx-auto bg-white aspect-[22/40]'>
                     <RenderSheet w={w}/>
                 </div>
             </div>
