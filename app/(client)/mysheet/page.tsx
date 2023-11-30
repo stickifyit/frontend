@@ -20,7 +20,7 @@ export default function Page({}: Props) {
     } = useSheet()
     const [w,setW] = React.useState(1)
     const [selected , setSelected] = React.useState<number|null>(null)
-    const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+    const [windowWidth, setWindowWidth] = React.useState(1);
 
 
 

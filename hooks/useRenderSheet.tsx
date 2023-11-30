@@ -25,7 +25,7 @@ export default function RenderSheet({w}: Props) {
         const  flat:SheetItem[] = []
         sheet.forEach((item,i) => {
             for(let i=0;i<item.quantity;i++){
-                flat.push({...item,quantity:1,size:item.size*w/22-0,fileType: item.fileType})
+                flat.push({...item,quantity:1,size:item.size*w/20-1,fileType: item.fileType})
             }
         })
         setFinalSheet(flat)
