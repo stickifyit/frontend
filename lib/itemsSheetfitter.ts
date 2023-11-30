@@ -1,60 +1,58 @@
-// Import necessary types
 import { SheetItem } from "@/store/customSheet";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
-// Define the PlacedElement type
 export type PlacedElement = {
-    id: string,
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    image: string | StaticImport,
-    fileType: "upload" | "url",
-    file: File
+    id: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    image: string | StaticImport;
+    fileType: "upload" | "url";
+    file: File;
 };
 
-// Main function to fit elements into a container
-function fitContainer(cWidth: number, cHeight: number, buckets: SheetItem[]) {
-    // Sort buckets by size in descending order
+function fitContainer(cWidth: number, cHeight: number, buckets: SheetItem[], margin: number) {
     const sortedBuckets = buckets.sort((a, b) => b.size - a.size);
-    // Initialize the container with black squares ('⬛')
-    const container = initializeContainer(cWidth, cHeight);
-    // Array to store placed elements
+    const containerWidth = cWidth - 2 * margin;
+    const containerHeight = cHeight - 2 * margin;
+    const container = initializeContainer(containerWidth, containerHeight);
     const placedElements: PlacedElement[] = [];
 
-    // Start placing elements
-    addElement(0, 0, container, sortedBuckets, 0, placedElements);
+    // Calculate the number of stickers that can fit horizontally
+    const stickersPerRow = Math.floor(containerWidth / (sortedBuckets[0].size + margin));
 
-    // Return the array of placed elements
+    addElement(0, 0, container, sortedBuckets, 0, placedElements, margin, stickersPerRow);
+
     return placedElements;
 }
 
-// Function to initialize the container with black squares
+
 function initializeContainer(cWidth: number, cHeight: number) {
     return Array.from({ length: cHeight }, () => Array(Math.round(cWidth)).fill("⬛"));
 }
 
-// Recursive function to add an element to the container
-function addElement(x: number, y: number, container: any, buckets: SheetItem[], i: number, placedElements: PlacedElement[]) {
-    // If all elements are placed, return
+function addElement(x: number, y: number, container: any, buckets: SheetItem[], i: number, placedElements: PlacedElement[], margin: number, stickersPerRow: number) {
     if (i === buckets.length) {
+        const size = buckets[i - 1].size; // Use the size of the previously placed bucket
+        const roundedX = Math.round(x);
+        const roundedY = Math.round(y);
+
         placedElements.push({
-            x: Math.round(x),
-            y: Math.round(y),
-            width: buckets[i].size,
-            height: buckets[i].size,
-            image: buckets[i].image,
-            id: buckets[i].id,
-            fileType: buckets[i].fileType,
-            file: buckets[i].file as File
+            x: roundedX,
+            y: roundedY,
+            width: size,
+            height: size,
+            image: buckets[i - 1].image,
+            id: buckets[i - 1].id,
+            fileType: buckets[i - 1].fileType,
+            file: buckets[i - 1].file as File,
         });
         return;
     }
 
     const size = buckets[i].size;
 
-    // Place the element in the container
     for (let loopY = 0; loopY < size; loopY++) {
         for (let loopX = 0; loopX < size; loopX++) {
             if (container[loopY + y] && container[loopY + y][loopX + x]) {
@@ -63,7 +61,6 @@ function addElement(x: number, y: number, container: any, buckets: SheetItem[], 
         }
     }
 
-    // Record the placed element
     placedElements.push({
         x,
         y,
@@ -72,12 +69,11 @@ function addElement(x: number, y: number, container: any, buckets: SheetItem[], 
         image: buckets[i].image,
         id: buckets[i].id,
         fileType: buckets[i].fileType,
-        file: buckets[i].file as File
+        file: buckets[i].file as File,
     });
 
     const nextIndex = i + 1;
 
-    // If there are more elements, recursively try to add the next element
     if (nextIndex < buckets.length) {
         const nextSize = buckets[nextIndex].size;
 
@@ -85,7 +81,7 @@ function addElement(x: number, y: number, container: any, buckets: SheetItem[], 
             for (let newX = 0; newX <= container[0].length - nextSize; newX++) {
                 const canPlace = checkPlacement(container, newX, newY, nextSize);
                 if (canPlace) {
-                    addElement(newX, newY, container, buckets, nextIndex, placedElements);
+                    addElement(newX, newY, container, buckets, nextIndex, placedElements, margin, stickersPerRow);
                     return;
                 }
             }
@@ -93,7 +89,6 @@ function addElement(x: number, y: number, container: any, buckets: SheetItem[], 
     }
 }
 
-// Function to check if an element can be placed at a specific position
 function checkPlacement(container: any, x: number, y: number, size: number) {
     for (let checkY = 0; checkY < size; checkY++) {
         for (let checkX = 0; checkX < size; checkX++) {
@@ -105,17 +100,4 @@ function checkPlacement(container: any, x: number, y: number, size: number) {
     return true;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-// Export the fitContainer function as the default export
 export default fitContainer;

@@ -9,7 +9,7 @@ import fitContainer from '@/lib/itemsSheetfitter'
 import { SheetItem, useSheet } from '@/store/customSheet'
 import { ChevronRight, Plus } from 'lucide-react'
 import React, { DragEvent, useEffect, useRef } from 'react'
-
+import {motion} from "framer-motion"
 type Props = {}
 
 export default function Page({}: Props) {
@@ -37,7 +37,7 @@ export default function Page({}: Props) {
         stickers.push({
           fileType:"upload",
           type:"die cut",
-          size:5,
+          size:3,
           color:"white",
           radius:0,
           id:Math.random() + " x " + Math.random(),
@@ -104,7 +104,7 @@ export default function Page({}: Props) {
         <div className='max-w-[50vw] flex-1 overflow-auto  m-auto relative h-full px-10 pb-10'>
             <div className='h-[50px] mt-4 w-full opacity-60 left-[0] sticky  mx-auto top-[0px]   z-20 flex   justify-between'>
                 {
-                new Array(23).fill(0).map((_,q) => (
+                new Array(21).fill(0).map((_,q) => (
                 <>
                 {
                     q!== 0  &&
@@ -120,11 +120,16 @@ export default function Page({}: Props) {
                 ))
                 }
                 </div>
+                <div
+                    style={{padding:(w/20)+"px"}}
+                    className=' shadow-2xl bg-white border '
+                >
                 <div       
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}  
-                    onClick={() => {setSelectedSticker([])}} ref={sheetRef} className='select-none shadow-2xl border relative  mx-auto bg-white aspect-[22/40]'>
+                    onClick={() => {setSelectedSticker([])}} ref={sheetRef} className='select-none border relative  mx-auto bg-white aspect-[20/30]'>
                     <RenderSheet w={w}/>
+                </div>
                 </div>
         </div>
     </div>

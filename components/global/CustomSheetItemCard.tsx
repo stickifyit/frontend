@@ -44,7 +44,7 @@ export default function CustomSheetItemCard({item}: Props) {
         {
             <Image width={300} height={300} draggable={false} className='h-16 w-16 object-contain aspect-square rounded' src={item.image} alt=""></Image>
         }
-        <div className='flex flex-1 gap-2'>
+        <div className='flex flex-1 justify-end gap-2'>
             <Popover>
                 <PopoverTrigger asChild>
                     <Button className='min-w-[80px]' variant={"outline"}>{item.size} cm</Button>
