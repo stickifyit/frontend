@@ -81,7 +81,7 @@ const SizeAndQCard = (props: Props) => {
         <Card className="ml-auto h-fit">
           <CardHeader></CardHeader>
           <CardContent className="min-w-[400px] h-fit">
-            <CardTitle>Select a Size</CardTitle>
+            <CardTitle className='font-thin'>Select a Size</CardTitle>
             <div className="my-6">
             <Select value={size} onValueChange={e=>setSize(e)}>
               <SelectTrigger className="w-full">
@@ -102,7 +102,7 @@ const SizeAndQCard = (props: Props) => {
             </Select>
 
             </div>
-            <CardTitle>Select a quantity</CardTitle>
+            <CardTitle  className='font-thin'>Select a quantity</CardTitle>
             <div className="my-6">
               <RadioGroup value={String(q)} onValueChange={e=>setQ(Number(e))}>
                 {
