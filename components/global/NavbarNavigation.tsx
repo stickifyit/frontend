@@ -88,7 +88,7 @@ export function NavbarNavigation() {
                   </div>
                   <div>
                   <h3 className="text-sm font-medium"> {component.title} </h3>
-                  <p className="text-xs">{component.description}</p>
+                  <p className="text-xs font-sans">{component.description}</p>
                   </div>
                 </Link>
               ))}
@@ -128,7 +128,7 @@ const ListItem = React.forwardRef<
           <div className="flex gap-2">
               <div>
                         <div className="text-sm font-medium leading-none">{title}</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                        <p className="line-clamp-2 text-sm font-sans leading-snug text-muted-foreground">
                           {children}
                         </p>
               </div>

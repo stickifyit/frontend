@@ -16,7 +16,7 @@ const Page = (props: Props) => {
     <div className='min-h-screen'>
         <div className='container mx-auto'>
             <div className='flex justify-between items-center'>
-                <h1 className='text-6xl py-10'>Explore 😃</h1>
+                <h1 className='text-6xl py-10 uppercase'>Explore </h1>
                 <div className='relative h-fit ml-auto'>
                     <Search size={18} className='absolute top-1/2 left-3 -translate-y-1/2'/>
                     <Input placeholder='Search sticker' className='max-w-md flex-1 pl-10'/>

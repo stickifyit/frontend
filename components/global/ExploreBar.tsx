@@ -64,7 +64,7 @@ const Stickers = ({id}:{id:string})=>{
                 id: item._id +" x "+ Math.random(),
                 quantity: 1,
                 image:"https://storage.googleapis.com/stickify-storage/"+item.imageURL,
-                size: 5,
+                size: 3,
                 type: "die cut",
                 fileType:"url"
 

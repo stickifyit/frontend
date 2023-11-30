@@ -9,7 +9,7 @@ import fitContainer from '@/lib/itemsSheetfitter'
 import { SheetItem, useSheet } from '@/store/customSheet'
 import { ChevronRight, Plus } from 'lucide-react'
 import React, { DragEvent, useEffect, useRef } from 'react'
-
+import {motion} from "framer-motion"
 type Props = {}
 
 export default function Page({}: Props) {
@@ -37,7 +37,7 @@ export default function Page({}: Props) {
         stickers.push({
           fileType:"upload",
           type:"die cut",
-          size:5,
+          size:3,
           color:"white",
           radius:0,
           id:Math.random() + " x " + Math.random(),
@@ -63,25 +63,28 @@ export default function Page({}: Props) {
 
 
     useEffect(() => {
-
+        setW(0) 
         if(sheetRef!==null){
             setW(sheetRef?.current?.offsetWidth??1) 
+            // alert(sheetRef?.current?.offsetWidth)
         }
     },[sheetRef,windowWidth])
 
-    const handleResize = () => {
-        setWindowWidth(window.innerWidth);
-      };
+    // const handleResize = () => {
+    //     if (typeof window !== "undefined") {
+    //     setWindowWidth(window?.innerWidth);
+    //     }
+    // };
     
-      useEffect(() => {
-        // Update windowWidth when the window is resized
-        window.addEventListener('resize', handleResize);
-    
-        // Cleanup: remove the event listener when the component unmounts
-        return () => {
-          window.removeEventListener('resize', handleResize);
-        };
-      }, []); // Empty dependency array to run effect only once
+    // useEffect(() => {
+    //     if (typeof window !== "undefined") {
+    //         window.addEventListener('resize', handleResize);
+    //     // Cleanup: remove the event listener when the component unmounts
+    //     return () => {
+    //       window.removeEventListener('resize', handleResize);
+    //     };
+    //     }
+    // }, []); // Empty dependency array to run effect only once
 
 
 
@@ -101,30 +104,37 @@ export default function Page({}: Props) {
                 </div>
             }
         </div>
-        <div className='max-w-[50vw] flex-1 overflow-auto  m-auto relative h-full px-10 pb-10'>
+        <div className=' aspect-[20/30] container  h-full flex-1 overflow-auto  m-auto relative px-10 '>
             <div className='h-[50px] mt-4 w-full opacity-60 left-[0] sticky  mx-auto top-[0px]   z-20 flex   justify-between'>
                 {
-                new Array(23).fill(0).map((_,q) => (
+                new Array(21).fill(0).map((_,q) => (
                 <>
                 {
                     q!== 0  &&
-                    new Array(3) .fill(0).map((_,q2) => (
+                    new Array(1) .fill(0).map((_,q2) => (
                     <div key={q2} className='text-[6px] flex justify-center flex-1'>|</div>
                     ))
                 }
                 <div className={"text-[8px] flex flex-1 flex-col gap-2 items-center"} key={q+1}>
                     <div>|</div>
-                {q} {q===0?"":""}
+                {q===0 || q === 20?q:q}
                 </div>
                 </>
                 ))
                 }
                 </div>
+                <div
+                    style={{padding:(w/20)+"px"}}
+                    className=' shadow-2xl rounded-[1rem] bg-slate-100 border '
+                >
                 <div       
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}  
-                    onClick={() => {setSelectedSticker([])}} ref={sheetRef} className='select-none shadow-2xl border relative  mx-auto bg-white aspect-[22/40]'>
+                    onClick={() => {setSelectedSticker([])}} 
+                    ref={sheetRef} 
+                    className='select-none border relative  mx-auto rounded-xl bg-white aspect-[20/30]'>
                     <RenderSheet w={w}/>
+                </div>
                 </div>
         </div>
     </div>

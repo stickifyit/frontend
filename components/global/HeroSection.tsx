@@ -14,8 +14,8 @@ const HeroSection = (props: Props) => {
     <div className='min-h-[55vh] bg-gray-50 px-4 flex items-center'>
       <div className='container h-full items-center flex gap-10 lg:gap-4 py-10 flex-col-reverse lg:flex-row mx-auto'>
         <div className=' h-full text-center lg:text-start flex-1 items-center lg:items-start flex flex-col gap-6 justify-center'>
-          <h1 className='text-6xl font-extrabold max-w-3xl uppercase '>Turn Your Designs into Stunning Reality</h1>
-          <h1 className='text-xl max-w-3xl uppercase '>Experience the joy of holding your creativity with our high-quality printed stickers</h1>
+          <h1 className='text-6xl max-w-3xl hero-title uppercase font-inter'>Turn Your Designs into Stunning Reality</h1>
+          <h1 className='text-2xl opacity-75 max-w-3xl font-thin'>Experience the joy of holding your creativity with our high-quality printed stickers</h1>
           <div className='flex gap-4'>
             <Link href={"/mysheet"}>
                 <Button size={'lg'} variant={"secondary"} className='uppercase flex gap-2 py-7 px-10 text-lg '>Make your sheet <ArrowRight size={16}/></Button>

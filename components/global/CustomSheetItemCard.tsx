@@ -28,7 +28,7 @@ type Props = {
 export default function CustomSheetItemCard({item}: Props) {
     const {update,selected,setSelected,selectItem} = useSheet()
     useEffect(() => {
-        if(item.quantity<0) update(item.id,{...item,quantity:0})
+        if(item.quantity<=0) update(item.id,{...item,quantity:1})
     }, [item.quantity,update,item])
   return (
     <Card onClick={(e:React.MouseEvent)=>{
@@ -44,13 +44,13 @@ export default function CustomSheetItemCard({item}: Props) {
         {
             <Image width={300} height={300} draggable={false} className='h-16 w-16 object-contain aspect-square rounded' src={item.image} alt=""></Image>
         }
-        <div className='flex flex-1 gap-2'>
+        <div className='flex flex-1 justify-end gap-2'>
             <Popover>
                 <PopoverTrigger asChild>
                     <Button className='min-w-[80px]' variant={"outline"}>{item.size} cm</Button>
                 </PopoverTrigger>
                 <PopoverContent>
-                    <input type='range' className='w-full' value={item.size} onChange={(e:any)=>update(item.id,{...item,size:e.target.value as number})} step={1} min={2} max={20}/>
+                    <input type='range' className='w-full' value={item.size} onChange={(e:any)=>update(item.id,{...item,size:e.target.value as number})} step={.5} min={2} max={9}/>
                 </PopoverContent>
             </Popover>
             <Select value={item.type} onValueChange={(value) => update(item.id,{...item,type:value})}>

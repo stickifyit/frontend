@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter  ,Lilita_One } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/global/Navbar'
 import { NavbarHight } from '@/constant/constants'
@@ -7,6 +7,11 @@ import { Toaster } from '@/components/ui/toaster'
 import QueryProvider from '@/components/providers/QueryProvider'
 
 const inter = Inter({ subsets: ['latin'] })
+const LilitaOne = Lilita_One({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-lilita-one',
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" >
-      <body className={inter.className}>
+      <body className={LilitaOne.className + " " + inter.className + " tracking-wide "}>
         <QueryProvider>
             <Toaster />
             <div className='text-gray-700 bg-gray-50'>

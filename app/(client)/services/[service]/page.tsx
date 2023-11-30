@@ -32,6 +32,7 @@ const Page = (props: Props) => {
               {
                 params?.service == "stickers" &&
                   <Link className='block' href={"/mysheet"} >
+                    
                     <Button size="lg" variant="secondary" className='text-white  uppercase'>Custom sheet<Stars/></Button>
                   </Link>
               }
