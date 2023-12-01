@@ -9,7 +9,7 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 import { Button } from '../ui/button'
-import { ShoppingBasket, X } from 'lucide-react'
+import { Edit, ShoppingBasket, X } from 'lucide-react'
 import { useCart } from '@/store/cart'
 import Image from 'next/image'
 import { productsSizes, qs, sizes } from '@/constant/sizesAndQ'
@@ -19,19 +19,20 @@ import socket from '@/lib/socket'
 
 import cat from "@/public/cart/cat.png"
 import { useParams } from 'next/navigation'
+import { useSheet } from '@/store/customSheet'
 
 type Props = {}
 
 function CartSheet({}: Props) {
     const {cart,setCart} = useCart()
     const [loading,setLoading] = React.useState(false)
+    const {sheet,setSheet} = useSheet()
     const params = useParams()
     const checkout = async ()=>{
       setLoading(true);
-
-      for (const { canvas, size, type, quantity,service } of cart) {
+      for (const { image,data,quantity } of cart) {
         try {
-          const url = await handleUploadSticker(quantity, size, type, canvas,service);
+          // const url = await handleUploadSticker(quantity, size, type, canvas,service);
           // Do something with the URL if needed
         } catch (error) {
           // Handle individual upload error if needed
@@ -70,17 +71,15 @@ function CartSheet({}: Props) {
           }
             { 
                 cart.map((item,i)=>{
-                     const Canvas=item.canvas
                     return (
                         <div key={i} className='flex gap-6 items-center border rounded-md p-4 bg-white shadow-sm'>
-                            <Image width={60} height={60} alt="" src={item.image} className='w-14 h-14 object-contain rounded'  />
+                            <Image width={60} height={60} alt="" src={item.image as string} className='w-14 h-14 object-contain rounded'  />
                             <div >
-                                <div className='font-bold text-md '>{item.service} | {item.type}</div>
-                                <div>size : {item.size} {item.service=="stickers"?"cm":""}</div>
+                                <div className='text-lg '>{item.data.type}</div>
                                 <div className=''> {item.quantity} item{item.quantity>1?'s':''}</div>
                             </div>
                             <div className='ml-auto p-2 text-lg'>
-                              <Button size="icon" variant={"secondary"} onClick={()=>{setCart(cart.filter((c,_i)=>i!==_i))}}><X/></Button>
+                              <Button size="icon" onClick={()=>{setCart(cart.filter((c,_i)=>i!==_i))}}><X/></Button>
                             </div>
                         </div>
                     )

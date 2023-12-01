@@ -4,15 +4,51 @@ import { ShoppingBagIcon, ShoppingBasket } from 'lucide-react'
 import { useSheet } from '@/store/customSheet'
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
 import { Label } from '../ui/label'
+import { useCart } from '@/store/cart'
+import { sizes } from '@/constant/sizesAndQ'
 
 type Props = {}
 
 function CheckOutBar({}: Props) {
-    const {sheet,setSheet,sheetQuantity,setSheetQuantity} = useSheet()
+    const {sheet,process,setSheet,sheetQuantity,setSheetQuantity} = useSheet()
+    const {addToCart} = useCart()
+
+
+
+  // adding the sheet to cart
+
+  const handleAddToCart = () => {
+    addToCart({
+      quantity:sheetQuantity,
+      image:sheet[0].image as string,
+      data:{
+            type:'custom sheet',
+            data:process.map(item => {
+              return ({
+                x: item.x,
+                y: item.y,
+                image: item.image as string,
+                width: item.width,
+                height: item.height,
+                type: item.item.type,
+                radius: item.item.radius,
+                id: item.item.id,
+                size: item.item.size
+              })
+            }),
+      }
+    }) 
+    console.log(process)
+  }
+
+
+
+
+
   return (
     <div className=" h-full overflow-auto flex-1  relative">
         <div className="p-3 flex mb-4 justify-between items-center text-xl mt-10 z-20 shadow-xl shadow-[#33333307] sticky top-0 bg-white border-b">
-            <h2>Checkout</h2>
+            <h2 className='capitalize'>About order</h2>
         </div>
         <div className='p-3 space-y-4'>
             <h2 className='text-5xl'>Yaay!</h2>
@@ -37,7 +73,7 @@ function CheckOutBar({}: Props) {
 
             <div className='flex items-center gap-2 justify-between'>
                 <h2 className='text-2xl capitalize'>{sheetQuantity*25} dh</h2>
-                <Button disabled={!(sheet.length>0)} className='sticky bottom-0' size="lg">Add to cart <ShoppingBasket/></Button>
+                <Button onClick={handleAddToCart} disabled={!(sheet.length>0)} className='sticky bottom-0' size="lg">Add to cart <ShoppingBasket/></Button>
             </div>
         </div>
     </div>

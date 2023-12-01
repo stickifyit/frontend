@@ -10,6 +10,7 @@ export type PlacedElement = {
   image: string | StaticImport;
   fileType: "upload" | "url";
   file: File;
+  item:SheetItem
 };
 
 function fitContainer(
@@ -74,6 +75,7 @@ function addElement(
       id: buckets[i - 1].id,
       fileType: buckets[i - 1].fileType,
       file: buckets[i - 1].file as File,
+      item: buckets[i - 1]
     });
     return;
   }
@@ -98,6 +100,7 @@ function addElement(
     id: buckets[i].id,
     fileType: buckets[i].fileType,
     file: buckets[i].file as File,
+    item: buckets[i]
   });
 
   const nextIndex = i + 1;
