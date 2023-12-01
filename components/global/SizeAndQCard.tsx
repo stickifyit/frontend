@@ -15,7 +15,7 @@ import { productsSizes, qs, sizes } from '@/constant/sizesAndQ';
 import { useSizeAndQ } from '@/store/sizeAndQ';
 import { useCanvasProps } from '@/store/canvasProps';
 import { handleUpload, handleUploadSticker } from '@/lib/uploadImage';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import {
   Select,
@@ -30,6 +30,7 @@ import { handleDraw } from '@/lib/canvas';
 import { ToastAction } from '../ui/toast';
 import { Product, getProductInfo } from '@/constant/allProductControlers';
 import { Stick } from 'next/font/google';
+import { useSheet } from '@/store/customSheet';
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
@@ -39,36 +40,54 @@ const SizeAndQCard = (props: Props) => {
     const [loading,setLoading] = React.useState(false)
     const {addToCart} = useCart() 
     const [product,setProduct] = React.useState<Product|null>()
+    const {sheet,setSheet} = useSheet()
+    const route = useRouter()
 
   const handelAddToCart =async()=>{
-    setLoading(true)
-      if(!image||!color||!q||!size) return setLoading(false)
-      const type= params.product
-      try {
-      const canvas = await handleDraw(params as any,image,type as string,radius,color,2)
+    // setLoading(true)
+    //   if(!image||!color||!q||!size) return setLoading(false)
+    //   const type= params.product
+    //   try {
+    //   const canvas = await handleDraw(params as any,image,type as string,radius,color,2)
 
-      addToCart({
-        canvas,
-        image:image,
-        radius,
+    //   addToCart({
+      //   canvas,
+      //   image:image,
+      //   radius,
+      //   color,
+      //   quantity:q,
+      //   size,
+      //   service:params.service as string,
+      //   type:params.product as string
+      // })
+      // toast({
+      //   title: "Item Added",
+      //   description: 'Your item has been added to the cart.',
+      //   action: (
+      //     <ToastAction altText="Try again">close</ToastAction>
+      //   ),
+      //   dir: "bottom-center",
+      // })
+      // setLoading(false)
+      // } catch (error) {
+      //   console.log(error)
+      // }
+      const _size = Number(size.split("x")[0]) as number
+      const _type = params.product as string
+      const _height = _type == "rect"|| _type == "oval" ?  (_size*2)/3 : _type == "bumper" ? (_size)/3 : _size
+      const _q = Math.floor( 18 / _size ) * Math.floor(28 / _height)
+      setSheet([{
+        fileType:"upload",
+        type:(params.product as string).replace("-"," "),
+        size:_size ,
         color,
-        quantity:q,
-        size,
-        service:params.service as string,
-        type:params.product as string
-      })
-      toast({
-        title: "Item Added",
-        description: 'Your item has been added to the cart.',
-        action: (
-          <ToastAction altText="Try again">close</ToastAction>
-        ),
-        dir: "bottom-center",
-      })
-      setLoading(false)
-      } catch (error) {
-        console.log(error)
-      }
+        radius,
+        id:Math.random() + " x " + Math.random(),
+        quantity:_q,
+        image:image as string , 
+        file : file as File
+      }])
+      route.push("/mysheet")
   }
 
   useEffect(()=>{

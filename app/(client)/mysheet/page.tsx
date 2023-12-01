@@ -19,7 +19,7 @@ export default function Page({}: Props) {
         selected: selectedStickers,
     } = useSheet()
     const [w,setW] = React.useState(1)
-    const [selected , setSelected] = React.useState<number|null>(null)
+    const [selected , setSelected] = React.useState<number|null>(0)
     const [windowWidth, setWindowWidth] = React.useState(1);
 
 
@@ -98,7 +98,6 @@ export default function Page({}: Props) {
         <div  style={{top:NavbarHight,height: 'calc(100vh - '+NavbarHight+')'}} className=' bg-white flex border-r sticky overflow-y-auto'>
             <CustomSheetNavBar {...{selected,setSelected}}/>
             {
-                selected !== null &&
                 <div className='w-[400px]'>
                     <CustomSheetNavMore {...{selected,setSelected}}/>
                 </div>
@@ -132,7 +131,7 @@ export default function Page({}: Props) {
                     onDragOver={handleDragOver}  
                     onClick={() => {setSelectedSticker([])}} 
                     ref={sheetRef} 
-                    className='select-none border relative  mx-auto rounded-xl bg-white aspect-[20/30]'>
+                    className='select-none border relative  mx-auto rounded-xl bg-white aspect-[18/28]'>
                     <RenderSheet w={w}/>
                 </div>
                 </div>
