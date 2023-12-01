@@ -9,6 +9,8 @@ export type SheetItem = {
     image: string | StaticImport,
     type: string,
     size: number,
+    width?: number,
+    height?: number,
     color?: string,
     radius?: number,
     id: string,

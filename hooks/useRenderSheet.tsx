@@ -25,7 +25,10 @@ export default function RenderSheet({w}: Props) {
         const  flat:SheetItem[] = []
         sheet.forEach((item,i) => {
             for(let i=0;i<item.quantity;i++){
-                flat.push({...item,quantity:1,size:item.size*w/20-1,fileType: item.fileType})
+                const width = (item.size*w/20)-1
+                const height = item.type == "rect" ?  (item.size*(w*(2/3))/20 )-1 : item.type == "bumper" ?(item.size*(w*(1/3))/20 )-1 : ((item.size*w/20)-1)
+
+                flat.push({...item,quantity:1,width,height,fileType: item.fileType})
             }
         })
         setFinalSheet(flat)
@@ -51,7 +54,8 @@ export default function RenderSheet({w}: Props) {
         <Image width={300} height={300} src={ item.image  } 
             alt="" 
             draggable={false}
-            className={'w-full hover:scale-105 aspect-square object-contain  border cursor-pointer rounded-md duration-200 p-2'+ (selected.includes(item.id)? " z-10 outline  outline-secondary":"")} />
+            style={{padding: (w*.1)/20 + "px"}}
+            className={'w-full hover:scale-105 h-full object-contain  border cursor-pointer rounded-md duration-200 '+ (selected.includes(item.id)? " z-10 outline  outline-secondary":"")} />
     </div>)
     )
 }
