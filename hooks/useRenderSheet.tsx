@@ -59,7 +59,7 @@ export default function RenderSheet({w}: Props) {
             alt="" 
             draggable={false}
             style={{padding: (w*.1)/20 + "px"}}
-            className={'w-full h-full object-contain  cursor-pointer rounded-md duration-200 '+ (selected.includes(item.id)? " z-10 outline  outline-secondary":"")} />
+            className={'w-full circle h-full object-contain  cursor-pointer rounded-md duration-200 border'+ (selected.includes(item.id)? " z-10   border-secondary":"")} />
     </motion.div>)
     )
 }
