@@ -1,4 +1,4 @@
-import { LayoutPanelTop, Shapes, Upload } from 'lucide-react'
+import { Check, CheckCircle, LayoutPanelTop, Shapes, Upload } from 'lucide-react'
 import React from 'react'
 import { Button } from '../ui/button'
 
@@ -9,6 +9,10 @@ type Props = {
 
 const iconSize = 28
 const navButtons = [
+    {
+        name:"checkout",
+        icon: <CheckCircle size={iconSize}/>
+    },
     {
         name:"layout",
         icon:<LayoutPanelTop  size={iconSize}/>,

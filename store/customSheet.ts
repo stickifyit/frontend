@@ -31,6 +31,9 @@ export type State = {
     setSheet: (sheet:SheetItem[]) => void,
     update: (id:string,props:  SheetItem) => void
 
+    sheetQuantity : number
+    setSheetQuantity : (quantity: number) => void
+
 
     process : PlacedElement[]
     setProcess : (a:PlacedElement[]) => void;
@@ -46,6 +49,9 @@ export const useSheet = create<State>((set) => ({
 
     uploads:[],
     setUpload: (uploads: UploadType[]) => set({ uploads }),
+
+    sheetQuantity : 1,
+    setSheetQuantity : (quantity: number) => set({ sheetQuantity : quantity }),
 
     sheet : [],
     setSheet: (sheet:SheetItem[]) => set({ sheet }),

@@ -40,7 +40,7 @@ const SizeAndQCard = (props: Props) => {
     const [loading,setLoading] = React.useState(false)
     const {addToCart} = useCart() 
     const [product,setProduct] = React.useState<Product|null>()
-    const {sheet,setSheet} = useSheet()
+    const {sheet,setSheet,setSheetQuantity} = useSheet()
     const route = useRouter()
 
   const handelAddToCart =async()=>{
@@ -88,6 +88,7 @@ const SizeAndQCard = (props: Props) => {
         file : file as File
       }])
       route.push("/mysheet")
+      setSheetQuantity(q)
   }
 
   useEffect(()=>{
@@ -121,30 +122,36 @@ const SizeAndQCard = (props: Props) => {
             </Select>
 
             </div>
-            <CardTitle  className='font-thin'>Select a quantity</CardTitle>
-            <div className="my-6">
-              <RadioGroup value={String(q)} onValueChange={e=>setQ(Number(e))}>
-                {
-                new Array(5).fill(0)
-                .map((_,q) => (
-                  <div key={q} className="flex items-center space-x-2">
-                    <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
-                    <Label className="flex w-full" htmlFor={`option-${q+1}`}>
-                      <div className="flex-[2]">{(product?.quantities[product.sizes.indexOf(size)]??0)*(q+1)} {
-                        params?.service === "stickers" ?  "sticker": "t-shirt"
-                      }</div>
-                      <div className="flex-[1]">{(q+1) * 40}Dh</div>
-                      <div className="text-green-700 flex-[1] justify-end flex">
-                        {14}%
-                      </div>
-                    </Label>
+
+            {
+              params?.service !== "stickers" &&
+            <div>
+                  <CardTitle  className='font-thin'>Select a quantity</CardTitle>
+                  <div className="my-6">
+                    <RadioGroup value={String(q)} onValueChange={e=>setQ(Number(e))}>
+                      {
+                      new Array(5).fill(0)
+                      .map((_,q) => (
+                        <div key={q} className="flex items-center space-x-2">
+                          <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
+                          <Label className="flex w-full" htmlFor={`option-${q+1}`}>
+                            <div className="flex-[2]">{(product?.quantities[product.sizes.indexOf(size)]??0)*(q+1)} {
+                              params?.service === "stickers" ?  "sticker": "t-shirt"
+                            }</div>
+                            <div className="flex-[1]">{(q+1) * 25}Dh</div>
+                            <div className="text-green-700 flex-[1] justify-end flex">
+                              {14}%
+                            </div>
+                          </Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
                   </div>
-                ))}
-              </RadioGroup>
             </div>
+            }
             <Button variant={"secondary"} disabled={!image||loading} onClick={handelAddToCart} size="lg" className="w-full">
               {
-                loading? "Uploading..." : "Add to cart"
+                loading? "Uploading..." : "Continue"
               }
             </Button>
           </CardContent>

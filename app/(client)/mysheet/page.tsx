@@ -125,13 +125,13 @@ export default function Page({}: Props) {
                 <div
                     style={{padding:(w/20)+"px"}}
                     className=' shadow-2xl rounded-[1rem] bg-slate-100 border '
+                    onClick={() => {setSelectedSticker([])}} 
                 >
                 <div       
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}  
-                    onClick={() => {setSelectedSticker([])}} 
                     ref={sheetRef} 
-                    className='select-none border relative  mx-auto rounded-xl bg-white aspect-[18/28]'>
+                    className='select-none  relative  mx-auto rounded-xl bg-slate-100 aspect-[18/28]'>
                     <RenderSheet w={w}/>
                 </div>
                 </div>
