@@ -24,9 +24,6 @@ function fitContainer(
   const container = initializeContainer(containerWidth, containerHeight);
   const placedElements: PlacedElement[] = [];
 
-  console.log(buckets);
-
-
   // Calculate the number of stickers that can fit horizontally
   const stickersPerRow = Math.floor(
     containerWidth / (sortedBuckets[0].width?? 1 + margin)

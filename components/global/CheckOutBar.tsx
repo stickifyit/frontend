@@ -27,9 +27,9 @@ function CheckOutBar({}: Props) {
                     <Label className="flex w-full" htmlFor={`option-${q+1}`}>
                       <div className="flex-[1]">{q+1} Sheet</div>
                       <div className="flex-[1]">{(q+1) * 25}Dh</div>
-                      <div className="text-green-700 flex-[1] justify-end flex">
+                      {/* <div className="text-green-700 flex-[1] justify-end flex">
                         {14}%
-                      </div>
+                      </div> */}
                     </Label>
                   </div>
                 ))}
