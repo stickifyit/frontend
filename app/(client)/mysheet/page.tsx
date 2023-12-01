@@ -104,7 +104,7 @@ export default function Page({}: Props) {
                 </div>
             }
         </div>
-        <div className=' aspect-[20/30] container  h-full flex-1 overflow-auto  m-auto relative px-10 '>
+        <div className=' aspect-[20/30] max-w-[800px]  h-full flex-1 overflow-auto  m-auto relative px-10 '>
             <div className='h-[50px] mt-4 w-full opacity-60 left-[0] sticky  mx-auto top-[0px]   z-20 flex   justify-between'>
                 {
                 new Array(21).fill(0).map((_,q) => (
