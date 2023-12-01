@@ -30,7 +30,7 @@ export default function CustomSheetNavBar({selected,setSelected}: Props) {
         {
             navButtons.map((button,i) => {
                 return (
-                    <Button onClick={()=>{setSelected(i===selected?null:i)}} className='w-20 h-20 flex flex-col gap-2 items-center justify-center text-xs' key={button.name} variant={i===selected?"secondary":"outline"} size={"icon"}>
+                    <Button onClick={()=>{setSelected(i)}} className='w-20 h-20 flex flex-col gap-2 items-center justify-center text-xs' key={button.name} variant={i===selected?"secondary":"outline"} size={"icon"}>
                         {button.icon}
                         {button.name}
                     </Button>
