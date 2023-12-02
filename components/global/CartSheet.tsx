@@ -32,12 +32,17 @@ function CartSheet({}: Props) {
     const params = useParams()
     const checkout = async ()=>{
       setLoading(true);
-      const order = "655defd34fa27b12da2792f6"
+      axios.post<any>("/orders/create", {
+        customerId: Math.random()+"",
+        number: ""+Math.random(),
+        fullName: "John Doe",
+        address: "123 Main Street",
+      }).then((res:any)=>{
       cart.forEach((item)=>{
         if(item.data.type==="custom sheet"){
           for (let i = 0; i < item.quantity; i++) {
             axios.post("/custom-sheet/create", {
-              orderId: order,
+              orderId: res.data?._id??"",
               items: item.data.data.map((s)=>{
                 return({
                   x: s.x,
@@ -50,6 +55,7 @@ function CartSheet({}: Props) {
             })
           }
         }
+      })
       })
       toast({
         title: "checkout done",

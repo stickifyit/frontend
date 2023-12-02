@@ -21,6 +21,7 @@ export default function RenderSheet({w}: Props) {
         const margin = 1
         if(sheet.length==0) return setProcess([])
         if(w!==0){
+        setProcess([])
         // flat sheet all quantity = 1 , 
         const  flat:SheetItem[] = []
         sheet.forEach((item,i) => {
@@ -28,13 +29,13 @@ export default function RenderSheet({w}: Props) {
                 const width = (item.size)
                 const height = item.type == "rect"||item.type == "oval" ?  item.size*(2/3) : item.type == "bumper" ?item.size*(1/3) : (item.size)
 
-                flat.push({...item,quantity:1,width,height,fileType: item.fileType})
+                flat.push({...item,id:item.id+" "+i,quantity:1,width,height,size:item.size,fileType: item.fileType})
             }
         })
         setFinalSheet(flat)
-            const Cm = w/sheetW
-            setCm(w/sheetW)
-            setProcess(fitContainer(sheetW,sheetH,flat,margin))
+        const Cm = w/sheetW
+        setCm(w/sheetW)
+        setProcess(fitContainer(sheetW,sheetH,flat,margin))
         }
     },[sheet,w,setProcess])
 
@@ -59,7 +60,7 @@ export default function RenderSheet({w}: Props) {
             alt="" 
             draggable={false}
             style={{padding: (w*.1)/20 + "px"}}
-            className={'w-full circle h-full object-contain  cursor-pointer rounded-md duration-200 border'+ (selected.includes(item.id)? " z-10   border-secondary":"")} />
+            className={'w-full circle h-full object-contain  cursor-pointer rounded-md duration-200 border'+ (selected.includes(item.id.split(" ")[0] as string)? " z-10   border-secondary":"")} />
     </motion.div>)
     )
 }
