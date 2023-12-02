@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
 import { Label } from '../ui/label'
 import { useCart } from '@/store/cart'
 import { sizes } from '@/constant/sizesAndQ'
+import { toast } from '../ui/use-toast'
 
 type Props = {}
 
@@ -39,7 +40,14 @@ function CheckOutBar({}: Props) {
       }
     }) 
     console.log(process)
-    setSheet([])
+    setSheet([]) 
+    toast(
+      {
+        title: "added to cart",
+        description: "your order has been placed",
+        dir: "bottom-center",
+      }
+    ) 
   }
 
 

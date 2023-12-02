@@ -19,7 +19,7 @@ function fitContainer(
   buckets: SheetItem[],
   margin: number
 ) {
-  const sortedBuckets = buckets.sort((a, b) => b.size - a.size);
+  const sortedBuckets = buckets //.sort((a, b) => b.size - a.size);
   const containerWidth = cWidth - 2 * margin;
   const containerHeight = cHeight - 2 * margin;
   const container = initializeContainer(containerWidth, containerHeight);

@@ -21,6 +21,7 @@ import cat from "@/public/cart/cat.png"
 import { useParams } from 'next/navigation'
 import { useSheet } from '@/store/customSheet'
 import {motion} from "framer-motion"
+import axios from '@/lib/axios'
 
 type Props = {}
 
@@ -31,15 +32,25 @@ function CartSheet({}: Props) {
     const params = useParams()
     const checkout = async ()=>{
       setLoading(true);
-      for (const { image,data,quantity } of cart) {
-        try {
-          // const url = await handleUploadSticker(quantity, size, type, canvas,service);
-          // Do something with the URL if needed
-        } catch (error) {
-          // Handle individual upload error if needed
+      const order = "655defd34fa27b12da2792f6"
+      cart.forEach((item)=>{
+        if(item.data.type==="custom sheet"){
+          for (let i = 0; i < item.quantity; i++) {
+            axios.post("/custom-sheet/create", {
+              orderId: order,
+              items: item.data.data.map((s)=>{
+                return({
+                  x: s.x,
+                  y: s.y,
+                  image: s.image as string,
+                  width: s.width,
+                  height: s.height,
+                })
+              }),
+            })
+          }
         }
-      }
-    
+      })
       toast({
         title: "checkout done",
         description: "your order has been placed",
@@ -95,13 +106,13 @@ function CartSheet({}: Props) {
         </div>
         {
           cart.length>0 &&
-            <div className='mt-auto py-6 space-y-4'>
-                <Button onClick={checkout} size={"lg"} className='w-full hover:scale-[1.01] scale-100 duration-200'>
+            <div className='mt-auto py-6 space-y-2'>
+                <Button variant={"secondary"} onClick={checkout} size={"lg"} className='w-full hover:scale-[1.01] scale-100 duration-200'>
                   {
                     loading? "Uploading..." : "Checkout"
                   }
                 </Button>
-                <Button variant={"secondary"} size={"lg"} className='w-full'>
+                <Button variant={"outline"} size={"lg"} className='w-full'>
                   Open Cart
                 </Button>
             </div>
