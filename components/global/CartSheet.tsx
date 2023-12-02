@@ -20,6 +20,7 @@ import socket from '@/lib/socket'
 import cat from "@/public/cart/cat.png"
 import { useParams } from 'next/navigation'
 import { useSheet } from '@/store/customSheet'
+import {motion} from "framer-motion"
 
 type Props = {}
 
@@ -54,7 +55,13 @@ function CartSheet({}: Props) {
   return (
 <Sheet>
   <SheetTrigger asChild>
-                <Button size={"icon"} variant={"outline"}><ShoppingBasket /></Button>
+          <div className='relative'>
+            <Button size={"icon"} variant={"outline"}><ShoppingBasket /></Button>
+            {
+              cart.length>0 &&
+              <motion.div initial={{scale:0}} animate={{scale:1}} className='w-3 h-3 bg-secondary border border-[#3333] rounded-full absolute top-0 right-0'></motion.div>
+            }
+          </div>
   </SheetTrigger>
   <SheetContent>
     <SheetHeader>
@@ -88,11 +95,14 @@ function CartSheet({}: Props) {
         </div>
         {
           cart.length>0 &&
-            <div className='mt-auto py-6'>
+            <div className='mt-auto py-6 space-y-4'>
                 <Button onClick={checkout} size={"lg"} className='w-full hover:scale-[1.01] scale-100 duration-200'>
                   {
                     loading? "Uploading..." : "Checkout"
                   }
+                </Button>
+                <Button variant={"secondary"} size={"lg"} className='w-full'>
+                  Open Cart
                 </Button>
             </div>
         }

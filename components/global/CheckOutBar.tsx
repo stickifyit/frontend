@@ -39,6 +39,7 @@ function CheckOutBar({}: Props) {
       }
     }) 
     console.log(process)
+    setSheet([])
   }
 
 
