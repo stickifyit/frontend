@@ -19,7 +19,6 @@ export type SheetItem = {
 }
 
 export type UploadType= {
-    file:File,
     image: string | StaticImport
 }
 

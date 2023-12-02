@@ -35,7 +35,7 @@ export default function Page({}: Props) {
       droppedFiles.forEach((file) => {
         if(!file.type.startsWith("image")) return
         stickers.push({
-          fileType:"upload",
+          fileType:"url",
           type:"die cut",
           size:3,
           color:"white",
@@ -128,8 +128,8 @@ export default function Page({}: Props) {
                     onClick={() => {setSelectedSticker([])}} 
                 >
                 <div       
-                    onDrop={handleDrop}
-                    onDragOver={handleDragOver}  
+                    // onDrop={handleDrop}
+                    // onDragOver={handleDragOver}  
                     ref={sheetRef} 
                     className='select-none  relative  mx-auto rounded-xl bg-slate-100 aspect-[18/28]'>
                     <RenderSheet w={w}/>
