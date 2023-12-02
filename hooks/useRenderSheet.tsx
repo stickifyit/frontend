@@ -25,8 +25,8 @@ export default function RenderSheet({w}: Props) {
         const  flat:SheetItem[] = []
         sheet.forEach((item,i) => {
             for(let i=0;i<item.quantity;i++){
-                const width = (item.size*w/20)-1
-                const height = item.type == "rect"||item.type == "oval" ?  (item.size*(w*(2/3))/20 )-1 : item.type == "bumper" ?(item.size*(w*(1/3))/20 )-1 : ((item.size*w/20)-1)
+                const width = (item.size)
+                const height = item.type == "rect"||item.type == "oval" ?  item.size*(2/3) : item.type == "bumper" ?item.size*(1/3) : (item.size)
 
                 flat.push({...item,quantity:1,width,height,fileType: item.fileType})
             }
@@ -34,7 +34,7 @@ export default function RenderSheet({w}: Props) {
         setFinalSheet(flat)
             const Cm = w/sheetW
             setCm(w/sheetW)
-            setProcess(fitContainer(sheetW*Cm,sheetH*Cm,flat,margin * Cm))
+            setProcess(fitContainer(sheetW,sheetH,flat,margin))
         }
     },[sheet,w,setProcess])
 
@@ -54,7 +54,7 @@ export default function RenderSheet({w}: Props) {
         }
 
     }
-    } key={i} className={'absolute rounded m-0 '} style={{width:item.width +"px",height:item.height +"px",top:item.y ,left:item.x}}>
+    } key={item.id} className={'absolute duration-300 rounded m-0 '} style={{width:item.width*cm +"px",height:item.height*cm +"px",top:item.y*cm ,left:item.x*cm}}>
         <Image width={300} height={300} src={ item.image  } 
             alt="" 
             draggable={false}

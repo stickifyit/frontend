@@ -10,7 +10,7 @@ import axios from '@/lib/axios';
 type Props = {}
 
 function UploadBar({}: Props) {
-    const {uploads,setUpload,sheet,setSheet} = useSheet()
+    const {uploads,setUpload,process,sheet,setSheet} = useSheet()
     const inputRef = React.useRef<HTMLInputElement | null>(null)
 
     const handleChange = async (e: any) => {
@@ -58,8 +58,8 @@ function UploadBar({}: Props) {
         inputRef?.current?.click()
     }
     useEffect(()=>{
-      console.log(sheet) 
-    },[sheet])
+      console.log(process) 
+    },[process])
   return (
     <div className=" h-full overflow-auto flex-1 relative">
       <div className="p-3 flex mb-4 justify-between items-center text-xl mt-10 z-20 shadow-xl shadow-[#33333307] sticky top-0 bg-white border-b">
