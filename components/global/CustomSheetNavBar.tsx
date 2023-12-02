@@ -1,4 +1,4 @@
-import { LayoutPanelTop, Shapes, Upload } from 'lucide-react'
+import { Check, CheckCircle, LayoutPanelTop, Shapes, Upload } from 'lucide-react'
 import React from 'react'
 import { Button } from '../ui/button'
 
@@ -9,6 +9,10 @@ type Props = {
 
 const iconSize = 28
 const navButtons = [
+    {
+        name:"checkout",
+        icon: <CheckCircle size={iconSize}/>
+    },
     {
         name:"layout",
         icon:<LayoutPanelTop  size={iconSize}/>,
@@ -30,7 +34,7 @@ export default function CustomSheetNavBar({selected,setSelected}: Props) {
         {
             navButtons.map((button,i) => {
                 return (
-                    <Button onClick={()=>{setSelected(i===selected?null:i)}} className='w-20 h-20 flex flex-col gap-2 items-center justify-center text-xs' key={button.name} variant={i===selected?"secondary":"outline"} size={"icon"}>
+                    <Button onClick={()=>{setSelected(i)}} className='w-20 h-20 flex flex-col gap-2 items-center justify-center text-xs' key={button.name} variant={i===selected?"secondary":"outline"} size={"icon"}>
                         {button.icon}
                         {button.name}
                     </Button>

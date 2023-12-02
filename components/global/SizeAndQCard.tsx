@@ -15,7 +15,7 @@ import { productsSizes, qs, sizes } from '@/constant/sizesAndQ';
 import { useSizeAndQ } from '@/store/sizeAndQ';
 import { useCanvasProps } from '@/store/canvasProps';
 import { handleUpload, handleUploadSticker } from '@/lib/uploadImage';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import {
   Select,
@@ -30,6 +30,7 @@ import { handleDraw } from '@/lib/canvas';
 import { ToastAction } from '../ui/toast';
 import { Product, getProductInfo } from '@/constant/allProductControlers';
 import { Stick } from 'next/font/google';
+import { useSheet } from '@/store/customSheet';
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
@@ -39,36 +40,55 @@ const SizeAndQCard = (props: Props) => {
     const [loading,setLoading] = React.useState(false)
     const {addToCart} = useCart() 
     const [product,setProduct] = React.useState<Product|null>()
+    const {sheet,setSheet,setSheetQuantity} = useSheet()
+    const route = useRouter()
 
   const handelAddToCart =async()=>{
-    setLoading(true)
-      if(!image||!color||!q||!size) return setLoading(false)
-      const type= params.product
-      try {
-      const canvas = await handleDraw(params as any,image,type as string,radius,color,2)
+    // setLoading(true)
+    //   if(!image||!color||!q||!size) return setLoading(false)
+    //   const type= params.product
+    //   try {
+    //   const canvas = await handleDraw(params as any,image,type as string,radius,color,2)
 
-      addToCart({
-        canvas,
-        image:image,
-        radius,
+    //   addToCart({
+      //   canvas,
+      //   image:image,
+      //   radius,
+      //   color,
+      //   quantity:q,
+      //   size,
+      //   service:params.service as string,
+      //   type:params.product as string
+      // })
+      // toast({
+      //   title: "Item Added",
+      //   description: 'Your item has been added to the cart.',
+      //   action: (
+      //     <ToastAction altText="Try again">close</ToastAction>
+      //   ),
+      //   dir: "bottom-center",
+      // })
+      // setLoading(false)
+      // } catch (error) {
+      //   console.log(error)
+      // }
+      const _size = Number(size.split("x")[0]) as number
+      const _type = params.product as string
+      const _height = _type == "rect"|| _type == "oval" ?  (_size*2)/3 : _type == "bumper" ? (_size)/3 : _size
+      const _q = Math.floor( 18 / _size ) * Math.floor(28 / _height)
+      setSheet([{
+        fileType:"upload",
+        type:(params.product as string).replace("-"," "),
+        size:_size ,
         color,
-        quantity:q,
-        size,
-        service:params.service as string,
-        type:params.product as string
-      })
-      toast({
-        title: "Item Added",
-        description: 'Your item has been added to the cart.',
-        action: (
-          <ToastAction altText="Try again">close</ToastAction>
-        ),
-        dir: "bottom-center",
-      })
-      setLoading(false)
-      } catch (error) {
-        console.log(error)
-      }
+        radius,
+        id:Math.random() + " x " + Math.random(),
+        quantity:_q,
+        image:image as string , 
+        file : file as File
+      }])
+      route.push("/mysheet")
+      setSheetQuantity(q)
   }
 
   useEffect(()=>{
@@ -81,7 +101,7 @@ const SizeAndQCard = (props: Props) => {
         <Card className="ml-auto h-fit">
           <CardHeader></CardHeader>
           <CardContent className="min-w-[400px] h-fit">
-            <CardTitle>Select a Size</CardTitle>
+            <CardTitle className='font-thin'>Select a Size</CardTitle>
             <div className="my-6">
             <Select value={size} onValueChange={e=>setSize(e)}>
               <SelectTrigger className="w-full">
@@ -102,30 +122,36 @@ const SizeAndQCard = (props: Props) => {
             </Select>
 
             </div>
-            <CardTitle>Select a quantity</CardTitle>
-            <div className="my-6">
-              <RadioGroup value={String(q)} onValueChange={e=>setQ(Number(e))}>
-                {
-                new Array(5).fill(0)
-                .map((_,q) => (
-                  <div key={q} className="flex items-center space-x-2">
-                    <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
-                    <Label className="flex w-full" htmlFor={`option-${q+1}`}>
-                      <div className="flex-[2]">{(product?.quantities[product.sizes.indexOf(size)]??0)*(q+1)} {
-                        params?.service === "stickers" ?  "sticker": "t-shirt"
-                      }</div>
-                      <div className="flex-[1]">{(q+1) * 40}Dh</div>
-                      <div className="text-green-700 flex-[1] justify-end flex">
-                        {14}%
-                      </div>
-                    </Label>
+
+            {
+              params?.service !== "stickers" &&
+            <div>
+                  <CardTitle  className='font-thin'>Select a quantity</CardTitle>
+                  <div className="my-6">
+                    <RadioGroup value={String(q)} onValueChange={e=>setQ(Number(e))}>
+                      {
+                      new Array(5).fill(0)
+                      .map((_,q) => (
+                        <div key={q} className="flex items-center space-x-2">
+                          <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
+                          <Label className="flex w-full" htmlFor={`option-${q+1}`}>
+                            <div className="flex-[2]">{(product?.quantities[product.sizes.indexOf(size)]??0)*(q+1)} {
+                              params?.service === "stickers" ?  "sticker": "t-shirt"
+                            }</div>
+                            <div className="flex-[1]">{(q+1) * 25}Dh</div>
+                            <div className="text-green-700 flex-[1] justify-end flex">
+                              {14}%
+                            </div>
+                          </Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
                   </div>
-                ))}
-              </RadioGroup>
             </div>
+            }
             <Button variant={"secondary"} disabled={!image||loading} onClick={handelAddToCart} size="lg" className="w-full">
               {
-                loading? "Uploading..." : "Add to cart"
+                loading? "Uploading..." : "Continue"
               }
             </Button>
           </CardContent>
