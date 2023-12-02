@@ -37,7 +37,7 @@ const HeroSection = (props: Props) => {
             {
             [
                 {name:"custom stickers",img:HeroLinksImages.Stickers,href:"stickers"},
-                {name:"custom labels",img:HeroLinksImages.Label,href:"labels"},
+                // {name:"custom labels",img:HeroLinksImages.Label,href:"labels"},
                 {name:"custom shirts",img:HeroLinksImages.T_Shirt,href:"t-shirts"},
                 {name:"custom cup",img:HeroLinksImages.Cup,href:"cup"},
             ].map(({name,img,href})=>

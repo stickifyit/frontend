@@ -29,13 +29,13 @@ export default function RenderSheet({w}: Props) {
                 const width = (item.size)
                 const height = item.type == "rect"||item.type == "oval" ?  item.size*(2/3) : item.type == "bumper" ?item.size*(1/3) : (item.size)
 
-                flat.push({...item,id:item.id+" "+i,quantity:1,width,height,size:item.size,fileType: item.fileType})
+                flat.push({...item,id:item.id+" "+i,quantity:1,width:width*100,height:height*100,size:item.size*100,fileType: item.fileType})
             }
         })
         setFinalSheet(flat)
         const Cm = w/sheetW
         setCm(w/sheetW)
-        setProcess(fitContainer(sheetW,sheetH,flat,margin))
+        setProcess(fitContainer(sheetW*100,sheetH*100,flat,margin*100))
         }
     },[sheet,w,setProcess])
 
@@ -55,7 +55,7 @@ export default function RenderSheet({w}: Props) {
         }
 
     }
-    } key={item.id} className={'absolute duration-300 rounded m-0 '} style={{width:item.width*cm +"px",height:item.height*cm +"px",top:item.y*cm ,left:item.x*cm}}>
+    } key={item.id} className={'absolute duration-300 rounded m-0 '} style={{width:item.width*cm/100 +"px",height:item.height*cm/100 +"px",top:item.y*cm/100 ,left:item.x*cm/100}}>
         <Image width={300} height={300} src={ item.image  } 
             alt="" 
             draggable={false}

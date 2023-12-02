@@ -53,7 +53,7 @@ export default function CustomSheetItemCard({item}: Props) {
                     <input type='range' className='w-full' value={item.size} onChange={(e:any)=>update(item.id,{...item,size:e.target.value as number})} step={.5} min={2} max={9}/>
                 </PopoverContent>
             </Popover>
-            <Select value={item.type} onValueChange={(value) => update(item.id,{...item,type:value})}>
+            {/* <Select value={item.type} onValueChange={(value) => update(item.id,{...item,type:value})}>
             <SelectTrigger className="flex-1">
                 <SelectValue placeholder="type" />
             </SelectTrigger>
@@ -68,7 +68,7 @@ export default function CustomSheetItemCard({item}: Props) {
                 <SelectItem value= 'oval'>oval</SelectItem>
                 
             </SelectContent>
-            </Select>
+            </Select> */}
 
             <Popover>
                 <PopoverTrigger asChild>
