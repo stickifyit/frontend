@@ -92,7 +92,7 @@ const Page = (props: Props) => {
                                 <div className='bg-white border flex-col rounded-xl p-6 flex items-center justify-center'>
                                     <h1 className='mb-2 text-lg w-full'>Center Chest</h1>
                                     <div className='flex-1 flex justify-center items-center'>
-                                        <div className='relative'>
+                                        <div className='relative -rotate-5'>
                                             <Image alt='' className='w-full drop-shadow-xl' width={300} height={300}  src={TShirt}></Image>
                                             <Image alt='' className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-80%]' width={60} height={60} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
                                         </div>
@@ -105,7 +105,7 @@ const Page = (props: Props) => {
                                 <div className='bg-white border flex-col rounded-xl p-6 flex items-center justify-center'>
                                     <h1 className='mb-2 text-lg w-full'>Left Chest</h1>
                                     <div className='flex-1 flex justify-center items-center'>
-                                        <div className='relative'>
+                                        <div className='relative -rotate-5'>
                                             <Image alt='' className='w-full drop-shadow-xl' width={300} height={300}  src={TShirt}></Image>
                                             <Image alt='' className='absolute top-[25%] right-[30%]' width={30} height={30} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
                                         </div>
