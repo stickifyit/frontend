@@ -15,19 +15,19 @@ function Page({}: Props) {
   return (
     <div className=' container h-[calc(100vh-100px)]'>
         <div className='relative flex h-full px-4 overflow-auto gap-12 '>
-                <div className='flex flex-1 mt-12 flex-col gap-2 py-8 max-w-2xl'>
-                <h1 className='text-7xl '>Cart</h1>
+                <div className='flex flex-1 mt-12 flex-col gap-2 py-8 max-w-2xl '>
+                <h1 className='text-7xl bg-slate-50 p-4 pt-10 sticky top-0 z-10 rounded-b-2xl'>Cart</h1>
                 { 
                         cart.map((item,i)=>{
                             return (
                                 <div key={i} className='flex gap-6 items-center border rounded-md p-4 bg-white shadow-sm'>
-                                    <Image width={60} height={60} alt="" src={item.image as string} className='w-14 h-14 object-contain rounded'  />
+                                    <Image width={100} height={100} alt="" src={item.image as string} className='w-24 drop-shadow-xl -rotate-3 h-24 object-contain rounded'  />
                                     <div >
                                         <div className='text-lg '>{item.data.type}</div>
                                         <div className=''> {item.quantity} item{item.quantity>1?'s':''}</div>
                                     </div>
                                     <div className='ml-auto p-2 text-lg'>
-                                    <Button size="icon" onClick={()=>{setCart(cart.filter((c,_i)=>i!==_i))}}><X/></Button>
+                                    <Button size="icon" variant={"outline"} onClick={()=>{setCart(cart.filter((c,_i)=>i!==_i))}}><X/></Button>
                                     </div>
                                 </div>
                             )

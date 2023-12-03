@@ -8,11 +8,13 @@ import { useCart } from '@/store/cart'
 import { sizes } from '@/constant/sizesAndQ'
 import { toast } from '../ui/use-toast'
 import { sheetPricing } from '@/constant/pricing'
+import { useRouter } from 'next/navigation'
 
 type Props = {}
 
 function CheckOutBar({}: Props) {
     const {sheet,process,setSheet,sheetQuantity,setSheetQuantity} = useSheet()
+    const router = useRouter()
     const {addToCart} = useCart()
 
 
@@ -49,6 +51,7 @@ function CheckOutBar({}: Props) {
         dir: "bottom-center",
       }
     ) 
+    router.push("/cart")
   }
 
 
