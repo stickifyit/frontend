@@ -2,6 +2,7 @@
 import React from 'react'
 import {
     Sheet,
+    SheetClose,
     SheetContent,
     SheetDescription,
     SheetHeader,
@@ -119,11 +120,13 @@ function CartSheet({}: Props) {
                     loading? "Uploading..." : "Checkout"
                   }
                 </Button> */}
+                <SheetClose asChild>
                 <Link  href={"/cart"} className='block'>
                 <Button variant={"secondary"} size={"lg"} className='w-full'>
                   Open Cart
                 </Button>
                 </Link>
+                </SheetClose>
             </div>
         }
       </SheetDescription>
