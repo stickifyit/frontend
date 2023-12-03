@@ -21,20 +21,21 @@ export default function RenderSheet({w}: Props) {
         const margin = 1
         if(sheet.length==0) return setProcess([])
         if(w!==0){
+        setProcess([])
         // flat sheet all quantity = 1 , 
         const  flat:SheetItem[] = []
         sheet.forEach((item,i) => {
             for(let i=0;i<item.quantity;i++){
-                const width = (item.size*w/20)-1
-                const height = item.type == "rect"||item.type == "oval" ?  (item.size*(w*(2/3))/20 )-1 : item.type == "bumper" ?(item.size*(w*(1/3))/20 )-1 : ((item.size*w/20)-1)
+                const width = (item.size)
+                const height = item.type == "rect"||item.type == "oval" ?  item.size*(2/3) : item.type == "bumper" ?item.size*(1/3) : (item.size)
 
-                flat.push({...item,quantity:1,width,height,fileType: item.fileType})
+                flat.push({...item,id:item.id+" "+i,quantity:1,width:width*100,height:height*100,size:item.size*100,fileType: item.fileType})
             }
         })
         setFinalSheet(flat)
-            const Cm = w/sheetW
-            setCm(w/sheetW)
-            setProcess(fitContainer(sheetW*Cm,sheetH*Cm,flat,margin * Cm))
+        const Cm = w/sheetW
+        setCm(w/sheetW)
+        setProcess(fitContainer(sheetW*100,sheetH*100,flat,margin*100))
         }
     },[sheet,w,setProcess])
 
@@ -54,12 +55,12 @@ export default function RenderSheet({w}: Props) {
         }
 
     }
-    } key={i} className={'absolute rounded m-0 '} style={{width:item.width +"px",height:item.height +"px",top:item.y ,left:item.x}}>
+    } key={item.id} className={'absolute duration-300 rounded m-0 '} style={{width:item.width*cm/100 +"px",height:item.height*cm/100 +"px",top:item.y*cm/100 ,left:item.x*cm/100}}>
         <Image width={300} height={300} src={ item.image  } 
             alt="" 
             draggable={false}
             style={{padding: (w*.1)/20 + "px"}}
-            className={'w-full circle h-full object-contain  cursor-pointer rounded-md duration-200 border'+ (selected.includes(item.id)? " z-10   border-secondary":"")} />
+            className={'w-full circle h-full object-contain  cursor-pointer rounded-md duration-200 border'+ (selected.includes(item.id.split(" ")[0] as string)? " z-10   border-secondary":"")} />
     </motion.div>)
     )
 }

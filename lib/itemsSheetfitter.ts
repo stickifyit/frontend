@@ -10,22 +10,21 @@ export type PlacedElement = {
   image: string | StaticImport;
   fileType: "upload" | "url";
   file: File;
+  item:SheetItem
 };
 
 function fitContainer(
   cWidth: number,
   cHeight: number,
   buckets: SheetItem[],
+
   margin: number
 ) {
-  const sortedBuckets = buckets.sort((a, b) => b.size - a.size);
+  const sortedBuckets = buckets //.sort((a, b) => b.size - a.size);
   const containerWidth = cWidth - 2 * margin;
   const containerHeight = cHeight - 2 * margin;
   const container = initializeContainer(containerWidth, containerHeight);
   const placedElements: PlacedElement[] = [];
-
-  console.log(buckets);
-
 
   // Calculate the number of stickers that can fit horizontally
   const stickersPerRow = Math.floor(
@@ -77,6 +76,7 @@ function addElement(
       id: buckets[i - 1].id,
       fileType: buckets[i - 1].fileType,
       file: buckets[i - 1].file as File,
+      item: buckets[i - 1]
     });
     return;
   }
@@ -101,6 +101,7 @@ function addElement(
     id: buckets[i].id,
     fileType: buckets[i].fileType,
     file: buckets[i].file as File,
+    item: buckets[i]
   });
 
   const nextIndex = i + 1;

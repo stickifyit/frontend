@@ -14,12 +14,9 @@ export type SheetItem = {
     color?: string,
     radius?: number,
     id: string,
-    
-
 }
 
 export type UploadType= {
-    file:File,
     image: string | StaticImport
 }
 

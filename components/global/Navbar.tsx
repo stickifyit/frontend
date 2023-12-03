@@ -25,7 +25,7 @@ const Navbar = (props: Props) => {
                 {/* <Link href={"/mysheet"}>
                 <Button className='uppercase flex gap-2' variant={"secondary"}>my bag<Backpack size={16}/></Button>
                 </Link> */}
-                <Button className='uppercase flex gap-2'>Login<ArrowRight size={16}/></Button>
+                {/* <Button className='uppercase flex gap-2'>Login<ArrowRight size={16}/></Button> */}
             </div>
         </div>
     </div>
