@@ -19,10 +19,11 @@ import { useQuery } from 'react-query'
 import { getStickerSheet } from '@/utils/stickersSheet'
 import { useParams } from 'next/navigation'
 import { useCart } from '@/store/cart'
+import { sheetPricing } from '@/constant/pricing'
 type Props = {}
 
 export default function Page({}: Props) {
-    const [sheetQuantity,setSheetQuantity] = React.useState(2)
+    const [sheetQuantity,setSheetQuantity] = React.useState(3)
     const param = useParams()
     const {data:sheetInfo,isLoading} = useQuery("fetchSheet",()=>getStickerSheet((param.sheetId as string).replaceAll("-"," "))) 
     const [added,setAdded] = React.useState(false);
@@ -84,13 +85,13 @@ export default function Page({}: Props) {
                         <p className='text-2xl'>Quantity :</p>
                         <RadioGroup value={String(sheetQuantity)} onValueChange={e=>setSheetQuantity(Number(e))}>
                         {
-                        new Array(5).fill(0)
+                        new Array(6).fill(0)
                         .map((_,q) => (
                             <div key={q} className="flex items-center space-x-2">
                             <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
                             <Label className="flex w-full" htmlFor={`option-${q+1}`}>
                                 <div className="flex-[1] text-lg">{q+1} Sheet</div>
-                                <div className="flex-[1] text-lg">{(q+1) * 25}Dh</div>
+                                <div className="flex-[1] text-lg">{sheetPricing[q]} Dh</div>
                                 {/* <div className="text-green-700 flex-[1] justify-end flex">
                                 {14}%
                                 </div> */}
@@ -98,8 +99,9 @@ export default function Page({}: Props) {
                             </div>
                         ))}
                         </RadioGroup>
-                        <div className='flex gap-4 justify-start mt-6'>
-                            <Button onClick={handleAddToCart} size="lg" variant={"secondary"} className='w-full max-w-xl'>
+                        <div className='flex gap-8 items-center justify-between mt-12'>
+                            <h1 className='text-4xl'>{sheetPricing[sheetQuantity-1]} Dh</h1>
+                            <Button onClick={handleAddToCart} size="lg" variant={"secondary"} className=' w-lg'>
                                 {
                                     added ?
                                     "sheets Added"

@@ -22,6 +22,7 @@ import { useParams } from 'next/navigation'
 import { useSheet } from '@/store/customSheet'
 import {motion} from "framer-motion"
 import axios from '@/lib/axios'
+import Link from 'next/link'
 
 type Props = {}
 
@@ -113,14 +114,16 @@ function CartSheet({}: Props) {
         {
           cart.length>0 &&
             <div className='mt-auto py-6 space-y-2'>
-                <Button variant={"secondary"} onClick={checkout} size={"lg"} className='w-full hover:scale-[1.01] scale-100 duration-200'>
+                {/* <Button variant={"secondary"} onClick={checkout} size={"lg"} className='w-full hover:scale-[1.01] scale-100 duration-200'>
                   {
                     loading? "Uploading..." : "Checkout"
                   }
-                </Button>
-                <Button variant={"outline"} size={"lg"} className='w-full'>
+                </Button> */}
+                <Link  href={"/cart"} className='block'>
+                <Button variant={"secondary"} size={"lg"} className='w-full'>
                   Open Cart
                 </Button>
+                </Link>
             </div>
         }
       </SheetDescription>

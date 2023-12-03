@@ -46,7 +46,28 @@ const Page = (props: Props) => {
             </div>
           </div>
       </div>
-      <StickerSheetsList/>
+{
+
+            // bumper , circle , die-cut , oval , rect , rounded , sheets , square
+            params?.service == "stickers" ?
+            <StickerSheetsList/>:
+
+      <div>
+        <div className='container flex justify-between items-center'>
+              <h1 className='text-5xl opacity-70'>Products</h1>
+        </div>
+        <div className='container mx-auto grid grid-cols-4 gap-6 mt-4 p-6'>
+          {
+            getProductsByService(params?.service as string)?.map((item, index) => (
+              <Link href={item.href} key={index} className=' p-4 rounded-2xl border bg-gray-100 flex flex-col items-center justify-center hover:bg-slate-200 hover:scale-105 duration-300'>
+                <Image src={item.img} alt={item.name} width={250}/>
+                <h3 className='text-xl capitalize text-center'>{item.name}</h3>
+              </Link>
+            ))
+          }
+        </div>
+      </div>
+}
     </div>
   )
 }

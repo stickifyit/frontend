@@ -7,6 +7,7 @@ import { Label } from '../ui/label'
 import { useCart } from '@/store/cart'
 import { sizes } from '@/constant/sizesAndQ'
 import { toast } from '../ui/use-toast'
+import { sheetPricing } from '@/constant/pricing'
 
 type Props = {}
 
@@ -67,13 +68,13 @@ function CheckOutBar({}: Props) {
 
                   <RadioGroup value={String(sheetQuantity)} onValueChange={e=>setSheetQuantity(Number(e))}>
                     {
-                    new Array(5).fill(0)
+                    new Array(6).fill(0)
                     .map((_,q) => (
                       <div key={q} className="flex items-center space-x-2">
                         <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
                         <Label className="flex w-full" htmlFor={`option-${q+1}`}>
                           <div className="flex-[1]">{q+1} Sheet</div>
-                          <div className="flex-[1]">{(q+1) * 25}Dh</div>
+                          <div className="flex-[1]">{sheetPricing[q]} Dh</div>
                           {/* <div className="text-green-700 flex-[1] justify-end flex">
                             {14}%
                           </div> */}

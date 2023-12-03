@@ -75,7 +75,7 @@ const StickerDialog = ({item}: Props) => {
         <Card className={'w-full rounded-xl relative cursor-pointer overflow-hidden duration-150  '}>
             <Image src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" width={200} height={200} className='aspect-square drop-shadow-lg w-full  object-cover p-4'/>
             <div className='p-3 text-center'>
-                <h3 className='text-center font-semibold'>{item.name}</h3>
+                <h3 className='text-center'>{item.name}</h3>
             </div>
         </Card>
   </DialogTrigger>
