@@ -2,7 +2,7 @@ import create from "zustand";
 
 
 
-export type SheetTypeItem = {
+export type CustomSheetTypeItem = {
     type:"custom sheet",
     data:{
         x: number,
@@ -18,10 +18,17 @@ export type SheetTypeItem = {
     }[]
 }
 
+export type SheetTypeItem ={
+    type:"sheet",
+    data:{
+        sheetId : string
+    }
+}
+
 export type CartItem ={
     quantity: number,
     image: string|[string],
-    data: SheetTypeItem
+    data: CustomSheetTypeItem | SheetTypeItem
 }
 
 type State = {

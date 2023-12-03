@@ -55,7 +55,8 @@ const Page = (props: Props) => {
       <div className='container mx-auto grid grid-cols-5 gap-6 mt-4 p-6'>
         {
           new Array(15).fill(0).map((item, index) => (
-              <Card key={index} className='w-full rounded-xl shadow-lg overflow-hidden'>
+            <Link href={"/sheet/1"} key={index}>
+              <Card className='w-full rounded-xl shadow-lg overflow-hidden'>
                 <Image width={400} height={600} className='w-full aspect-[2/3]' src={[testSheet,testSheet2,testSheet3][index % 3]} alt="" />
                 <div className='p-2 px-4 items-center flex justify-between'>
                   <div>
@@ -67,6 +68,7 @@ const Page = (props: Props) => {
                   </Button>
                 </div>
               </Card>
+            </Link>
           ))
         }
           {
