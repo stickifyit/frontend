@@ -16,21 +16,20 @@ import {motion} from "framer-motion"
 type Props = {}
 
 export default function Page({}: Props) {
-    const [sheetQuantity,setSheetQuantity] = React.useState(1)
+    const [sheetQuantity,setSheetQuantity] = React.useState(2)
   return (
     <div>
     <div className='max-w-6xl mx-auto min-h-screen py-8'>
         <div className='flex py-8 gap-8 relative '>
             <div className='flex-[2] relative'>
-                <Image width={500}  src={sheet} alt="" className=' flex-[2] opacity-0 top-0 left-0 rounded-xl shadow-2xl' />
+                <Image width={500}  src={sheet} alt="" className=' mb-12 flex-[2] opacity-0 top-0 left-0 rounded-xl shadow-2xl' />
                 {
                 new Array(sheetQuantity).fill(0).map((item, index) => (
                     <motion.div  
-                    transition={{duration:.1}}
-                    className='border overflow-hidden duration-200 flex-[2] absolute top-0 left-0 rounded-xl drop-shadow-xl'
-                    style={{ rotate: `${(index)*4}deg`, translateX: `${index*10}px`, translateY: `${index*10}px` }}
-                    key={index}>
-                        <Image width={500}  src={sheet}  alt=""  />
+                        className='border overflow-hidden shadow-sm duration-200 flex-[2] absolute top-0 left-0 rounded-xl drop-shadow-xl'
+                        style={{ rotate: `${(index)*4 - ((sheetQuantity-1)/2)*4}deg`, translateX: `${index*20}px`, translateY: `${index*20}px` }}
+                        key={index}>
+                            <Image width={500}  src={sheet}  alt="" />
                     </motion.div>
                 ))
                 }
