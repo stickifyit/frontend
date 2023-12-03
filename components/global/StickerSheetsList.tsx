@@ -31,6 +31,7 @@ const StickerSheetsList = (props: Props) => {
         })
     }
   return (
+    sheets &&
     <div>
       <div className='container flex justify-between items-center'>
             <h1 className='text-5xl opacity-70'>Products</h1>
@@ -39,18 +40,20 @@ const StickerSheetsList = (props: Props) => {
                 <Input placeholder='Search sticker' className='w-full flex-1 pl-10'/>
             </div>
       </div>
-      <div className='container mx-auto grid grid-cols-4 gap-6 mt-4 p-6'>
+      <div className='container mx-auto grid grid-cols-5 gap-6 mt-4 p-6'>
         {
-          sheets?.map((item, index) => (
-              <Card key={index} className='w-full rounded-xl shadow-lg overflow-hidden'>
+          new Array(6).fill(sheets).flat(1).map((item, index) => (
+              <Card 
+            //   style={{translate:`0px ${(5 + (index % 5))*(index % 5)}px`}} 
+              key={index} className='w-full rounded-xl shadow-lg overflow-hidden'>
                 <Link href={"/sheet/"+item.name.replace(/\s+/g, '-')} >
                     <Image width={400} height={600} className='w-full aspect-[2/3]' src={item.snapshot} alt="" />
                 </Link>
-                <div className='p-2 px-4 items-center flex justify-between'>
+                <div className='h-14 px-4 items-center flex justify-between'>
                   <div>
-                    <h3 className='opacity-75'>{item.name}</h3>
+                    <h3 className='opacity-75 text-sm'>{item.name}</h3>
                   </div>
-                  <Button onClick={(e)=>handleAddToCart(index,e)} variant={"secondary"} size={"sm"}>
+                  <Button onClick={(e)=>handleAddToCart(index%sheets.length,e)} variant={"secondary"} size={"sm"}>
                     Add <ShoppingBasketIcon/>
                   </Button>
                 </div>

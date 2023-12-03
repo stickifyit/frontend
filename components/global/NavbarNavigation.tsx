@@ -49,13 +49,13 @@ export function NavbarNavigation() {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <Link
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary to-[#F6D14F] p-4 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-secondary to-secondary bg-white p-4 no-underline outline-none focus:shadow-md"
                     href="/services/stickers"
                   >
-                    <div className="mb-2 mt-4 text-lg font-medium">
+                    <div className="mb-2 mt-4 text-2xl font-medium text-white">
                       Stickers
                     </div>
-                    <p className="text-sm leading-tight text-black opacity-80">
+                    <p className="text-sm leading-tight text-white font-sans font-medium opacity-80">
                     Express yourself with custom adhesive art and messages.
                     </p>
                   </Link>
