@@ -11,8 +11,10 @@ import { Button } from '@/components/ui/button'
 import testSheet from "@/public/Untitled-1.jpg"
 import testSheet2 from "@/public/Untitled-3.jpg"
 import testSheet3 from "@/public/Untitled-4.jpg"
+import testSheet4 from "@/public/Untitled-6.jpg"
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import StickerSheetsList from '@/components/global/StickerSheetsList'
 type Props = {}
 
 
@@ -44,43 +46,7 @@ const Page = (props: Props) => {
             </div>
           </div>
       </div>
-
-      <div className='container flex justify-between items-center'>
-            <h1 className='text-5xl opacity-70'>Products</h1>
-            <div className='relative h-fit ml-auto  flex gap-2'>
-                <Search size={18} className='absolute top-1/2 left-3 -translate-y-1/2'/>
-                <Input placeholder='Search sticker' className='w-full flex-1 pl-10'/>
-            </div>
-      </div>
-      <div className='container mx-auto grid grid-cols-5 gap-6 mt-4 p-6'>
-        {
-          new Array(15).fill(0).map((item, index) => (
-            <Link href={"/sheet/1"} key={index}>
-              <Card className='w-full rounded-xl shadow-lg overflow-hidden'>
-                <Image width={400} height={600} className='w-full aspect-[2/3]' src={[testSheet,testSheet2,testSheet3][index % 3]} alt="" />
-                <div className='p-2 px-4 items-center flex justify-between'>
-                  <div>
-                    <h3 className='opacity-75'>Name of sheet</h3>
-                    <h5 className='opacity-75 text-sm'>something</h5>
-                  </div>
-                  <Button variant={"secondary"} size={"sm"}>
-                    Add <ShoppingBasketIcon/>
-                  </Button>
-                </div>
-              </Card>
-            </Link>
-          ))
-        }
-          {
-            // bumper , circle , die-cut , oval , rect , rounded , sheets , square
-            // getProductsByService(params?.service as string)?.map((item, index) => (
-            //   <Link href={item.href} key={index} className=' p-4 rounded-2xl border bg-gray-100 flex flex-col items-center justify-center hover:bg-slate-200 hover:scale-105 duration-300'>
-            //     <Image src={item.img} alt={item.name} width={250}/>
-            //     <h3 className='text-xl capitalize text-center'>{item.name}</h3>
-            //   </Link>
-            // ))
-          }
-      </div>
+      <StickerSheetsList/>
     </div>
   )
 }

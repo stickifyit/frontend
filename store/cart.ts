@@ -19,7 +19,7 @@ export type CustomSheetTypeItem = {
 }
 
 export type SheetTypeItem ={
-    type:"sheet",
+    type:"sticker sheet",
     data:{
         sheetId : string
     }

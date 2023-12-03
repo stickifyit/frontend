@@ -85,7 +85,7 @@ function CartSheet({}: Props) {
       <SheetTitle>Cart</SheetTitle>
     </SheetHeader>
       <SheetDescription className='flex flex-col pt-14 h-full '>
-        <div className={"flex flex-col gap-2 flex-1"}>
+        <div className={"flex flex-col gap-2 flex-1 overflow-auto "}>
           {
             cart.length===0 &&
             <div className='flex items-center flex-col justify-center flex-1 gap-0'>
