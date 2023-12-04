@@ -7,7 +7,9 @@ import { getProductsByService } from '@/constant/allProductControlers'
 import { useParams } from 'next/navigation'
 import stickersHero from "@/public/product pages images/stickers hero.png"
 import tshirtHero from "@/public/product pages images/t-shirt hero.png"
+import cup from "@/public/product pages images/hero.png"
 import { Button } from '@/components/ui/button'
+
 import testSheet from "@/public/Untitled-1.jpg"
 import testSheet2 from "@/public/Untitled-3.jpg"
 import testSheet3 from "@/public/Untitled-4.jpg"
@@ -15,12 +17,14 @@ import testSheet4 from "@/public/Untitled-6.jpg"
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import StickerSheetsList from '@/components/global/StickerSheetsList'
+
 type Props = {}
 
 
 const heroImages = {
   "stickers":stickersHero,
-  "t-shirts":tshirtHero
+  "t-shirts":tshirtHero,
+  "cup": cup
 }
 
 const Page = (props: Props) => {

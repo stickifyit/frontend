@@ -25,14 +25,15 @@ import heroRect from "@/public/product pages images/rect.png"
 import heroRounded from "@/public/product pages images/rounded.png"
 import heroSquare from "@/public/product pages images/square.png"
 
-
-
+import heroCup from "@/public/product pages images/hero.png"
+import cupProduct from "@/public/custom-cup/Untitled-1.png"
 
 
 
 export interface Services {
     stickers: Service;
     "t-shirts": Service;
+    cup: Service;
 }
 export interface Product {
     name: string;
@@ -175,12 +176,25 @@ const tShirts = {
         hero : backSide
     },
 }
-
+const cup = {
+    "cup": {
+        name: "cup",
+        img: cupProduct, // Switched to using 'img'
+        href: "/product/cup/cup",
+        aspect: "square",
+        sizes : sizes.tShirts,
+        quantities: qs.static,
+        hero : heroCup
+    },
+}
 
 const services: Services = {
     stickers,
-    "t-shirts": tShirts
+    "t-shirts": tShirts,
+    cup: cup
 }
+
+
 
 
 export const getProductInfo = (service :string, product: string) => {

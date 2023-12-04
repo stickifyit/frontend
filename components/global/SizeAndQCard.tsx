@@ -31,12 +31,13 @@ import { ToastAction } from '../ui/toast';
 import { Product, getProductInfo } from '@/constant/allProductControlers';
 import { Stick } from 'next/font/google';
 import { useSheet } from '@/store/customSheet';
+import { getPriceByQuantity } from '@/constant/pricing';
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
     const params = useParams();
     const {q,size,setQ,setSize} = useSizeAndQ()
-    const {file,radius,color,image} = useCanvasProps()
+    const {file,radius,color,image,imageUrl,setImageUrl} = useCanvasProps()
     const [loading,setLoading] = React.useState(false)
     const {addToCart} = useCart() 
     const [product,setProduct] = React.useState<Product|null>()
@@ -48,8 +49,8 @@ const SizeAndQCard = (props: Props) => {
     //   if(!image||!color||!q||!size) return setLoading(false)
     //   const type= params.product
     //   try {
-    //   const canvas = await handleDraw(params as any,image,type as string,radius,color,2)
 
+      // const canvas = await handleDraw(params as any,image as string,_type as string,radius,color,2)
     //   addToCart({
       //   canvas,
       //   image:image,
@@ -72,23 +73,53 @@ const SizeAndQCard = (props: Props) => {
       // } catch (error) {
       //   console.log(error)
       // }
-      const _size = Number(size.split("x")[0]) as number
-      const _type = params.product as string
-      const _height = _type == "rect"|| _type == "oval" ?  (_size*2)/3 : _type == "bumper" ? (_size)/3 : _size
-      const _q = Math.floor( 18 / _size ) * Math.floor(28 / _height)
-      setSheet([{
-        fileType:"upload",
-        type:(params.product as string).replace("-"," "),
-        size:_size ,
-        color,
-        radius,
-        id:Math.random() + " x " + Math.random(),
-        quantity:_q,
-        image:image as string , 
-        file : file as File
-      }])
-      route.push("/mysheet")
-      setSheetQuantity(q)
+      // const _size = Number(size.split("x")[0]) as number
+      // const _type = params.product as string
+      // const _height = _type == "rect"|| _type == "oval" ?  (_size*2)/3 : _type == "bumper" ? (_size)/3 : _size
+      // const _q = Math.floor( 18 / _size ) * Math.floor(28 / _height)
+      // setSheet([{
+      //   fileType:"upload",
+      //   type:(params.product as string).replace("-"," "),
+      //   size:_size ,
+      //   color,
+      //   radius,
+      //   id:Math.random() + " x " + Math.random(),
+      //   quantity:_q,
+      //   image:image as string , 
+      //   file : file as File
+      // }])
+      // route.push("/mysheet")
+      // setSheetQuantity(q)
+
+      console.log(params.product)
+      if(params?.service==="t-shirts"){
+        addToCart({
+          quantity:q,
+          image:imageUrl,
+          data:{
+            type:"t-shirt",
+            data:{
+              image:imageUrl,
+              type:params?.product as ("center-chest" | "left-chest" | "back-side"),
+            }
+          }
+        })
+      }else if(params?.service === "cup"){
+        addToCart({
+          quantity:q,
+          image:imageUrl,
+          data:{
+            type:"cup",
+            data:{
+              image:imageUrl,
+              type:params?.product as ("cup"),
+            }
+          }
+        })
+      }
+      // const _type = params.product as string
+      // const canvas = await handleDraw(params as any,image as string,_type as string,radius,color,2)
+
   }
 
   useEffect(()=>{
@@ -101,6 +132,9 @@ const SizeAndQCard = (props: Props) => {
         <Card className="ml-auto h-fit">
           <CardHeader></CardHeader>
           <CardContent className="min-w-[400px] h-fit">
+            {
+              params?.service !== "cup" &&
+              <>
             <CardTitle className='font-thin'>Select a Size</CardTitle>
             <div className="my-6">
             <Select value={size} onValueChange={e=>setSize(e)}>
@@ -120,8 +154,10 @@ const SizeAndQCard = (props: Props) => {
                 }
               </SelectContent>
             </Select>
-
             </div>
+            </>
+
+            }
 
             {
               params?.service !== "stickers" &&
@@ -136,12 +172,12 @@ const SizeAndQCard = (props: Props) => {
                           <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
                           <Label className="flex w-full" htmlFor={`option-${q+1}`}>
                             <div className="flex-[2]">{(product?.quantities[product.sizes.indexOf(size)]??0)*(q+1)} {
-                              params?.service === "stickers" ?  "sticker": "t-shirt"
+                              params?.service === "cup" ?  "cups": "t-shirts"
                             }</div>
-                            <div className="flex-[1]">{(q+1) * 25}Dh</div>
-                            <div className="text-green-700 flex-[1] justify-end flex">
+                            <div className="flex-[1]">{getPriceByQuantity(q+1,params.service as string)} Dh</div>
+                            {/* <div className="text-green-700 flex-[1] justify-end flex">
                               {14}%
-                            </div>
+                            </div> */}
                           </Label>
                         </div>
                       ))}
@@ -151,7 +187,7 @@ const SizeAndQCard = (props: Props) => {
             }
             <Button variant={"secondary"} disabled={!image||loading} onClick={handelAddToCart} size="lg" className="w-full">
               {
-                loading? "Uploading..." : "Continue"
+                loading? "Uploading..." : "Add to cart"
               }
             </Button>
           </CardContent>

@@ -16,7 +16,7 @@ import bg from "@/public/canvas.jpg"
 import { drawEllipse } from '@/lib/utils';
 import { getProductInfo } from '@/constant/allProductControlers';
 import { useParams } from 'next/navigation';
-import { backSide_Behive, bumper_Behive, centerChest_Behive, circle_Behive, dieCut_Behive, drawImageWithMargin, leftChest_Behive, oval_Behive, rect_Behive, rounded_Behive, square_Behive } from '@/lib/canvasProductBehive';
+import { Cup_Behive, backSide_Behive, bumper_Behive, centerChest_Behive, circle_Behive, dieCut_Behive, drawImageWithMargin, leftChest_Behive, oval_Behive, rect_Behive, rounded_Behive, square_Behive } from '@/lib/canvasProductBehive';
 
 
 
@@ -24,7 +24,7 @@ import { backSide_Behive, bumper_Behive, centerChest_Behive, circle_Behive, dieC
 function Canvas({type}: Props) {
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const {color,setColor,setRadius,image, setImage,setFile,radius : defaultRadius} = useCanvasProps()
+    const {color,setColor,setRadius,image,setImageUrl, setImage,setFile,radius : defaultRadius} = useCanvasProps()
     const {size,setSize} = useSizeAndQ()
     const params = useParams()
 
@@ -107,6 +107,10 @@ function Canvas({type}: Props) {
                 } else if(params.product == "back-side") {
                   backSide_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 }
+            }else if(params.service == "cup"){
+                if (params.product == "cup") {
+                  Cup_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
+                }
             }
 
 
@@ -123,7 +127,7 @@ function Canvas({type}: Props) {
     
 
 
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (file) {
         setFile(file);
@@ -133,7 +137,18 @@ function Canvas({type}: Props) {
           const imageDataUrl = reader.result as string;
           setImage(imageDataUrl); 
         };
-  
+        const formData = new FormData();
+        formData.append("image", file);
+
+        // Use fetch to send the form data to the server
+        const response = await fetch("http://localhost:3001/images/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const url:{name:string} = await response.json();
+    
+        setImageUrl('https://storage.googleapis.com/stickify-storage/'+url.name)
         reader.readAsDataURL(file);
       }
     };

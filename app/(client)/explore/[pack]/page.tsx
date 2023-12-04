@@ -13,12 +13,14 @@ import { useParams, useRouter } from 'next/navigation'
 import React from 'react'
 import { useQueries, useQuery } from 'react-query'
 import TShirt from "@/public/custom-t-shirts/left-chest-canvas.png"
+import Cup from "@/public/custom-cup/Untitled-1.png"
 import backTShirt from "@/public/custom-t-shirts/back-side-canvas.png"
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
+import { useCanvasProps } from '@/store/canvasProps'
 
 
 type Props = {}
@@ -28,6 +30,7 @@ const Page = (props: Props) => {
     const {sheet , setSheet } = useSheet()
     const router = useRouter()
     const [selected,setSelected] = React.useState(0)
+    const {setImage,setImageUrl} = useCanvasProps()
   
     const getSheet = ()=>{
         if(!stickers) return 
@@ -41,7 +44,28 @@ const Page = (props: Props) => {
             id: stickers[index as number % stickers.length]._id + " x " + Math.random(),
         })))
         router.push("/mysheet")
+
     }
+
+
+    const handleContinue =async (type:string,ser:string = "t-shirts") => {
+        if(!stickers) return
+        try {
+            const response = await axios.post('http://localhost:3001/fetch-image', {
+                url: `https://storage.googleapis.com/stickify-storage/${stickers[selected].imageURL}`,
+            });
+            const imageDataUrl = response.data;
+            console.log(imageDataUrl)
+            setImage(imageDataUrl);
+            setImageUrl( `https://storage.googleapis.com/stickify-storage/${stickers[selected].imageURL}`)
+            router.push('/product/'+ser+'/'+type)
+          } catch (error) {
+            console.error('Error fetching image:', error);
+          }
+    } 
+
+
+
   return (
     stickers &&
     <div className='min-h-screen'>
@@ -56,11 +80,14 @@ const Page = (props: Props) => {
 
             <div className='flex flex-col gap-4 py-8'>
                     <h1 className='text-4xl'>Pack stickers</h1>
-
+                    <div className='flex items-center p-2'>
+                        <div className='w-[300px] h-[300px] p-2 drop-shadow-2xl border-r-[3px]'>
+                            <Image src={"https://storage.googleapis.com/stickify-storage/"+stickers[selected].imageURL} alt='' width={500} height={500}></Image>
+                        </div>
                     <Swiper
                     spaceBetween={0}
-                    slidesPerView={8.6}
-                    className='w-full'
+                    slidesPerView={5.6}
+                    className='flex-1'
                     >
 
                         {
@@ -73,7 +100,9 @@ const Page = (props: Props) => {
                             ))
                         }
                     </Swiper>
-                    <h1 className='text-4xl'>Products</h1>
+ 
+                    </div>
+                   <h1 className='text-4xl'>Products</h1>
                     <div className='grid grid-cols-5 gap-4'>
                                 <div className='w-full flex flex-col gap-2 p-6 rounded-xl border bg-white h-fit'>
                                     <h1 className='mb-2 text-lg'>Pack Sheet</h1>
@@ -98,7 +127,7 @@ const Page = (props: Props) => {
                                         </div>
                                     </div>
                                     <div className='flex items-end w-full'>
-                                        <Button variant={"secondary"} className='w-full'>Add to cart</Button>
+                                        <Button onClick={()=>handleContinue("center-chest")} variant={"secondary"} className='w-full'>Get T{"'"}shirt</Button>
                                     </div>
                                 </div>
                                 {/* // left chest sticker */}
@@ -107,11 +136,11 @@ const Page = (props: Props) => {
                                     <div className='flex-1 flex justify-center items-center'>
                                         <div className='relative -rotate-5'>
                                             <Image alt='' className='w-full drop-shadow-xl' width={300} height={300}  src={TShirt}></Image>
-                                            <Image alt='' className='absolute top-[25%] right-[30%]' width={30} height={30} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
+                                            <Image alt='' className='absolute top-[25%] right-[30%]' width={20} height={20} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
                                         </div>
                                     </div>
                                     <div className='flex items-end w-full'>
-                                        <Button variant={"secondary"} className='w-full'>Add to cart</Button>
+                                        <Button onClick={()=>handleContinue("left-chest")} variant={"secondary"} className='w-full'>Get T{"'"}shirt</Button>
                                     </div>
                                 </div>
                                 {/* // back side sticker */}
@@ -124,7 +153,21 @@ const Page = (props: Props) => {
                                         </div>
                                     </div>
                                     <div className='flex items-end w-full'>
-                                        <Button variant={"secondary"} className='w-full'>Add to cart</Button>
+                                        <Button onClick={()=>handleContinue("back-side")} variant={"secondary"} className='w-full'>Get T{"'"}shirt</Button>
+                                    </div>
+                                </div>
+
+                                {/* // cup */}
+                                <div className='bg-white border flex-col rounded-xl p-6 flex items-center justify-center'>
+                                    <h1 className='mb-2 text-lg w-full'>Cup</h1>
+                                    <div className='flex-1 flex justify-center items-center'>
+                                        <div className='relative -rotate-5'>
+                                            <Image alt='' className='w-full drop-shadow-xl' width={300} height={300}  src={Cup}></Image>
+                                            <Image alt='' className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-40%]' width={60} height={60} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
+                                        </div>
+                                    </div>
+                                    <div className='flex items-end w-full'>
+                                        <Button onClick={()=>handleContinue("cup","cup")} variant={"secondary"} className='w-full'>Get Cup</Button>
                                     </div>
                                 </div>
 

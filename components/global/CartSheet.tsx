@@ -2,6 +2,7 @@
 import React from 'react'
 import {
     Sheet,
+    SheetClose,
     SheetContent,
     SheetDescription,
     SheetHeader,
@@ -31,44 +32,6 @@ function CartSheet({}: Props) {
     const [loading,setLoading] = React.useState(false)
     const {sheet,setSheet} = useSheet()
     const params = useParams()
-    const checkout = async ()=>{
-      setLoading(true);
-      axios.post<any>("/orders/create", {
-        customerId: Math.random()+"",
-        number: ""+Math.random(),
-        fullName: "John Doe",
-        address: "123 Main Street",
-      }).then((res:any)=>{
-      cart.forEach((item)=>{
-        if(item.data.type==="custom sheet"){
-          for (let i = 0; i < item.quantity; i++) {
-            axios.post("/custom-sheet/create", {
-              orderId: res.data?._id??"",
-              items: item.data.data.map((s)=>{
-                return({
-                  x: s.x,
-                  y: s.y,
-                  image: s.image as string,
-                  width: s.width,
-                  height: s.height,
-                })
-              }),
-            })
-          }
-        }
-      })
-      })
-      toast({
-        title: "checkout done",
-        description: "your order has been placed",
-        dir: "bottom-center",
-      });
-    
-      setCart([]);
-      socket.emit("add order");
-      setLoading(false);
-    }
-
 
   return (
 <Sheet>
@@ -119,11 +82,13 @@ function CartSheet({}: Props) {
                     loading? "Uploading..." : "Checkout"
                   }
                 </Button> */}
+                <SheetClose asChild>
                 <Link  href={"/cart"} className='block'>
                 <Button variant={"secondary"} size={"lg"} className='w-full'>
                   Open Cart
                 </Button>
                 </Link>
+                </SheetClose>
             </div>
         }
       </SheetDescription>
