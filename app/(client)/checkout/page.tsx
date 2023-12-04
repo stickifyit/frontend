@@ -36,23 +36,46 @@ export default function Page({}: Props) {
 
         // this is for custom sheet
 
-        if(item.data.type==="custom sheet"){
-          for (let i = 0; i < item.quantity; i++) {
-            axios.post("/custom-sheet/create", {
-              orderId: res.data?._id??"",
-              items: item.data.data.map((s)=>{
-                return({
-                  x: s.x,
-                  y: s.y,
-                  image: s.image as string,
-                  width: s.width,
-                  height: s.height,
-                })
-              }),
-            })
-          }
-        }
+        // if(item.data.type==="custom sheet"){
+        //   for (let i = 0; i < item.quantity; i++) {
+        //     axios.post("/custom-sheet/create", {
+        //       orderId: res.data?._id??"",
+        //       items: item.data.data.map((s)=>{
+        //         return({
+        //           x: s.x,
+        //           y: s.y,
+        //           image: s.image as string,
+        //           width: s.width,
+        //           height: s.height,
+        //         })
+        //       }),
+        //     })
+        //   }
+        // }
 
+        if(item.data.type==="custom sheet"){
+            for(let i=0;i<item.quantity;i++){
+                axios.post("/order-items/create", {
+                    orderId: res.data?._id??"",
+                    image: item.image as string,
+                    type:"custom-sheet",
+                    customSheetSchema:{
+                        container:"hello world",
+                        data:{
+                            items: item.data.data.map((s)=>{
+                                return({
+                                x: s.x,
+                                y: s.y,
+                                image: s.image as string,
+                                width: s.width,
+                                height: s.height,
+                                })
+                            }),
+                        }
+                   }
+                })
+            }
+        }
 
         // this is for sticker sheet
 
