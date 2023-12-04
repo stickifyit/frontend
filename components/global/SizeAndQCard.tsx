@@ -31,6 +31,7 @@ import { ToastAction } from '../ui/toast';
 import { Product, getProductInfo } from '@/constant/allProductControlers';
 import { Stick } from 'next/font/google';
 import { useSheet } from '@/store/customSheet';
+import { getPriceByQuantity } from '@/constant/pricing';
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
@@ -101,6 +102,9 @@ const SizeAndQCard = (props: Props) => {
         <Card className="ml-auto h-fit">
           <CardHeader></CardHeader>
           <CardContent className="min-w-[400px] h-fit">
+            {
+              params?.service !== "cup" &&
+              <>
             <CardTitle className='font-thin'>Select a Size</CardTitle>
             <div className="my-6">
             <Select value={size} onValueChange={e=>setSize(e)}>
@@ -120,8 +124,10 @@ const SizeAndQCard = (props: Props) => {
                 }
               </SelectContent>
             </Select>
-
             </div>
+            </>
+
+            }
 
             {
               params?.service !== "stickers" &&
@@ -136,12 +142,12 @@ const SizeAndQCard = (props: Props) => {
                           <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
                           <Label className="flex w-full" htmlFor={`option-${q+1}`}>
                             <div className="flex-[2]">{(product?.quantities[product.sizes.indexOf(size)]??0)*(q+1)} {
-                              params?.service === "stickers" ?  "sticker": "t-shirt"
+                              params?.service === "cup" ?  "cups": "t-shirts"
                             }</div>
-                            <div className="flex-[1]">{(q+1) * 25}Dh</div>
-                            <div className="text-green-700 flex-[1] justify-end flex">
+                            <div className="flex-[1]">{getPriceByQuantity(q+1,params.service as string)} Dh</div>
+                            {/* <div className="text-green-700 flex-[1] justify-end flex">
                               {14}%
-                            </div>
+                            </div> */}
                           </Label>
                         </div>
                       ))}

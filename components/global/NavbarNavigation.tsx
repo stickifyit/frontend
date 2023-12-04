@@ -64,10 +64,10 @@ export function NavbarNavigation() {
               <ListItem href="/services/t-shirts" title="T-Shirts">
               Wear your style with personalized, quality cotton creations.
               </ListItem>
-              <ListItem href="/docs/installation" title="Labels">
+              {/* <ListItem href="/docs/installation" title="Labels">
               Organize and brand with custom, durable adhesive labeling.
-              </ListItem>
-              <ListItem href="/cup" title="Cups">
+              </ListItem> */}
+              <ListItem href="/services/cup" title="Cups">
               Sip in style with personalized drinkware for every occasion.
               </ListItem>
             </ul>

@@ -13,6 +13,7 @@ import { useParams, useRouter } from 'next/navigation'
 import React from 'react'
 import { useQueries, useQuery } from 'react-query'
 import TShirt from "@/public/custom-t-shirts/left-chest-canvas.png"
+import Cup from "@/public/custom-cup/Untitled-1.png"
 import backTShirt from "@/public/custom-t-shirts/back-side-canvas.png"
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -47,7 +48,7 @@ const Page = (props: Props) => {
     }
 
 
-    const handleContinue =async (type:string) => {
+    const handleContinue =async (type:string,ser:string = "t-shirts") => {
         if(!stickers) return
         try {
             const response = await axios.post('http://localhost:3001/fetch-image', {
@@ -56,7 +57,7 @@ const Page = (props: Props) => {
             const imageDataUrl = response.data;
             console.log(imageDataUrl)
             setImage(imageDataUrl);
-            router.push('/product/t-shirts/'+type)
+            router.push('/product/'+ser+'/'+type)
           } catch (error) {
             console.error('Error fetching image:', error);
           }
@@ -120,7 +121,7 @@ const Page = (props: Props) => {
                                         </div>
                                     </div>
                                     <div className='flex items-end w-full'>
-                                        <Button onClick={()=>handleContinue("center-chest")} variant={"secondary"} className='w-full'>Get T'shirt</Button>
+                                        <Button onClick={()=>handleContinue("center-chest")} variant={"secondary"} className='w-full'>Get T{"'"}shirt</Button>
                                     </div>
                                 </div>
                                 {/* // left chest sticker */}
@@ -133,7 +134,7 @@ const Page = (props: Props) => {
                                         </div>
                                     </div>
                                     <div className='flex items-end w-full'>
-                                        <Button onClick={()=>handleContinue("left-chest")} variant={"secondary"} className='w-full'>Get T'shirt</Button>
+                                        <Button onClick={()=>handleContinue("left-chest")} variant={"secondary"} className='w-full'>Get T{"'"}shirt</Button>
                                     </div>
                                 </div>
                                 {/* // back side sticker */}
@@ -146,7 +147,21 @@ const Page = (props: Props) => {
                                         </div>
                                     </div>
                                     <div className='flex items-end w-full'>
-                                        <Button onClick={()=>handleContinue("back-side")} variant={"secondary"} className='w-full'>Get T'shirt</Button>
+                                        <Button onClick={()=>handleContinue("back-side")} variant={"secondary"} className='w-full'>Get T{"'"}shirt</Button>
+                                    </div>
+                                </div>
+
+                                {/* // cup */}
+                                <div className='bg-white border flex-col rounded-xl p-6 flex items-center justify-center'>
+                                    <h1 className='mb-2 text-lg w-full'>Cup</h1>
+                                    <div className='flex-1 flex justify-center items-center'>
+                                        <div className='relative -rotate-5'>
+                                            <Image alt='' className='w-full drop-shadow-xl' width={300} height={300}  src={Cup}></Image>
+                                            <Image alt='' className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-40%]' width={60} height={60} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
+                                        </div>
+                                    </div>
+                                    <div className='flex items-end w-full'>
+                                        <Button onClick={()=>handleContinue("cup","cup")} variant={"secondary"} className='w-full'>Get Cup</Button>
                                     </div>
                                 </div>
 
