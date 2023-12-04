@@ -31,7 +31,7 @@ export default function Page({}: Props) {
         fullName: name,
         address: address,
       }).then((res:any)=>{
-      cart.forEach((item)=>{
+      cart.forEach(async (item)=>{
 
 
         // this is for custom sheet
@@ -55,7 +55,7 @@ export default function Page({}: Props) {
 
         if(item.data.type==="custom sheet"){
             for(let i=0;i<item.quantity;i++){
-                axios.post("/order-items/create", {
+                await axios.post("/order-items/create", {
                     orderId: res.data?._id??"",
                     image: item.image as string,
                     type:"custom-sheet",
@@ -80,7 +80,7 @@ export default function Page({}: Props) {
 
         if(item.data.type==="sticker sheet"){
             for (let i = 0; i < item.quantity; i++) {
-                axios.post ("/order-items/create", {
+                await  axios.post ("/order-items/create", {
                     orderId: res.data?._id??"",
                     image: item.image as string,
                     type:"sticker-sheet",
@@ -97,7 +97,7 @@ export default function Page({}: Props) {
         // this is for t-shirt
 
         if(item.data.type==="t-shirt"){
-            axios.post("/order-items/create", {
+            await axios.post("/order-items/create", {
                 orderId: res.data?._id??"",
                 image: item.image as string,
                 type:"t-shirt",
@@ -114,7 +114,7 @@ export default function Page({}: Props) {
         // this is for cup
 
         if(item.data.type==="cup"){
-            axios.post("/order-items/create", {
+            await axios.post("/order-items/create", {
                 orderId: res.data?._id??"",
                 image: item.image as string,
                 type:"cup",
