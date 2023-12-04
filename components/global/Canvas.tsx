@@ -16,7 +16,7 @@ import bg from "@/public/canvas.jpg"
 import { drawEllipse } from '@/lib/utils';
 import { getProductInfo } from '@/constant/allProductControlers';
 import { useParams } from 'next/navigation';
-import { backSide_Behive, bumper_Behive, centerChest_Behive, circle_Behive, dieCut_Behive, drawImageWithMargin, leftChest_Behive, oval_Behive, rect_Behive, rounded_Behive, square_Behive } from '@/lib/canvasProductBehive';
+import { Cup_Behive, backSide_Behive, bumper_Behive, centerChest_Behive, circle_Behive, dieCut_Behive, drawImageWithMargin, leftChest_Behive, oval_Behive, rect_Behive, rounded_Behive, square_Behive } from '@/lib/canvasProductBehive';
 
 
 
@@ -106,6 +106,10 @@ function Canvas({type}: Props) {
                   centerChest_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 } else if(params.product == "back-side") {
                   backSide_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
+                }
+            }else if(params.service == "cup"){
+                if (params.product == "cup") {
+                  Cup_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 }
             }
 

@@ -67,7 +67,7 @@ export function NavbarNavigation() {
               <ListItem href="/docs/installation" title="Labels">
               Organize and brand with custom, durable adhesive labeling.
               </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Cups">
+              <ListItem href="/cup" title="Cups">
               Sip in style with personalized drinkware for every occasion.
               </ListItem>
             </ul>

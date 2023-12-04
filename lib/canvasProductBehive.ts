@@ -1,5 +1,6 @@
 import { drawEllipse } from "./utils";
 import tshirtImageUrl from "@/public/custom-t-shirts/left-chest-canvas.png"
+import Cup from "@/public/custom-cup/Untitled-1.png"
 export function drawImageWithMargin(  
     context: CanvasRenderingContext2D,
     img: HTMLImageElement,
@@ -273,6 +274,28 @@ export const backSide_Behive = (
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(t_shirtImage, 0, 0, canvas.width, canvas.height);
         context.drawImage(image,canvas.width*3.80/10, canvas.height*2.6/10, canvas.width/4, canvas.height/4)
+        // drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight, radius,quality);
+        // context.fillRect();
+    };
+}
+
+export const Cup_Behive = (
+  context: CanvasRenderingContext2D,
+  image: HTMLImageElement,
+  drawX: number,
+  drawY: number,
+  drawWidth: number,
+  drawHeight: number,
+  radius: number,
+  canvas: HTMLCanvasElement,
+  quality: number = 1
+) =>{
+    const t_shirtImage = new Image();
+    t_shirtImage.src = "/custom-cup/Untitled-1.png";
+    t_shirtImage.onload = () => {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(t_shirtImage, 0, 0, canvas.width, canvas.height);
+        context.drawImage(image,canvas.width*3.80/10, canvas.height*3.8/10, canvas.width/4, canvas.height/4)
         // drawImageWithMargin(context, image, drawX, drawY, drawWidth, drawHeight, radius,quality);
         // context.fillRect();
     };
