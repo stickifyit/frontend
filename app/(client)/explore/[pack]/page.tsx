@@ -30,7 +30,7 @@ const Page = (props: Props) => {
     const {sheet , setSheet } = useSheet()
     const router = useRouter()
     const [selected,setSelected] = React.useState(0)
-    const {setImage} = useCanvasProps()
+    const {setImage,setImageUrl} = useCanvasProps()
   
     const getSheet = ()=>{
         if(!stickers) return 
@@ -57,6 +57,7 @@ const Page = (props: Props) => {
             const imageDataUrl = response.data;
             console.log(imageDataUrl)
             setImage(imageDataUrl);
+            setImageUrl( `https://storage.googleapis.com/stickify-storage/${stickers[selected].imageURL}`)
             router.push('/product/'+ser+'/'+type)
           } catch (error) {
             console.error('Error fetching image:', error);
@@ -79,11 +80,14 @@ const Page = (props: Props) => {
 
             <div className='flex flex-col gap-4 py-8'>
                     <h1 className='text-4xl'>Pack stickers</h1>
-
+                    <div className='flex items-center p-2'>
+                        <div className='w-[300px] h-[300px] p-2 drop-shadow-2xl border-r-[3px]'>
+                            <Image src={"https://storage.googleapis.com/stickify-storage/"+stickers[selected].imageURL} alt='' width={500} height={500}></Image>
+                        </div>
                     <Swiper
                     spaceBetween={0}
-                    slidesPerView={8.6}
-                    className='w-full'
+                    slidesPerView={5.6}
+                    className='flex-1'
                     >
 
                         {
@@ -96,7 +100,9 @@ const Page = (props: Props) => {
                             ))
                         }
                     </Swiper>
-                    <h1 className='text-4xl'>Products</h1>
+ 
+                    </div>
+                   <h1 className='text-4xl'>Products</h1>
                     <div className='grid grid-cols-5 gap-4'>
                                 <div className='w-full flex flex-col gap-2 p-6 rounded-xl border bg-white h-fit'>
                                     <h1 className='mb-2 text-lg'>Pack Sheet</h1>

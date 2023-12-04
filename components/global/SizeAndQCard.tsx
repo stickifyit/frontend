@@ -37,7 +37,7 @@ type Props = {}
 const SizeAndQCard = (props: Props) => {
     const params = useParams();
     const {q,size,setQ,setSize} = useSizeAndQ()
-    const {file,radius,color,image} = useCanvasProps()
+    const {file,radius,color,image,imageUrl,setImageUrl} = useCanvasProps()
     const [loading,setLoading] = React.useState(false)
     const {addToCart} = useCart() 
     const [product,setProduct] = React.useState<Product|null>()
@@ -49,8 +49,8 @@ const SizeAndQCard = (props: Props) => {
     //   if(!image||!color||!q||!size) return setLoading(false)
     //   const type= params.product
     //   try {
-    //   const canvas = await handleDraw(params as any,image,type as string,radius,color,2)
 
+      // const canvas = await handleDraw(params as any,image as string,_type as string,radius,color,2)
     //   addToCart({
       //   canvas,
       //   image:image,
@@ -73,23 +73,53 @@ const SizeAndQCard = (props: Props) => {
       // } catch (error) {
       //   console.log(error)
       // }
-      const _size = Number(size.split("x")[0]) as number
-      const _type = params.product as string
-      const _height = _type == "rect"|| _type == "oval" ?  (_size*2)/3 : _type == "bumper" ? (_size)/3 : _size
-      const _q = Math.floor( 18 / _size ) * Math.floor(28 / _height)
-      setSheet([{
-        fileType:"upload",
-        type:(params.product as string).replace("-"," "),
-        size:_size ,
-        color,
-        radius,
-        id:Math.random() + " x " + Math.random(),
-        quantity:_q,
-        image:image as string , 
-        file : file as File
-      }])
-      route.push("/mysheet")
-      setSheetQuantity(q)
+      // const _size = Number(size.split("x")[0]) as number
+      // const _type = params.product as string
+      // const _height = _type == "rect"|| _type == "oval" ?  (_size*2)/3 : _type == "bumper" ? (_size)/3 : _size
+      // const _q = Math.floor( 18 / _size ) * Math.floor(28 / _height)
+      // setSheet([{
+      //   fileType:"upload",
+      //   type:(params.product as string).replace("-"," "),
+      //   size:_size ,
+      //   color,
+      //   radius,
+      //   id:Math.random() + " x " + Math.random(),
+      //   quantity:_q,
+      //   image:image as string , 
+      //   file : file as File
+      // }])
+      // route.push("/mysheet")
+      // setSheetQuantity(q)
+
+      console.log(params.product)
+      if(params?.service==="t-shirts"){
+        addToCart({
+          quantity:q,
+          image:imageUrl,
+          data:{
+            type:"t-shirt",
+            data:{
+              image:imageUrl,
+              type:params?.product as ("center-chest" | "left-chest" | "back-side"),
+            }
+          }
+        })
+      }else if(params?.service === "cup"){
+        addToCart({
+          quantity:q,
+          image:imageUrl,
+          data:{
+            type:"cup",
+            data:{
+              image:imageUrl,
+              type:params?.product as ("cup"),
+            }
+          }
+        })
+      }
+      // const _type = params.product as string
+      // const canvas = await handleDraw(params as any,image as string,_type as string,radius,color,2)
+
   }
 
   useEffect(()=>{
@@ -157,7 +187,7 @@ const SizeAndQCard = (props: Props) => {
             }
             <Button variant={"secondary"} disabled={!image||loading} onClick={handelAddToCart} size="lg" className="w-full">
               {
-                loading? "Uploading..." : "Continue"
+                loading? "Uploading..." : "Add to cart"
               }
             </Button>
           </CardContent>

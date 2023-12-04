@@ -11,8 +11,9 @@ type Props = {}
 
 const Navbar = (props: Props) => {
   return (
-    <div style={{height: NavbarHight}} className={'flex items-center border-b bg-white z-50 fixed w-full top-0'}>
-        <div className='container flex items-center mx-auto'>
+    <div style={{height: NavbarHight}} className={'flex flex-col items-center border-b bg-white z-50 fixed w-full top-0'}>
+        {/* <div className='h-6 text-sm w-full bg-secondary'>Stand with palestine </div> */}
+        <div className='container flex items-center mx-auto flex-1'>
             <Link href={"/"} className='flex items-center gap-4'>
                 <Image src={LOGO} className='w-[50px] h-[50px]' alt='logo' width={60} height={60}/>
                 <h1 className='text-2xl tracking-wider font-bold text-bblack uppercase'>stickify</h1>

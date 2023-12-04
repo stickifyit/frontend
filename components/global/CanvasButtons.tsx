@@ -27,7 +27,7 @@ function CanvasButtons({}: Props) {
         <ImageIcon />
       </Label>
       {
-            params?.service !== "t-shirts" &&
+            false &&
       <Popover>
         <PopoverTrigger>
           <Button
@@ -44,7 +44,7 @@ function CanvasButtons({}: Props) {
       </Popover>
         }
       {
-            params?.service !== "t-shirts" &&
+           false &&
       <Label
         htmlFor="color"
         className="hover:bg-secondary cursor-pointer h-12 w-12 bg-white border flex items-center justify-center  hover:scale-105 duration-200 rounded-full scale-100 ease-in-out"

@@ -49,7 +49,7 @@ const StickerSheetsList = (props: Props) => {
                 <Link href={"/sheet/"+item.name.replace(/\s+/g, '-')} >
                     <Image width={400} height={600} className='w-full rounded-xl aspect-[2/3]' src={item.snapshot} alt="" />
                 </Link>
-                <div className='h-14 px-4 items-center flex justify-between'>
+                <div className='h-14 px-1 items-center flex justify-between'>
                   <div>
                     <h3 className='opacity-75 text-sm'>{item.name}</h3>
                   </div>

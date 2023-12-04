@@ -25,10 +25,25 @@ export type SheetTypeItem ={
     }
 }
 
+export type TShirtTypeItem ={
+    type:"t-shirt",
+    data:{
+        image : string
+        type:"center-chest" | "left-chest" | "back-side"
+    }
+}
+export type CupTypeItem ={
+    type:"cup",
+    data:{
+        image : string
+        type: "cup"
+    }
+}
+
 export type CartItem ={
     quantity: number,
     image: string|[string],
-    data: CustomSheetTypeItem | SheetTypeItem
+    data: CustomSheetTypeItem | SheetTypeItem | TShirtTypeItem | CupTypeItem
 }
 
 type State = {
