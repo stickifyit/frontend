@@ -23,123 +23,102 @@ export default function Page({}: Props) {
 
 
 
-    const checkout = async ()=>{
-      setLoading(true);
-      axios.post<any>("/orders/create", {
-        customerId: Math.random()+"",
-        number:phone,
-        fullName: name,
-        address: address,
-      }).then((res:any)=>{
-      cart.forEach(async (item)=>{
-
-
-        // this is for custom sheet
-
-        // if(item.data.type==="custom sheet"){
-        //   for (let i = 0; i < item.quantity; i++) {
-        //     axios.post("/custom-sheet/create", {
-        //       orderId: res.data?._id??"",
-        //       items: item.data.data.map((s)=>{
-        //         return({
-        //           x: s.x,
-        //           y: s.y,
-        //           image: s.image as string,
-        //           width: s.width,
-        //           height: s.height,
-        //         })
-        //       }),
-        //     })
-        //   }
-        // }
-
-        if(item.data.type==="custom sheet"){
-            for(let i=0;i<item.quantity;i++){
+    const checkout = async () => {
+        try {
+          setLoading(true);
+      
+          const orderRes = await axios.post<any>("/orders/create", {
+            customerId: Math.random() + "",
+            number: phone,
+            fullName: name,
+            address: address,
+          });
+      
+          const orderId = orderRes.data?._id ?? "";
+      
+          for (const item of cart) {
+            if (item.data.type === "custom sheet") {
+              for (let i = 0; i < item.quantity; i++) {
                 await axios.post("/order-items/create", {
-                    orderId: res.data?._id??"",
-                    image: item.image as string,
-                    type:"custom-sheet",
-                    customSheetSchema:{
-                        data:{
-                            items: item.data.data.map((s)=>{
-                                return({
-                                x: s.x,
-                                y: s.y,
-                                image: s.image as string,
-                                width: s.width,
-                                height: s.height,
-                                })
-                            }),
-                        }
-                   }
-                })
-            }
-        }
-
-        // this is for sticker sheet
-
-        if(item.data.type==="sticker sheet"){
-            for (let i = 0; i < item.quantity; i++) {
-                await  axios.post ("/order-items/create", {
-                    orderId: res.data?._id??"",
-                    image: item.image as string,
-                    type:"sticker-sheet",
-                    stickerSheetSchema:{
-                        data :{
-                            sheetId:item.data.data.sheetId
-                        }
-                    }
-                })
-            }
-        }
-
-
-        // this is for t-shirt
-
-        if(item.data.type==="t-shirt"){
-            await axios.post("/order-items/create", {
-                orderId: res.data?._id??"",
+                  orderId: orderId,
+                  image: item.image as string,
+                  type: "custom-sheet",
+                  customSheetSchema: {
+                    data: {
+                      items: item.data.data.map((s) => ({
+                        x: s.x,
+                        y: s.y,
+                        image: s.image as string,
+                        width: s.width,
+                        height: s.height,
+                      })),
+                    },
+                  },
+                });
+              }
+            } else if (item.data.type === "sticker sheet") {
+              for (let i = 0; i < item.quantity; i++) {
+                await axios.post("/order-items/create", {
+                  orderId: orderId,
+                  image: item.image as string,
+                  type: "sticker-sheet",
+                  stickerSheetSchema: {
+                    data: {
+                      sheetId: item.data.data.sheetId,
+                    },
+                  },
+                });
+              }
+            } else if (item.data.type === "t-shirt") {
+              await axios.post("/order-items/create", {
+                orderId: orderId,
                 image: item.image as string,
-                type:"t-shirt",
-                tShirtSchema:{
-                    quantity:item.quantity,
-                    data :{
-                        type: item.data.data.type,
-                        image: item.data.data.image
-                    }
-                }
-            })
-        }
-
-        // this is for cup
-
-        if(item.data.type==="cup"){
-            await axios.post("/order-items/create", {
-                orderId: res.data?._id??"",
+                type: "t-shirt",
+                tShirtSchema: {
+                  quantity: item.quantity,
+                  data: {
+                    type: item.data.data.type,
+                    image: item.data.data.image,
+                  },
+                },
+              });
+            } else if (item.data.type === "cup") {
+              await axios.post("/order-items/create", {
+                orderId: orderId,
                 image: item.image as string,
-                type:"cup",
-                cupSchema:{
-                    quantity:item.quantity,
-                    data :{
-                        type: item.data.data.type,
-                        image: item.data.data.image
-                    }
-                }
-            })
+                type: "cup",
+                cupSchema: {
+                  quantity: item.quantity,
+                  data: {
+                    type: item.data.data.type,
+                    image: item.data.data.image,
+                  },
+                },
+              });
+            }
+          }
+      
+          toast({
+            title: "Checkout Done",
+            description: "Your order has been placed",
+            dir: "bottom-center",
+          });
+      
+          setCart([]);
+          socket.emit("add order");
+        } catch (error) {
+          console.error("Checkout failed:", error);
+          toast({
+            title: "Checkout Failed",
+            description: "There was an error placing your order",
+            dir: "bottom-center",
+          });
+        } finally {
+          setLoading(false);
         }
-
-      })
-      })
-      toast({
-        title: "checkout done",
-        description: "your order has been placed",
-        dir: "bottom-center",
-      });
-    
-      setCart([]);
-      socket.emit("add order");
-      setLoading(false);
-    }
+      };
+      
+      
 
   return (
     <div className='min-h-screen container py-8'>
