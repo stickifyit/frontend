@@ -93,7 +93,7 @@ const SheetComp = ({item,index,sheets}:{item:any,index:number,sheets:any}) => {
                 </div>
                 {
                     timesInCart > 0 &&
-                    <div className='bg-white text-lg text-[#333e] absolute top-1 left-1 w-8 h-8 flex justify-center items-center rounded-sm border '>{timesInCart}</div>
+                    <div className='bg-white text-lg text-[#333e] absolute top-1 left-1 px-3 h-8 flex justify-center items-center rounded-sm border '>{timesInCart} <span className='text-sm ml-2'> in cart</span></div>
                 }
               </Card>
   )

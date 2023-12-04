@@ -60,7 +60,6 @@ export default function Page({}: Props) {
                     image: item.image as string,
                     type:"custom-sheet",
                     customSheetSchema:{
-                        container:"hello world",
                         data:{
                             items: item.data.data.map((s)=>{
                                 return({
@@ -86,7 +85,6 @@ export default function Page({}: Props) {
                     image: item.image as string,
                     type:"sticker-sheet",
                     stickerSheetSchema:{
-                        container:"hello world",
                         data :{
                             sheetId:item.data.data.sheetId
                         }
