@@ -19,6 +19,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
+import { useCanvasProps } from '@/store/canvasProps'
 
 
 type Props = {}
@@ -28,6 +29,7 @@ const Page = (props: Props) => {
     const {sheet , setSheet } = useSheet()
     const router = useRouter()
     const [selected,setSelected] = React.useState(0)
+    const {setImage} = useCanvasProps()
   
     const getSheet = ()=>{
         if(!stickers) return 
@@ -41,7 +43,27 @@ const Page = (props: Props) => {
             id: stickers[index as number % stickers.length]._id + " x " + Math.random(),
         })))
         router.push("/mysheet")
+
     }
+
+
+    const handleContinue =async (type:string) => {
+        if(!stickers) return
+        try {
+            const response = await axios.post('http://localhost:3001/fetch-image', {
+                url: `https://storage.googleapis.com/stickify-storage/${stickers[selected].imageURL}`,
+            });
+            const imageDataUrl = response.data;
+            console.log(imageDataUrl)
+            setImage(imageDataUrl);
+            router.push('/product/t-shirts/'+type)
+          } catch (error) {
+            console.error('Error fetching image:', error);
+          }
+    } 
+
+
+
   return (
     stickers &&
     <div className='min-h-screen'>
@@ -98,7 +120,7 @@ const Page = (props: Props) => {
                                         </div>
                                     </div>
                                     <div className='flex items-end w-full'>
-                                        <Button variant={"secondary"} className='w-full'>Add to cart</Button>
+                                        <Button onClick={()=>handleContinue("center-chest")} variant={"secondary"} className='w-full'>Get T'shirt</Button>
                                     </div>
                                 </div>
                                 {/* // left chest sticker */}
@@ -107,11 +129,11 @@ const Page = (props: Props) => {
                                     <div className='flex-1 flex justify-center items-center'>
                                         <div className='relative -rotate-5'>
                                             <Image alt='' className='w-full drop-shadow-xl' width={300} height={300}  src={TShirt}></Image>
-                                            <Image alt='' className='absolute top-[25%] right-[30%]' width={30} height={30} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
+                                            <Image alt='' className='absolute top-[25%] right-[30%]' width={20} height={20} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
                                         </div>
                                     </div>
                                     <div className='flex items-end w-full'>
-                                        <Button variant={"secondary"} className='w-full'>Add to cart</Button>
+                                        <Button onClick={()=>handleContinue("left-chest")} variant={"secondary"} className='w-full'>Get T'shirt</Button>
                                     </div>
                                 </div>
                                 {/* // back side sticker */}
@@ -124,7 +146,7 @@ const Page = (props: Props) => {
                                         </div>
                                     </div>
                                     <div className='flex items-end w-full'>
-                                        <Button variant={"secondary"} className='w-full'>Add to cart</Button>
+                                        <Button onClick={()=>handleContinue("back-side")} variant={"secondary"} className='w-full'>Get T'shirt</Button>
                                     </div>
                                 </div>
 

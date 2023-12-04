@@ -23,16 +23,16 @@ const Page = (props: Props) => {
                 </div>
             </div>
 
-            <div className='grid grid-cols-5 gap-3'>
+            <div className='grid grid-cols-6 gap-3'>
                 {
                     packs?.map((item, index) => (
                         <Link key={index} href={"/explore/"+item._id}>
-                            <Card className='w-full rounded-xl overflow-hidden relative'>
+                            <div className='w-full rounded-xl overflow-hidden relative'>
                                 <Image width={200} height={200} src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" className='aspect-square object-cover p-4 w-full'/>
                                 <div className='p-3'>
                                     <h3 className='text-center'>{item.name}</h3>
                                 </div>
-                            </Card>
+                            </div>
                         </Link>
                     ))
                 }

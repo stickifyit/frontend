@@ -45,9 +45,9 @@ const StickerSheetsList = (props: Props) => {
           new Array(6).fill(sheets).flat(1).map((item, index) => (
               <Card 
             //   style={{translate:`0px ${(5 + (index % 5))*(index % 5)}px`}} 
-              key={index} className='w-full rounded-xl shadow-lg overflow-hidden'>
+              key={index} className='w-full rounded-xl p-2 shadow-lg overflow-hidden'>
                 <Link href={"/sheet/"+item.name.replace(/\s+/g, '-')} >
-                    <Image width={400} height={600} className='w-full aspect-[2/3]' src={item.snapshot} alt="" />
+                    <Image width={400} height={600} className='w-full rounded-xl aspect-[2/3]' src={item.snapshot} alt="" />
                 </Link>
                 <div className='h-14 px-4 items-center flex justify-between'>
                   <div>
@@ -55,7 +55,7 @@ const StickerSheetsList = (props: Props) => {
                   </div>
                   <Button onClick={(e)=>handleAddToCart(index%sheets.length,e)} variant={"secondary"} size={"sm"}>
                     Add <ShoppingBasketIcon/>
-                  </Button>
+                  </Button> 
                 </div>
               </Card>
           ))
