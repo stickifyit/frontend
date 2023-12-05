@@ -32,6 +32,7 @@ export default function RenderSheet({w}: Props) {
                 flat.push({...item,id:item.id+" "+i,quantity:1,width:width*100,height:height*100,size:item.size*100,fileType: item.fileType})
             }
         })
+        console.log(process)
         setFinalSheet(flat)
         const Cm = w/sheetW
         setCm(w/sheetW)

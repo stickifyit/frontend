@@ -1,17 +1,57 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { CupPrice, PriceByPrice, SheetPrice, TShirtPrice, deliveryPriceConst, getPrice } from '@/lib/price';
 import { useCart } from '@/store/cart';
 import { useSheet } from '@/store/customSheet';
 import { X } from 'lucide-react';
+import { Caprasimo } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 type Props = {}
 
 function Page({}: Props) {
     const {cart,setCart} = useCart()
+    const [cartPrice,setCartPrice] = useState(0);
+    const [deliveryPrice,setDeliveryPrice] = useState(deliveryPriceConst);
+    const [totalPrice,setTotalPrice] = useState(0);
+
+
+    useEffect(()=>{
+        setDeliveryPrice(
+            cartPrice > 100 ? 0 : deliveryPrice
+        )
+    },[cartPrice,setDeliveryPrice,setTotalPrice])
+    useEffect(
+        ()=>{
+            setTotalPrice(
+                cartPrice + deliveryPriceConst
+            )
+        },[cartPrice,deliveryPrice]
+    )
+
+    const getCartPrice = ()=>{
+        let price = 0;
+        for (const item of cart) {
+            if(item.data.type == "custom sheet"){
+                price += SheetPrice * item.quantity
+            }else if(item.data.type == "sticker sheet"){
+                price += SheetPrice * item.quantity
+            }else if( item.data.type == "t-shirt"){
+                 price += SheetPrice * item.quantity
+            }else if( item.data.type == "cup"){
+                price += SheetPrice * item.quantity
+            }
+        }
+        return PriceByPrice(price)
+    }
+
+
+    useEffect(()=>{
+        setCartPrice(getCartPrice())
+    },[cart,setCartPrice,getPrice])
   return (
     <div className=' container h-[calc(100vh-100px)]'>
         <div className='relative flex h-full px-4 overflow-auto gap-12 '>
@@ -41,16 +81,16 @@ function Page({}: Props) {
                     <div className='flex gap-4 items-center border-b  pb-2 mb-2 justify-between max-w-[300px]'>
                         <div>
                             <span className='text-xl '>Price</span>
-                            <h1 className='text-3xl '>130 Dh</h1>
+                            <h1 className='text-3xl '>{cartPrice.toFixed(1)} Dh</h1>
                         </div>
                         <div className='text-3xl'>+</div>
                         <div>
                             <span className='text-xl '>delivery</span>
-                            <h1 className='text-3xl '>30 Dh</h1>
+                            <h1 className='text-3xl '>{deliveryPrice.toFixed(1)} Dh</h1>
                         </div>
                     </div>
                     <span className='text-xl '>Total Price</span>
-                    <h1 className='text-6xl '>160 Dh</h1>
+                    <h1 className='text-6xl '>{totalPrice.toFixed(2)} Dh</h1>
                     <div className='pt-8'>
                         <Link href={"/checkout"}>
                         <Button size="lg" className='w-full' variant={"secondary"}>CheckOut</Button>

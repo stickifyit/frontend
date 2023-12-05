@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import img from '@/public/cart/friends.png'
 import Image from 'next/image'
 import axios from '@/lib/axios'
@@ -10,6 +10,7 @@ import { useCart } from '@/store/cart'
 import { toast } from '@/components/ui/use-toast'
 import socket from '@/lib/socket'
 import { ArrowRight, Loader } from 'lucide-react'
+import { CupPrice, PriceByPrice, SheetPrice, TShirtPrice, deliveryPriceConst, getPrice } from '@/lib/price'
 
 type Props = {}
 
@@ -18,128 +19,148 @@ export default function Page({}: Props) {
     const [loading,setLoading] = React.useState(false);
 
     const [name,setName] = useState("");
+    const [lastName,setLastName] = useState("");
     const [address,setAddress] = useState("");
     const [phone,setPhone] = useState("");
+    const [cartPrice,setCartPrice] = useState(0);
 
 
-
-    const checkout = async ()=>{
-      setLoading(true);
-      axios.post<any>("/orders/create", {
-        customerId: Math.random()+"",
-        number:phone,
-        fullName: name,
-        address: address,
-      }).then((res:any)=>{
-      cart.forEach(async (item)=>{
-
-
-        // this is for custom sheet
-
-        // if(item.data.type==="custom sheet"){
-        //   for (let i = 0; i < item.quantity; i++) {
-        //     axios.post("/custom-sheet/create", {
-        //       orderId: res.data?._id??"",
-        //       items: item.data.data.map((s)=>{
-        //         return({
-        //           x: s.x,
-        //           y: s.y,
-        //           image: s.image as string,
-        //           width: s.width,
-        //           height: s.height,
-        //         })
-        //       }),
-        //     })
-        //   }
-        // }
-
-        if(item.data.type==="custom sheet"){
-            for(let i=0;i<item.quantity;i++){
-                await axios.post("/order-items/create", {
-                    orderId: res.data?._id??"",
-                    image: item.image as string,
-                    type:"custom-sheet",
-                    customSheetSchema:{
-                        data:{
-                            items: item.data.data.map((s)=>{
-                                return({
-                                x: s.x,
-                                y: s.y,
-                                image: s.image as string,
-                                width: s.width,
-                                height: s.height,
-                                })
-                            }),
-                        }
-                   }
-                })
+    const getCartPrice = ()=>{
+        let price = 0;
+        for (const item of cart) {
+            if(item.data.type == "custom sheet"){
+                price += SheetPrice * item.quantity
+            }else if(item.data.type == "sticker sheet"){
+                price += SheetPrice * item.quantity
+            }else if( item.data.type == "t-shirt"){
+                 price += SheetPrice * item.quantity
+            }else if( item.data.type == "cup"){
+                price += SheetPrice * item.quantity
             }
         }
 
-        // this is for sticker sheet
-
-        if(item.data.type==="sticker sheet"){
-            for (let i = 0; i < item.quantity; i++) {
-                await  axios.post ("/order-items/create", {
-                    orderId: res.data?._id??"",
-                    image: item.image as string,
-                    type:"sticker-sheet",
-                    stickerSheetSchema:{
-                        data :{
-                            sheetId:item.data.data.sheetId
-                        }
-                    }
-                })
-            }
-        }
-
-
-        // this is for t-shirt
-
-        if(item.data.type==="t-shirt"){
-            await axios.post("/order-items/create", {
-                orderId: res.data?._id??"",
-                image: item.image as string,
-                type:"t-shirt",
-                tShirtSchema:{
-                    quantity:item.quantity,
-                    data :{
-                        type: item.data.data.type,
-                        image: item.data.data.image
-                    }
-                }
-            })
-        }
-
-        // this is for cup
-
-        if(item.data.type==="cup"){
-            await axios.post("/order-items/create", {
-                orderId: res.data?._id??"",
-                image: item.image as string,
-                type:"cup",
-                cupSchema:{
-                    quantity:item.quantity,
-                    data :{
-                        type: item.data.data.type,
-                        image: item.data.data.image
-                    }
-                }
-            })
-        }
-
-      })
-      })
-      toast({
-        title: "checkout done",
-        description: "your order has been placed",
-        dir: "bottom-center",
-      });
-    
-      setCart([]);
-      socket.emit("add order");
-      setLoading(false);
+        return PriceByPrice(price)+(price > 100 ? 0 : deliveryPriceConst)
     }
+
+
+
+    useEffect(()=>{
+        setCartPrice(getCartPrice())
+    },[cart,setCartPrice])
+
+    const checkout = async () => {
+        const orderItemsIds:string[] = []
+        try {
+          setLoading(true);
+      
+          const orderRes = await axios.post<any>("/orders/create", {
+            customerId: Math.random() + "",
+            number: phone,
+            firstName: name,
+            lastName,
+            price: cartPrice,
+            address: address,
+          });
+      
+          const orderId = orderRes.data?._id ?? "";
+      
+          for (const item of cart) {
+            if (item.data.type === "custom sheet") {
+              for (let i = 0; i < item.quantity; i++) {
+                await axios.post("/order-items/create", {
+                  orderId: orderId,
+                  image: item.image as string,
+                  type: "custom-sheet",
+                  customSheetSchema: {
+                    data: {
+                      items: item.data.data.map((s) => ({
+                        x: s.x,
+                        y: s.y,
+                        image: s.image as string,
+                        width: s.width,
+                        height: s.height,
+                      })),
+                    },
+                  },
+                }).then((res) => {
+                    orderItemsIds.push(res.data?._id)
+                });
+              }
+            } else if (item.data.type === "sticker sheet") {
+              for (let i = 0; i < item.quantity; i++) {
+                await axios.post("/order-items/create", {
+                  orderId: orderId,
+                  image: item.image as string,
+                  type: "sticker-sheet",
+                  stickerSheetSchema: {
+                    data: {
+                      sheetId: item.data.data.sheetId,
+                    },
+                  },
+                }).then((res) => {
+                    orderItemsIds.push(res.data?._id)
+                });
+              }
+            } else if (item.data.type === "t-shirt") {
+              await axios.post("/order-items/create", {
+                orderId: orderId,
+                image: item.image as string,
+                type: "t-shirt",
+                tShirtSchema: {
+                  quantity: item.quantity,
+                  data: {
+                    type: item.data.data.type,
+                    image: item.data.data.image,
+                  },
+                },
+              }).then((res) => {
+                    orderItemsIds.push(res.data?._id)
+                });
+            } else if (item.data.type === "cup") {
+              await axios.post("/order-items/create", {
+                orderId: orderId,
+                image: item.image as string,
+                type: "cup",
+                cupSchema: {
+                  quantity: item.quantity,
+                  data: {
+                    type: item.data.data.type,
+                    image: item.data.data.image,
+                  },
+                },
+              }).then((res) => {
+                    orderItemsIds.push(res.data?._id)
+                });
+            }
+          }
+      
+
+
+          toast({
+            title: "Checkout Done",
+            description: "Your order has been placed",
+            dir: "bottom-center",
+          });
+          
+          await axios.put(`/orders/update/${orderId}`, {
+              cart: orderItemsIds
+          })
+      
+          setCart([]);
+          socket.emit("add order");
+        } catch (error) {
+          console.error("Checkout failed:", error);
+          toast({
+            title: "Checkout Failed",
+            description: "There was an error placing your order",
+            dir: "bottom-center",
+          });
+        } finally {
+          setLoading(false);
+        }
+      };
+      
+      
 
   return (
     <div className='min-h-screen container py-8'>
@@ -148,9 +169,17 @@ export default function Page({}: Props) {
                 <CardTitle className='text-7xl font-thin opacity-75'>Checkout</CardTitle>
             </CardHeader>
             <CardContent className='  overflow-hidden flex gap-4'>
-                <div className='flex-1 space-y-2'>
-                    <h4 className='text-xl opacity-75'>Full Name</h4>
-                    <Input value={name} onInput={(e:any)=>setName(e.target.value)} className='max-w-2xl'></Input>
+                <div className='flex-1 space-y-2 w-full '>
+                    <div className='flex gap-4 max-w-2xl '>
+                        <div className='flex-1'>
+                            <h4 className='text-xl opacity-75'>First Name</h4>
+                            <Input value={name} onInput={(e:any)=>setName(e.target.value)} className='max-w-2xl'></Input>
+                        </div>
+                        <div className='flex-1'>
+                            <h4 className='text-xl opacity-75'>Last Name</h4>
+                            <Input value={lastName} onInput={(e:any)=>setLastName(e.target.value)} className='max-w-2xl'></Input>
+                        </div>
+                    </div>
                     <h4 className='text-xl opacity-75'>Phone Number</h4>
                     <Input value={phone} onInput={(e:any)=>setPhone(e.target.value)} className='max-w-2xl'></Input>
                     <h4 className='text-xl opacity-75'>Full Address</h4>
