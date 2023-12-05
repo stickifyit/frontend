@@ -114,9 +114,8 @@ export default function Page({}: Props) {
             description: "Your order has been placed",
             dir: "bottom-center",
           });
-
-
-          axios.put(`/orders/update/${orderId}`, {
+          
+          await axios.put(`/orders/update/${orderId}`, {
               cart: orderItemsIds
           })
       
