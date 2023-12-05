@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import img from '@/public/cart/friends.png'
 import Image from 'next/image'
 import axios from '@/lib/axios'
@@ -10,6 +10,7 @@ import { useCart } from '@/store/cart'
 import { toast } from '@/components/ui/use-toast'
 import socket from '@/lib/socket'
 import { ArrowRight, Loader } from 'lucide-react'
+import { CupPrice, PriceByPrice, SheetPrice, TShirtPrice, deliveryPriceConst, getPrice } from '@/lib/price'
 
 type Props = {}
 
@@ -18,10 +19,34 @@ export default function Page({}: Props) {
     const [loading,setLoading] = React.useState(false);
 
     const [name,setName] = useState("");
+    const [lastName,setLastName] = useState("");
     const [address,setAddress] = useState("");
     const [phone,setPhone] = useState("");
+    const [cartPrice,setCartPrice] = useState(0);
 
 
+    const getCartPrice = ()=>{
+        let price = 0;
+        for (const item of cart) {
+            if(item.data.type == "custom sheet"){
+                price += SheetPrice * item.quantity
+            }else if(item.data.type == "sticker sheet"){
+                price += SheetPrice * item.quantity
+            }else if( item.data.type == "t-shirt"){
+                 price += SheetPrice * item.quantity
+            }else if( item.data.type == "cup"){
+                price += SheetPrice * item.quantity
+            }
+        }
+
+        return PriceByPrice(price)+(price > 100 ? 0 : deliveryPriceConst)
+    }
+
+
+
+    useEffect(()=>{
+        setCartPrice(getCartPrice())
+    },[cart,setCartPrice])
 
     const checkout = async () => {
         const orderItemsIds:string[] = []
@@ -31,7 +56,9 @@ export default function Page({}: Props) {
           const orderRes = await axios.post<any>("/orders/create", {
             customerId: Math.random() + "",
             number: phone,
-            fullName: name,
+            firstName: name,
+            lastName,
+            price: cartPrice,
             address: address,
           });
       
@@ -142,9 +169,17 @@ export default function Page({}: Props) {
                 <CardTitle className='text-7xl font-thin opacity-75'>Checkout</CardTitle>
             </CardHeader>
             <CardContent className='  overflow-hidden flex gap-4'>
-                <div className='flex-1 space-y-2'>
-                    <h4 className='text-xl opacity-75'>Full Name</h4>
-                    <Input value={name} onInput={(e:any)=>setName(e.target.value)} className='max-w-2xl'></Input>
+                <div className='flex-1 space-y-2 w-full '>
+                    <div className='flex gap-4 max-w-2xl '>
+                        <div className='flex-1'>
+                            <h4 className='text-xl opacity-75'>First Name</h4>
+                            <Input value={name} onInput={(e:any)=>setName(e.target.value)} className='max-w-2xl'></Input>
+                        </div>
+                        <div className='flex-1'>
+                            <h4 className='text-xl opacity-75'>Last Name</h4>
+                            <Input value={lastName} onInput={(e:any)=>setLastName(e.target.value)} className='max-w-2xl'></Input>
+                        </div>
+                    </div>
                     <h4 className='text-xl opacity-75'>Phone Number</h4>
                     <Input value={phone} onInput={(e:any)=>setPhone(e.target.value)} className='max-w-2xl'></Input>
                     <h4 className='text-xl opacity-75'>Full Address</h4>

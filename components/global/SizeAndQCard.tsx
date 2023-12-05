@@ -32,6 +32,7 @@ import { Product, getProductInfo } from '@/constant/allProductControlers';
 import { Stick } from 'next/font/google';
 import { useSheet } from '@/store/customSheet';
 import { getPriceByQuantity } from '@/constant/pricing';
+import { CupPrice, SheetPrice, TShirtPrice, getPrice } from '@/lib/price';
 type Props = {}
 
 const SizeAndQCard = (props: Props) => {
@@ -174,7 +175,11 @@ const SizeAndQCard = (props: Props) => {
                             <div className="flex-[2]">{(product?.quantities[product.sizes.indexOf(size)]??0)*(q+1)} {
                               params?.service === "cup" ?  "cups": "t-shirts"
                             }</div>
-                            <div className="flex-[1]">{getPriceByQuantity(q+1,params.service as string)} Dh</div>
+                            <div className="flex-[1]">{
+                              params?.service === "stickers" ? getPrice(SheetPrice , (q+1)):
+                              params?.service === "t-shirts" ? getPrice(TShirtPrice , (q+1)):
+                              params?.service === "cup" ? getPrice(CupPrice , (q+1)): 0
+                            } Dh</div>
                             {/* <div className="text-green-700 flex-[1] justify-end flex">
                               {14}%
                             </div> */}
