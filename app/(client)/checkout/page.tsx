@@ -24,6 +24,7 @@ export default function Page({}: Props) {
 
 
     const checkout = async () => {
+        const orderItemsIds:string[] = []
         try {
           setLoading(true);
       
@@ -54,6 +55,8 @@ export default function Page({}: Props) {
                       })),
                     },
                   },
+                }).then((res) => {
+                    orderItemsIds.push(res.data?._id)
                 });
               }
             } else if (item.data.type === "sticker sheet") {
@@ -67,6 +70,8 @@ export default function Page({}: Props) {
                       sheetId: item.data.data.sheetId,
                     },
                   },
+                }).then((res) => {
+                    orderItemsIds.push(res.data?._id)
                 });
               }
             } else if (item.data.type === "t-shirt") {
@@ -81,7 +86,9 @@ export default function Page({}: Props) {
                     image: item.data.data.image,
                   },
                 },
-              });
+              }).then((res) => {
+                    orderItemsIds.push(res.data?._id)
+                });
             } else if (item.data.type === "cup") {
               await axios.post("/order-items/create", {
                 orderId: orderId,
@@ -94,15 +101,24 @@ export default function Page({}: Props) {
                     image: item.data.data.image,
                   },
                 },
-              });
+              }).then((res) => {
+                    orderItemsIds.push(res.data?._id)
+                });
             }
           }
       
+
+
           toast({
             title: "Checkout Done",
             description: "Your order has been placed",
             dir: "bottom-center",
           });
+
+
+          axios.put(`/orders/update/${orderId}`, {
+              cart: orderItemsIds
+          })
       
           setCart([]);
           socket.emit("add order");
