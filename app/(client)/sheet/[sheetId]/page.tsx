@@ -62,13 +62,18 @@ export default function Page({}: Props) {
 
   return (
     <div>
-    <div className='max-w-6xl mx-auto  py-8'>
+    <div className='max-w-5xl mx-auto  pt-8'>
         <div className='flex py-8 gap-8 relative mb-12'>
             <div className='flex-[1]  relative'>
                 <Image width={400} height={600} src={sheetInfo?.snapshot??""} alt="" className=' mb-12 flex-[2] opacity-0 top-0 left-0 rounded-xl shadow-2xl' />
                 {
                 new Array(sheetQuantity).fill(0).map((item, index) => (
                     <motion.div  
+                        initial={{scale:1.1,opacity:0.8}}
+                        animate={{scale:1,opacity:1}}
+                        transition={{
+                            duration:0.2,
+                        }}
                         className='overflow-hidden border border-[#fff6] shadow-sm duration-200 flex-[2] absolute top-0 left-0 rounded-xl drop-shadow-2xl'
                         style={{ rotate: `${-((index)*3 - ((sheetQuantity-1)/2)*6)}deg`, translateX: `${index*10}px`, translateY: `${index*10}px` }}
                         key={index}>
@@ -78,7 +83,10 @@ export default function Page({}: Props) {
                 }
             </div>
             <div className='flex-[1]  sticky top-[120px] h-fit '>
-                <div className='space-y-6 w-full p-8 bg-[#fff8] rounded-xl border '>
+                <motion.div 
+                    initial={{opacity:0,x:300}}
+                    animate={{opacity:1,x:0}}
+                    className='space-y-6 w-full p-8 bg-[#fff8] rounded-xl border '>
                         <h1 className='text-5xl mb-8'>Stickers Sheet</h1>
                         <h1 className='text-3xl mb-6'>hand drawing stickers</h1>
                         <p className='text-2xl'>Size : 20cm x 30cm</p>
@@ -111,7 +119,7 @@ export default function Page({}: Props) {
                             </Button>
                             {/* <Button size="lg" variant={"outline"} className=''>Buy now</Button> */}
                         </div>
-                </div>
+                </motion.div>
             </div>
         </div>
     </div>
