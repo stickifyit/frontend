@@ -10,6 +10,7 @@ import Link from 'next/link'
 import React from 'react'
 import { useQuery } from "react-query";
 import { motion } from "framer-motion"
+import StickerSheetsList from '@/components/global/StickerSheetsList'
 type Props = {}
 const Page = (props: Props) => {
   const {data:packs} = useQuery("packs", fetchPacks)
@@ -23,8 +24,8 @@ const Page = (props: Props) => {
                     <Input placeholder='Search sticker' className='max-w-md flex-1 pl-10'/>
                 </div>
             </div>
-
-            <div className='grid grid-cols-6 gap-3'>
+            <h1 className='text-5xl ml-6 py-8 opacity-75'>Packs</h1>
+            <div className='grid grid-cols-6 gap-3 mb-8'>
                 {
                     packs?.map((item, index) => (
                         <motion.div 
@@ -44,7 +45,7 @@ const Page = (props: Props) => {
                     ))
                 }
             </div>
-
+            <StickerSheetsList/>
         </div>
     </div>
   )
