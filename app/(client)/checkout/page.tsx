@@ -177,17 +177,17 @@ export default function Page({}: Props) {
                     <div className='flex gap-4 max-w-2xl '>
                         <div className='flex-1'>
                             <h4 className='text-xl opacity-75'>First Name</h4>
-                            <Input value={name} onInput={(e:any)=>setName(e.target.value)} className='max-w-2xl'></Input>
+                            <Input name='firstName' value={name} onInput={(e:any)=>setName(e.target.value)} className='max-w-2xl'></Input>
                         </div>
                         <div className='flex-1'>
                             <h4 className='text-xl opacity-75'>Last Name</h4>
-                            <Input value={lastName} onInput={(e:any)=>setLastName(e.target.value)} className='max-w-2xl'></Input>
+                            <Input name='lastName' value={lastName} onInput={(e:any)=>setLastName(e.target.value)} className='max-w-2xl'></Input>
                         </div>
                     </div>
                     <h4 className='text-xl opacity-75'>Phone Number</h4>
-                    <Input value={phone} onInput={(e:any)=>setPhone(e.target.value)} className='max-w-2xl'></Input>
+                    <Input name='phone' value={phone} onInput={(e:any)=>setPhone(e.target.value)} className='max-w-2xl'></Input>
                     <h4 className='text-xl opacity-75'>Full Address</h4>
-                    <Input value={address} onInput={(e:any)=>setAddress(e.target.value)} className='max-w-2xl'></Input>
+                    <Input name='address' value={address} onInput={(e:any)=>setAddress(e.target.value)} className='max-w-2xl'></Input>
                     <br />
                     <Button onClick={checkout} disabled={loading|| !name || !address || !phone || !cart.length} size={"lg"} variant="secondary" className='max-w-[800px] '>
                         {
