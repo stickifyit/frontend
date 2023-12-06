@@ -20,14 +20,14 @@ const StickerSheetsList = (props: Props) => {
   return (
     sheets &&
     <div>
-      <div className='container flex justify-between items-center'>
-            <h1 className='text-5xl opacity-75'>Sticker Sheets</h1>
-            <div className='relative h-fit ml-auto  flex gap-2'>
+      <div className='container flex justify-between gap-3 my-8 md:my-0 md:items-center flex-col md:flex-row'>
+            <h1 className='md:text-5xl text-3xl opacity-75'>Sticker Sheets</h1>
+            <div className='relative h-fit md:ml-auto  flex gap-2 w-fit'>
                 <Search size={18} className='absolute top-1/2 left-3 -translate-y-1/2'/>
                 <Input placeholder='Search sheet' className='w-full flex-1 pl-10'/>
             </div>
       </div>
-      <div className='container mx-auto grid grid-cols-5 gap-6 mt-4 p-6'>
+      <div className='container mx-auto grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-6 mt-4 p-6'>
         {
           (sheets).flat(1).map((item, index) => (
             <SheetComp key={index} item={item} index={index} sheets={sheets}/>
@@ -75,7 +75,7 @@ const SheetComp = ({item,index,sheets}:{item:any,index:number,sheets:any}) => {
                 }
             });
         setTimesInCart(existingItemIndex > -1 ? cart[existingItemIndex].quantity : 0)
-    },[])
+    },[cart,item.name])
 
   return(
     <motion.div
@@ -92,7 +92,7 @@ const SheetComp = ({item,index,sheets}:{item:any,index:number,sheets:any}) => {
                 <Link href={"/sheet/"+item.name.replace(/\s+/g, '-')} >
                     <Image width={400} height={600} className='w-full rounded-xl aspect-[2/3]' src={item.snapshot} alt="" />
                 </Link>
-                <div className='h-14 px-1 items-center flex justify-between'>
+                <div className='md:h-14 gap-2 px-1 md:items-center flex justify-between flex-col md:flex-row'>
                   <div>
                     <h3 className='opacity-75 text-sm'>{item.name}</h3>
                   </div>

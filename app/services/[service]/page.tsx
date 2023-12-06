@@ -32,17 +32,17 @@ const Page = (props: Props) => {
   return (
     <div className='min-h-screen'>
       <div className='bg- flex gap-4'>
-          <div className='container flex gap-12 items-center mx-auto space-y-4 '>
-          <motion.div 
-              initial={{opacity:0,scale:0}}
-              animate={{opacity:1,scale:1}}
-              className=' drop-shadow-2xl'>
-                 {/* i want to take the service and show image of it  */}
-                <Image width={450} src={heroImages[params?.service as 'stickers'|'t-shirts' ]??''} alt=""></Image>
-          </motion.div>
+          <div className='container flex flex-col md:flex-row md:gap-12 items-center mx-auto space-y-4 '>
+            <motion.div 
+                initial={{opacity:0,scale:0}}
+                animate={{opacity:1,scale:1}}
+                className=' drop-shadow-2xl'>
+                  {/* i want to take the service and show image of it  */}
+                  <Image width={450} src={heroImages[params?.service as 'stickers'|'t-shirts' ]??''} alt=""></Image>
+            </motion.div>
             <div className='space-y-4'>
-              <motion.h1 initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} className=' text-7xl capitalize'>{params?.service}</motion.h1>
-              <motion.p initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.2}} className='max-w-2xl font-sans font-medium opacity-60'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere dolorum recusandae voluptates dolor quas ab at dignissimos sint pariatur ut, voluptatum libero, quam minus illo repudiandae similique laudantium vel quasi.</motion.p>
+              <motion.h1 initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} className='text-5xl md:text-7xl capitalize'>{params?.service}</motion.h1>
+              <motion.p initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.2}} className='max-w-2xl md:text-md text-sm font-sans font-medium opacity-60'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere dolorum recusandae voluptates dolor quas ab at dignissimos sint pariatur ut, voluptatum libero, quam minus illo repudiandae similique laudantium vel quasi.</motion.p>
               <motion.div initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.4}}>
               {
                 params?.service == "stickers" &&
@@ -63,9 +63,9 @@ const Page = (props: Props) => {
 
       <div>
         <div className='container flex justify-between items-center'>
-              <h1 className='text-5xl opacity-70'>Products</h1>
+              <h1 className='md:text-5xl text-3xl opacity-75'>Products</h1>
         </div>
-        <div className='container mx-auto grid grid-cols-4 gap-6 mt-4 p-6'>
+        <div className='container mx-auto grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6 mt-4 p-6'>
           {
             getProductsByService(params?.service as string)?.map((item, index) => (
               <motion.div key={index} initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:index*0.1}}>
