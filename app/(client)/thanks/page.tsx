@@ -7,6 +7,7 @@ import thankYou from '@/public/cart/thank-you.png'
 import Image from 'next/image'
 import pin from "@/public/cart/pin.png"
 import {motion} from "framer-motion"
+import Link from 'next/link'
 type Props = {}
 
 export default function page({}: Props) {
@@ -41,7 +42,9 @@ export default function page({}: Props) {
                         your order has been placed successfully , we will contact you soon 
                     </div>
                     <div>
+                        <Link href={"/services/stickers"}>
                         <Button variant={"secondary"} size={"lg"}>Continue Shopping<ArrowRight/></Button>
+                        </Link>
                     </div>
                 </CardContent>
             </Card>
