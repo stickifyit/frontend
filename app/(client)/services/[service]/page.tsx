@@ -17,7 +17,7 @@ import testSheet4 from "@/public/Untitled-6.jpg"
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import StickerSheetsList from '@/components/global/StickerSheetsList'
-
+import {motion} from "framer-motion"
 type Props = {}
 
 
