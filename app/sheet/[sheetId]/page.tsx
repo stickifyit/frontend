@@ -92,7 +92,7 @@ export default function Page({}: Props) {
                     animate={{opacity:1,x:0}}
                     className='space-y-6 w-full p-8 bg-[#fff8] rounded-xl border '>
                         <h1 className='text-5xl mb-8'>Stickers Sheet</h1>
-                        <h1 className='text-3xl mb-6'>hand drawing stickers</h1>
+                        <h1 className='text-3xl mb-6'>{sheetInfo?.name}</h1>
                         <p className='text-2xl'>Size : 20cm x 30cm</p>
                         <p className='text-2xl'>Quantity :</p>
                         <RadioGroup value={String(sheetQuantity)} onValueChange={e=>setSheetQuantity(Number(e))}>

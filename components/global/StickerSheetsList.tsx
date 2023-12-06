@@ -29,7 +29,7 @@ const StickerSheetsList = (props: Props) => {
       </div>
       <div className='container mx-auto grid grid-cols-5 gap-6 mt-4 p-6'>
         {
-          new Array(6).fill(sheets).flat(1).map((item, index) => (
+          (sheets).flat(1).map((item, index) => (
             <SheetComp key={index} item={item} index={index} sheets={sheets}/>
           ))
         }
