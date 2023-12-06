@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { Search, ShoppingBasketIcon } from 'lucide-react'
+import { Loader, Search, ShoppingBasketIcon } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import Link from 'next/link'
 import testSheet from "@/public/Untitled-1.jpg"
@@ -42,7 +42,10 @@ export default function Page({}: Props) {
 
 
     if (isLoading) {
-       return <p>loading ...</p> 
+       return 
+       <div className='w-full h-[calc(100vh-100px)] flex justify-center items-center'>
+            <Loader className='w-[30px] h-[30px] animate-spin' />
+       </div>
     }
 
 

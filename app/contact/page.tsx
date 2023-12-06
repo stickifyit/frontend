@@ -1,0 +1,72 @@
+"use client"
+import React, { useState } from 'react'
+import {motion} from "framer-motion"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { ArrowRight, Loader, Send } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
+import { Textarea } from '@/components/ui/textarea'
+import Image from 'next/image'
+import wow from "@/public/wow.png"
+
+type Props = {}
+
+export default function Page({}: Props) {
+
+    const [loading,setLoading] = React.useState(false);
+    
+    const router = useRouter();
+
+    const [name,setName] = useState("");
+    const [lastName,setLastName] = useState("");
+    const [message,setMessage] = useState("");
+    const [phone,setPhone] = useState("");
+  return (
+    <motion.div 
+    initial={{ opacity: 0 ,y:-200}}
+    animate={{ opacity: 1 ,y:0}}
+    className='min-h-screen container py-8'>
+        <Card className=''>
+            <CardHeader>
+                <CardTitle className='text-7xl font-thin opacity-75'>Contact Us</CardTitle>
+            </CardHeader>
+            <CardContent className='  overflow-hidden flex gap-4'>
+                <div className='flex-1 space-y-2 w-full '>
+                    <div className='flex gap-4 max-w-2xl '>
+                        <div className='flex-1'>
+                            <h4 className='text-xl opacity-75'>First Name</h4>
+                            <Input name='firstName' value={name} onInput={(e:any)=>setName(e.target.value)} className='max-w-2xl'></Input>
+                        </div>
+                        <div className='flex-1'>
+                            <h4 className='text-xl opacity-75'>Last Name</h4>
+                            <Input name='lastName' value={lastName} onInput={(e:any)=>setLastName(e.target.value)} className='max-w-2xl'></Input>
+                        </div>
+                    </div>
+                    <h4 className='text-xl opacity-75'>Phone Number</h4>
+                    <Input name='phone' value={phone} onInput={(e:any)=>setPhone(e.target.value)} className='max-w-2xl'></Input>
+                    <h4 className='text-xl opacity-75'>Message</h4>
+                    <Textarea name='phone' value={message} onInput={(e:any)=>setMessage(e.target.value)} className='max-w-2xl'></Textarea>
+
+                    <br />
+                    <Button disabled={loading|| !name || !message || !phone } size={"lg"} variant="secondary" className='max-w-[800px] '>
+                        {
+                            loading ?
+                            <>Loading <Loader className='animate-spin'/></>
+                            :
+                            <>Send <Send/></>
+                        }
+                    </Button>
+                </div>
+                <motion.div 
+                    initial={{opacity:0,scale:0,y:200}}
+                    animate={{opacity:1,scale:1,y:0}}
+                    transition={{delay:0.4}}
+                >
+                  <Image src={wow} alt='thanks' width={350} height={350} className='translate-y-14 drop-shadow-2xl'></Image>
+                </motion.div>
+            </CardContent>
+        </Card>
+    </motion.div>
+  )
+}
