@@ -11,6 +11,7 @@ import { useCart } from '@/store/cart'
 import {motion, useInView} from "framer-motion"
 type Props = {}
 
+
 const StickerSheetsList = (props: Props) => {
 
     const {data:sheets} = useQuery("fetchSheets",fetchStickerSheets)
