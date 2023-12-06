@@ -9,6 +9,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { useQuery } from "react-query";
+import { motion } from "framer-motion"
 type Props = {}
 const Page = (props: Props) => {
   const {data:packs} = useQuery("packs", fetchPacks)
@@ -26,7 +27,12 @@ const Page = (props: Props) => {
             <div className='grid grid-cols-6 gap-3'>
                 {
                     packs?.map((item, index) => (
-                        <Link key={index} href={"/explore/"+item._id}>
+                        <motion.div 
+                        initial={{opacity:0,y:50}}
+                        animate={{opacity:1,y:0}}
+                        transition={{delay:0.06* index,duration:0.3}}
+                        key={index}  >
+                        <Link href={"/explore/"+item._id}>
                             <div className='w-full rounded-xl overflow-hidden relative'>
                                 <Image width={200} height={200} src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" className='aspect-square object-cover p-4 w-full'/>
                                 <div className='p-3'>
@@ -34,6 +40,7 @@ const Page = (props: Props) => {
                                 </div>
                             </div>
                         </Link>
+                        </motion.div>
                     ))
                 }
             </div>

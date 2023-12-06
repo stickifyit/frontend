@@ -17,6 +17,7 @@ import Cup from "@/public/custom-cup/Untitled-1.png"
 import backTShirt from "@/public/custom-t-shirts/back-side-canvas.png"
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
+import {motion} from "framer-motion"
 
 // Import Swiper styles
 import 'swiper/css';
@@ -93,9 +94,13 @@ const Page = (props: Props) => {
                         {
                             stickers?.map((item, index) => (
                             <SwiperSlide  key={item._id} className='p-2'>
-                                <div className={selected === index ? "outline rounded-xl outline-secondary" :""} onClick={()=>{setSelected(index)}}>
+                                <motion.div 
+                                    initial={{opacity:0,y:50}}
+                                    animate={{opacity:1,y:0}}
+                                    transition={{delay:0.06* index,duration:0.3}}
+                                    className={selected === index ? "outline rounded-xl outline-secondary" :""} onClick={()=>{setSelected(index)}}>
                                     <StickerDialog item={item}/>
-                                </div>
+                                </motion.div>
                             </SwiperSlide>
                             ))
                         }
@@ -103,7 +108,7 @@ const Page = (props: Props) => {
  
                     </div>
                    <h1 className='text-4xl'>Products</h1>
-                    <div className='grid grid-cols-5 gap-4'>
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className='grid grid-cols-5 gap-4'>
                                 <div className='w-full flex flex-col gap-2 p-6 rounded-xl border bg-white h-fit'>
                                     <h1 className='mb-2 text-lg'>Pack Sheet</h1>
                                     <div className=' grid grid-cols-4 '>
@@ -171,7 +176,7 @@ const Page = (props: Props) => {
                                     </div>
                                 </div>
 
-                    </div>
+                    </motion.div>
             </div>
         </div>
     </div>
