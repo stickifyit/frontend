@@ -5,6 +5,7 @@ import Navbar from '@/components/global/Navbar'
 import { NavbarHight } from '@/constant/constants'
 import { Toaster } from '@/components/ui/toaster'
 import QueryProvider from '@/components/providers/QueryProvider'
+import Footer from '@/components/global/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 const LilitaOne = Lilita_One({
@@ -33,6 +34,7 @@ export default function RootLayout({
             <div className='' style={{marginTop:NavbarHight}}>
                 {children}
             </div>
+            <Footer/>
             </div>
         </QueryProvider>
       </body>
