@@ -20,6 +20,7 @@ import { getStickerSheet } from '@/utils/stickersSheet'
 import { useParams } from 'next/navigation'
 import { useCart } from '@/store/cart'
 import { sheetPricing } from '@/constant/pricing'
+import { PriceByPrice, SheetPrice, getPrice } from '@/lib/price'
 type Props = {}
 
 export default function Page({}: Props) {
@@ -99,7 +100,7 @@ export default function Page({}: Props) {
                             <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
                             <Label className="flex w-full" htmlFor={`option-${q+1}`}>
                                 <div className="flex-[1] text-lg">{q+1} Sheet</div>
-                                <div className="flex-[1] text-lg">{sheetPricing[q]} Dh</div>
+                                <div className="flex-[1] text-lg">{PriceByPrice(SheetPrice*(q+1))} Dh</div>
                                 {/* <div className="text-green-700 flex-[1] justify-end flex">
                                 {14}%
                                 </div> */}

@@ -41,9 +41,9 @@ function Page({}: Props) {
             }else if(item.data.type == "sticker sheet"){
                 price += SheetPrice * item.quantity
             }else if( item.data.type == "t-shirt"){
-                 price += SheetPrice * item.quantity
+                 price += TShirtPrice * item.quantity
             }else if( item.data.type == "cup"){
-                price += SheetPrice * item.quantity
+                price += CupPrice * item.quantity
             }
         }
         return PriceByPrice(price)
@@ -101,7 +101,7 @@ function Page({}: Props) {
                         </div>
                     </div>
                     <span className='text-xl '>Total Price</span>
-                    <h1 className='text-6xl '>{totalPrice.toFixed(2)} Dh</h1>
+                    <h1 className='text-6xl '>{(cartPrice + deliveryPrice).toFixed(2)} Dh</h1>
                     <div className='pt-8'>
                         <Link href={"/checkout"}>
                         <Button size="lg" className='w-full' variant={"secondary"}>CheckOut</Button>

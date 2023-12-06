@@ -12,6 +12,7 @@ import socket from '@/lib/socket'
 import { ArrowRight, Loader } from 'lucide-react'
 import { CupPrice, PriceByPrice, SheetPrice, TShirtPrice, deliveryPriceConst, getPrice } from '@/lib/price'
 import { useRouter } from 'next/navigation'
+import {motion} from "framer-motion"
 
 type Props = {}
 
@@ -36,9 +37,9 @@ export default function Page({}: Props) {
             }else if(item.data.type == "sticker sheet"){
                 price += SheetPrice * item.quantity
             }else if( item.data.type == "t-shirt"){
-                 price += SheetPrice * item.quantity
+                 price += TShirtPrice * item.quantity
             }else if( item.data.type == "cup"){
-                price += SheetPrice * item.quantity
+                price += CupPrice * item.quantity
             }
         }
 
@@ -167,7 +168,10 @@ export default function Page({}: Props) {
       
 
   return (
-    <div className='min-h-screen container py-8'>
+    <motion.div 
+    initial={{ opacity: 0 ,y:-200}}
+    animate={{ opacity: 1 ,y:0}}
+    className='min-h-screen container py-8'>
         <Card className=''>
             <CardHeader>
                 <CardTitle className='text-7xl font-thin opacity-75'>Checkout</CardTitle>
@@ -198,9 +202,15 @@ export default function Page({}: Props) {
                         }
                     </Button>
                 </div>
-                <Image src={img} alt='thanks' width={350} height={350} className='translate-y-14 drop-shadow-2xl'></Image>
+                <motion.div 
+                    initial={{opacity:0,scale:0,y:200}}
+                    animate={{opacity:1,scale:1,y:0}}
+                    transition={{delay:0.4}}
+                >
+                  <Image src={img} alt='thanks' width={350} height={350} className='translate-y-14 drop-shadow-2xl'></Image>
+                </motion.div>
             </CardContent>
         </Card>
-    </div>
+    </motion.div>
   )
 }
