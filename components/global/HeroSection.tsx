@@ -18,18 +18,20 @@ const HeroSection = (props: Props) => {
     <div className='w-full py-12 '>
       <div className='container  h-full items-center flex gap-10 lg:gap-4 flex-col-reverse lg:flex-row mx-auto'>
         <motion.div 
-            initial={{opacity:0,x: -200}}
-            animate={{opacity:1,x: 0}}
         className=' h-full text-center lg:text-start flex-1 items-center lg:items-start flex flex-col gap-6 justify-center'>
-          <h1 className='text-6xl max-w-3xl uppercase font-inter'>Turn Your Designs into Stunning Reality</h1>
-          <h1 className='text-2xl opacity-75 max-w-3xl font-thin'>Experience the joy of holding your creativity with our high-quality printed stickers</h1>
+          <motion.h1 initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.2}} className='text-6xl max-w-3xl uppercase font-inter'>Turn Your Designs into Stunning Reality</motion.h1>
+          <motion.h1 initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.4}} className='text-2xl opacity-75 max-w-3xl font-thin'>Experience the joy of holding your creativity with our high-quality printed stickers</motion.h1>
           <div className='flex gap-4'>
+            <motion.div initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.6}}>
             <Link href={"/services/stickers"}>
                 <Button size={'lg'} variant={"secondary"} className='uppercase flex gap-2  py-7 px-10 text-lg'>Explore Sheets</Button>
             </Link>
+            </motion.div>
+            <motion.div initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.8}}>
             <Link href={"/mysheet"}>
                 <Button size={'lg'} variant={"outline"} className='uppercase flex gap-2 py-7 px-10 text-lg '>Make your sheet <ArrowRight size={16}/></Button>
             </Link>
+            </motion.div>
           </div>
         </motion.div>
         <motion.div 
