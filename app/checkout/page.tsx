@@ -11,12 +11,16 @@ import { toast } from '@/components/ui/use-toast'
 import socket from '@/lib/socket'
 import { ArrowRight, Loader } from 'lucide-react'
 import { CupPrice, PriceByPrice, SheetPrice, TShirtPrice, deliveryPriceConst, getPrice } from '@/lib/price'
+import { useRouter } from 'next/navigation'
+import {motion} from "framer-motion"
 
 type Props = {}
 
 export default function Page({}: Props) {
     const {cart,setCart} = useCart();
     const [loading,setLoading] = React.useState(false);
+    
+    const router = useRouter();
 
     const [name,setName] = useState("");
     const [lastName,setLastName] = useState("");
@@ -33,9 +37,9 @@ export default function Page({}: Props) {
             }else if(item.data.type == "sticker sheet"){
                 price += SheetPrice * item.quantity
             }else if( item.data.type == "t-shirt"){
-                 price += SheetPrice * item.quantity
+                 price += TShirtPrice * item.quantity
             }else if( item.data.type == "cup"){
-                price += SheetPrice * item.quantity
+                price += CupPrice * item.quantity
             }
         }
 
@@ -148,6 +152,7 @@ export default function Page({}: Props) {
       
           setCart([]);
           socket.emit("add order");
+          router.push("/thanks")
         } catch (error) {
           console.error("Checkout failed:", error);
           toast({
@@ -163,8 +168,11 @@ export default function Page({}: Props) {
       
 
   return (
-    <div className='min-h-screen container py-8'>
-        <Card className=''>
+    <motion.div 
+    initial={{ opacity: 0 ,y:-200}}
+    animate={{ opacity: 1 ,y:0}}
+    className='min-h-[calc(100vh-100px)] container flex justify-center items-center'>
+        <Card className='w-full'>
             <CardHeader>
                 <CardTitle className='text-7xl font-thin opacity-75'>Checkout</CardTitle>
             </CardHeader>
@@ -173,17 +181,17 @@ export default function Page({}: Props) {
                     <div className='flex gap-4 max-w-2xl '>
                         <div className='flex-1'>
                             <h4 className='text-xl opacity-75'>First Name</h4>
-                            <Input value={name} onInput={(e:any)=>setName(e.target.value)} className='max-w-2xl'></Input>
+                            <Input name='firstName' value={name} onInput={(e:any)=>setName(e.target.value)} className='max-w-2xl'></Input>
                         </div>
                         <div className='flex-1'>
                             <h4 className='text-xl opacity-75'>Last Name</h4>
-                            <Input value={lastName} onInput={(e:any)=>setLastName(e.target.value)} className='max-w-2xl'></Input>
+                            <Input name='lastName' value={lastName} onInput={(e:any)=>setLastName(e.target.value)} className='max-w-2xl'></Input>
                         </div>
                     </div>
                     <h4 className='text-xl opacity-75'>Phone Number</h4>
-                    <Input value={phone} onInput={(e:any)=>setPhone(e.target.value)} className='max-w-2xl'></Input>
+                    <Input name='phone' value={phone} onInput={(e:any)=>setPhone(e.target.value)} className='max-w-2xl'></Input>
                     <h4 className='text-xl opacity-75'>Full Address</h4>
-                    <Input value={address} onInput={(e:any)=>setAddress(e.target.value)} className='max-w-2xl'></Input>
+                    <Input name='address' value={address} onInput={(e:any)=>setAddress(e.target.value)} className='max-w-2xl'></Input>
                     <br />
                     <Button onClick={checkout} disabled={loading|| !name || !address || !phone || !cart.length} size={"lg"} variant="secondary" className='max-w-[800px] '>
                         {
@@ -194,9 +202,15 @@ export default function Page({}: Props) {
                         }
                     </Button>
                 </div>
-                <Image src={img} alt='thanks' width={350} height={350} className='translate-y-14 drop-shadow-2xl'></Image>
+                <motion.div 
+                    initial={{opacity:0,scale:0,y:200}}
+                    animate={{opacity:1,scale:1,y:0}}
+                    transition={{delay:0.4}}
+                >
+                  <Image src={img} alt='thanks' width={350} height={350} className='translate-y-14 drop-shadow-2xl'></Image>
+                </motion.div>
             </CardContent>
         </Card>
-    </div>
+    </motion.div>
   )
 }

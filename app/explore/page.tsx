@@ -9,6 +9,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { useQuery } from "react-query";
+import { motion } from "framer-motion"
+import StickerSheetsList from '@/components/global/StickerSheetsList'
 type Props = {}
 const Page = (props: Props) => {
   const {data:packs} = useQuery("packs", fetchPacks)
@@ -22,11 +24,16 @@ const Page = (props: Props) => {
                     <Input placeholder='Search sticker' className='max-w-md flex-1 pl-10'/>
                 </div>
             </div>
-
-            <div className='grid grid-cols-6 gap-3'>
+            <h1 className='text-5xl ml-6 py-8 opacity-75'>Packs</h1>
+            <div className='grid grid-cols-6 gap-3 mb-8'>
                 {
                     packs?.map((item, index) => (
-                        <Link key={index} href={"/explore/"+item._id}>
+                        <motion.div 
+                        initial={{opacity:0,y:50}}
+                        animate={{opacity:1,y:0}}
+                        transition={{delay:0.06* index,duration:0.3}}
+                        key={index}  >
+                        <Link href={"/explore/"+item._id}>
                             <div className='w-full rounded-xl overflow-hidden relative'>
                                 <Image width={200} height={200} src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" className='aspect-square object-cover p-4 w-full'/>
                                 <div className='p-3'>
@@ -34,10 +41,11 @@ const Page = (props: Props) => {
                                 </div>
                             </div>
                         </Link>
+                        </motion.div>
                     ))
                 }
             </div>
-
+            <StickerSheetsList/>
         </div>
     </div>
   )

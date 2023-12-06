@@ -1,5 +1,5 @@
 import { Search, ShoppingBasketIcon } from 'lucide-react'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Input } from '../ui/input'
 import Link from 'next/link'
 import { Card } from '../ui/card'
@@ -8,8 +8,9 @@ import { Button } from '../ui/button'
 import { useQuery } from 'react-query'
 import { fetchStickerSheets } from '@/utils/stickersSheet'
 import { useCart } from '@/store/cart'
-
+import {motion, useInView} from "framer-motion"
 type Props = {}
+
 
 const StickerSheetsList = (props: Props) => {
 
@@ -20,10 +21,10 @@ const StickerSheetsList = (props: Props) => {
     sheets &&
     <div>
       <div className='container flex justify-between items-center'>
-            <h1 className='text-5xl opacity-70'>Products</h1>
+            <h1 className='text-5xl opacity-75'>Sticker Sheets</h1>
             <div className='relative h-fit ml-auto  flex gap-2'>
                 <Search size={18} className='absolute top-1/2 left-3 -translate-y-1/2'/>
-                <Input placeholder='Search sticker' className='w-full flex-1 pl-10'/>
+                <Input placeholder='Search sheet' className='w-full flex-1 pl-10'/>
             </div>
       </div>
       <div className='container mx-auto grid grid-cols-5 gap-6 mt-4 p-6'>
@@ -77,6 +78,14 @@ const SheetComp = ({item,index,sheets}:{item:any,index:number,sheets:any}) => {
     },[])
 
   return(
+    <motion.div
+    initial={{opacity:0,y:50,rotate:2}}
+    animate={{opacity:1,y:0,rotate:0}}
+    transition={{
+        duration:0.5,
+        delay:index*0.1 
+    }}
+    >
               <Card 
             //   style={{translate:`0px ${(5 + (index % 5))*(index % 5)}px`}} 
               key={index} className='w-full rounded-xl relative p-2 shadow-lg overflow-hidden'>
@@ -96,7 +105,13 @@ const SheetComp = ({item,index,sheets}:{item:any,index:number,sheets:any}) => {
                     <div className='bg-white text-lg text-[#333e] absolute top-1 left-1 px-3 h-8 flex justify-center items-center rounded-sm border '>{timesInCart} <span className='text-sm ml-2'> in cart</span></div>
                 }
               </Card>
+    </motion.div>
   )
 }
+
+
+
+
+
 
 export default StickerSheetsList
