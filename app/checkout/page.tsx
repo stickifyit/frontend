@@ -171,8 +171,8 @@ export default function Page({}: Props) {
     <motion.div 
     initial={{ opacity: 0 ,y:-200}}
     animate={{ opacity: 1 ,y:0}}
-    className='min-h-screen container py-8'>
-        <Card className=''>
+    className='min-h-[calc(100vh-100px)] container flex justify-center items-center'>
+        <Card className='w-full'>
             <CardHeader>
                 <CardTitle className='text-7xl font-thin opacity-75'>Checkout</CardTitle>
             </CardHeader>
