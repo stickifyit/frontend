@@ -11,12 +11,15 @@ import { toast } from '@/components/ui/use-toast'
 import socket from '@/lib/socket'
 import { ArrowRight, Loader } from 'lucide-react'
 import { CupPrice, PriceByPrice, SheetPrice, TShirtPrice, deliveryPriceConst, getPrice } from '@/lib/price'
+import { useRouter } from 'next/navigation'
 
 type Props = {}
 
 export default function Page({}: Props) {
     const {cart,setCart} = useCart();
     const [loading,setLoading] = React.useState(false);
+    
+    const router = useRouter();
 
     const [name,setName] = useState("");
     const [lastName,setLastName] = useState("");
@@ -148,6 +151,7 @@ export default function Page({}: Props) {
       
           setCart([]);
           socket.emit("add order");
+          router.push("/thanks")
         } catch (error) {
           console.error("Checkout failed:", error);
           toast({
