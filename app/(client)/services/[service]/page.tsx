@@ -68,10 +68,12 @@ const Page = (props: Props) => {
         <div className='container mx-auto grid grid-cols-4 gap-6 mt-4 p-6'>
           {
             getProductsByService(params?.service as string)?.map((item, index) => (
+              <motion.div key={index} initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:index*0.1}}>
               <Link href={item.href} key={index} className=' p-4 rounded-2xl border bg-gray-100 flex flex-col items-center justify-center hover:bg-slate-200 hover:scale-105 duration-300'>
                 <Image src={item.img} alt={item.name} width={250}/>
                 <h3 className='text-xl capitalize text-center'>{item.name}</h3>
               </Link>
+              </motion.div>
             ))
           }
         </div>

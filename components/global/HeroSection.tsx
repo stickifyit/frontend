@@ -59,7 +59,7 @@ const HeroSection = (props: Props) => {
             <motion.div key={name}
                 initial={{opacity:0,y:100,scale:0.6}}
                 animate={{opacity:1,y:0,scale:1}}
-                transition={{delay:0.2*index}}
+                transition={{delay:0.1*index+0.8}}
                 className='w-fit h-full flex flex-col gap-4'
             >
               <Link href={"/services/"+href} className='w-fit p-2 hover:scale-105 duration-300 rounded-2xl border bg-white '>

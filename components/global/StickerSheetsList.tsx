@@ -20,7 +20,7 @@ const StickerSheetsList = (props: Props) => {
     sheets &&
     <div>
       <div className='container flex justify-between items-center'>
-            <h1 className='text-5xl opacity-70'>Products</h1>
+            <h1 className='text-5xl opacity-70'>Sticker Sheets</h1>
             <div className='relative h-fit ml-auto  flex gap-2'>
                 <Search size={18} className='absolute top-1/2 left-3 -translate-y-1/2'/>
                 <Input placeholder='Search sticker' className='w-full flex-1 pl-10'/>
