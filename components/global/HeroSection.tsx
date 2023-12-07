@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { HeroLinksImages } from '@/constant/constants'
 import Link from 'next/link'
 import {motion} from "framer-motion"
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 
 type Props = {}
 
@@ -69,6 +70,33 @@ const HeroSection = (props: Props) => {
             </motion.div>
             )
             }
+        </div>
+    </div>
+      <div className='container p-4 py-8'>
+        <div className='flex flex-col gap-4 md:flex-row max-w-5xl mx-auto'>
+          {
+            [
+                {
+                  title:"Hot Picks",
+                  content: "🔥 Hot Picks! Explore our trendiest stickers, tees, and cup prints. Limited stock! Shop Now.",
+                },
+                {
+                  title:"Create Your Style",
+                  content: "🎨 Create your own style with our custom stickers sheets. Shop Now.",
+                }
+            ].map(({title,content},index)=>(
+                <Card key={title} className='flex-1'>
+                    <CardHeader>
+                        <CardTitle className='text-2xl font-medium'>
+                          {title}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      {content}
+                    </CardContent>
+                </Card>
+            ))
+          }
         </div>
     </div>
     </>
