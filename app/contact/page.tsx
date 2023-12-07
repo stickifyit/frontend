@@ -26,26 +26,26 @@ export default function Page({}: Props) {
     <motion.div 
     initial={{ opacity: 0 ,y:-200}}
     animate={{ opacity: 1 ,y:0}}
-    className='min-h-[calc(100vh-100px)] container flex justify-center items-center'>
+    className='min-h-[calc(100vh-100px)] container pt-4 px-4 flex justify-center items-center'>
         <Card className='w-full'>
             <CardHeader>
-                <CardTitle className='text-7xl font-thin opacity-75'>Contact Us</CardTitle>
+                <CardTitle className='md:text-7xl text-5xl font-thin opacity-75'>Contact Us</CardTitle>
             </CardHeader>
-            <CardContent className='  overflow-hidden flex gap-4'>
+            <CardContent className='  overflow-hidden flex gap-4 flex-col md:flex-row'>
                 <div className='flex-1 space-y-2 w-full '>
-                    <div className='flex gap-4 max-w-2xl '>
+                    <div className='flex gap-2 max-w-2xl flex-col md:flex-row'>
                         <div className='flex-1'>
-                            <h4 className='text-xl opacity-75'>First Name</h4>
+                            <h4 className='md:text-xl text-lg opacity-75'>First Name</h4>
                             <Input name='firstName' value={name} onInput={(e:any)=>setName(e.target.value)} className='max-w-2xl'></Input>
                         </div>
                         <div className='flex-1'>
-                            <h4 className='text-xl opacity-75'>Last Name</h4>
+                            <h4 className='md:text-xl text-lg opacity-75'>Last Name</h4>
                             <Input name='lastName' value={lastName} onInput={(e:any)=>setLastName(e.target.value)} className='max-w-2xl'></Input>
                         </div>
                     </div>
-                    <h4 className='text-xl opacity-75'>Phone Number</h4>
+                    <h4 className='md:text-xl text-lg opacity-75'>Phone Number</h4>
                     <Input name='phone' value={phone} onInput={(e:any)=>setPhone(e.target.value)} className='max-w-2xl'></Input>
-                    <h4 className='text-xl opacity-75'>Message</h4>
+                    <h4 className='md:text-xl text-lg opacity-75'>Message</h4>
                     <Textarea name='phone' value={message} onInput={(e:any)=>setMessage(e.target.value)} className='max-w-2xl'></Textarea>
 
                     <br />
@@ -63,7 +63,7 @@ export default function Page({}: Props) {
                     animate={{opacity:1,scale:1,y:0}}
                     transition={{delay:0.4}}
                 >
-                  <Image src={wow} alt='thanks' width={350} height={350} className='translate-y-14 drop-shadow-2xl'></Image>
+                  <Image src={wow} alt='thanks' width={350} height={350} className='translate-y-14 md:mt-0 mt-[-50px] drop-shadow-2xl'></Image>
                 </motion.div>
             </CardContent>
         </Card>

@@ -69,7 +69,7 @@ const Page = (props: Props) => {
 
   return (
     stickers &&
-    <div className='min-h-screen'>
+    <div className='min-h-screen '>
         <div className='container px-4 mx-auto'>
             {/* <div className='flex justify-between items-center'>
                 <h1 className='text-4xl py-10'>Pack Stickers</h1>
@@ -105,7 +105,7 @@ const Page = (props: Props) => {
                             }
                         }
                     }
-                    className='flex-1'
+                    className='flex-1 sticky top-[0px]'
                     >
 
                         {
@@ -126,7 +126,8 @@ const Page = (props: Props) => {
                     </div>
                    <h1 className='text-4xl'>Products</h1>
                     <motion.div initial={{opacity:0}} animate={{opacity:1}} className='grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4'>
-                                <div className='w-full flex flex-col gap-2 p-2 md:p-6 rounded-xl border bg-white h-fit'>
+
+                                <div onClick={()=>{getSheet()}} className='w-full flex flex-col gap-2 p-2 md:p-6 rounded-xl border bg-white h-fit'>
                                     <h1 className='mb-2 text-lg'>Pack Sheet</h1>
                                     <div className=' grid grid-cols-4 '>
                                         {
@@ -136,11 +137,10 @@ const Page = (props: Props) => {
                                             ))
                                         }
                                     </div>
-                                    <Button variant={"secondary"} onClick={getSheet}>Get Sheet <EditIcon/></Button>
                                 </div>
 
                                 {/* // center chest sticker */}
-                                <div className='bg-white border flex-col rounded-xl p-2 md:p-6 flex items-center justify-center'>
+                                <div onClick={()=>{handleContinue("center-chest")}} className='bg-white border flex-col rounded-xl p-2 md:p-6 flex items-center justify-center'>
                                     <h1 className='mb-2 text-lg w-full'>Center Chest</h1>
                                     <div className='flex-1 flex justify-center items-center'>
                                         <div className='relative -rotate-5'>
@@ -148,12 +148,9 @@ const Page = (props: Props) => {
                                             <Image alt='' className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-80%]' width={40} height={40} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
                                         </div>
                                     </div>
-                                    <div className='flex items-end w-full'>
-                                        <Button onClick={()=>handleContinue("center-chest")} variant={"secondary"} className='w-full'>Get T{"'"}shirt</Button>
-                                    </div>
                                 </div>
                                 {/* // left chest sticker */}
-                                <div className='bg-white border flex-col rounded-xl  p-2 md:p-6 flex items-center justify-center'>
+                                <div  onClick={()=>{handleContinue("left-chest")}} className='bg-white border flex-col rounded-xl  p-2 md:p-6 flex items-center justify-center'>
                                     <h1 className='mb-2 text-lg w-full'>Left Chest</h1>
                                     <div className='flex-1 flex justify-center items-center'>
                                         <div className='relative -rotate-5'>
@@ -161,12 +158,9 @@ const Page = (props: Props) => {
                                             <Image alt='' className='absolute top-[25%] right-[30%]' width={20} height={20} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
                                         </div>
                                     </div>
-                                    <div className='flex items-end w-full'>
-                                        <Button onClick={()=>handleContinue("left-chest")} variant={"secondary"} className='w-full'>Get T{"'"}shirt</Button>
-                                    </div>
                                 </div>
                                 {/* // back side sticker */}
-                                <div className='bg-white border flex-col rounded-xl  p-2 md:p-6 flex items-center justify-center'>
+                                <div onClick={()=>{handleContinue("back-side")}} className='bg-white border flex-col rounded-xl  p-2 md:p-6 flex items-center justify-center'>
                                     <h1 className='mb-2 text-lg w-full'>Back Side</h1>
                                     <div className='flex-1 flex justify-center items-center'>
                                         <div className='relative'>
@@ -174,22 +168,16 @@ const Page = (props: Props) => {
                                             <Image alt='' className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-90%]' width={40} height={40} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
                                         </div>
                                     </div>
-                                    <div className='flex items-end w-full'>
-                                        <Button onClick={()=>handleContinue("back-side")} variant={"secondary"} className='w-full'>Get T{"'"}shirt</Button>
-                                    </div>
                                 </div>
 
                                 {/* // cup */}
-                                <div className='bg-white border flex-col rounded-xl p-6 flex items-center justify-center'>
+                                <div onClick={()=>handleContinue("cup","cup")} className='bg-white border flex-col rounded-xl p-2 md:p-6 flex items-center justify-center'>
                                     <h1 className='mb-2 text-lg w-full'>Cup</h1>
                                     <div className='flex-1 flex justify-center items-center'>
                                         <div className='relative -rotate-5'>
                                             <Image alt='' className='w-full drop-shadow-xl' width={300} height={300}  src={Cup}></Image>
-                                            <Image alt='' className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-40%]' width={60} height={60} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
+                                            <Image alt='' className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-40%]' width={50} height={50} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
                                         </div>
-                                    </div>
-                                    <div className='flex items-end w-full'>
-                                        <Button onClick={()=>handleContinue("cup","cup")} variant={"secondary"} className='w-full'>Get Cup</Button>
                                     </div>
                                 </div>
 

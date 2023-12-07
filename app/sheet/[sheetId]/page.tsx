@@ -66,9 +66,9 @@ export default function Page({}: Props) {
 
   return (
     <div>
-    <div className='max-w-5xl mx-auto  pt-8'>
-        <div className='flex py-8 gap-8 relative mb-12'>
-            <div className='flex-[1]  relative'>
+    <div className='max-w-5xl mx-auto  pt-8 w-full'>
+        <div className='flex flex-col md:flex-row w-full py-8 md:gap-8 items-center relative mb-12'>
+            <div className='flex-[1] drop-shadow-2xl relative md:w-full w-[50vw]'>
                 <Image width={400} height={600} src={sheetInfo?.snapshot??""} alt="" className=' mb-12 flex-[2] opacity-0 top-0 left-0 rounded-xl shadow-2xl' />
                 {
                 new Array(sheetQuantity).fill(0).map((item, index) => (
@@ -78,8 +78,8 @@ export default function Page({}: Props) {
                         transition={{
                             duration:0.2,
                         }}
-                        className='overflow-hidden border border-[#fff6] shadow-sm duration-200 flex-[2] absolute top-0 left-0 rounded-xl drop-shadow-2xl'
-                        style={{ rotate: `${-((index)*3 - ((sheetQuantity-1)/2)*6)}deg`, translateX: `${index*10}px`, translateY: `${index*10}px` }}
+                        className='overflow-hidden border border-[#fff6] shadow-sm duration-200 flex-[2] absolute top-0 left-0 rounded-xl drop-shadow-lg'
+                        style={{ rotate: `${-((index)*1.5 - ((sheetQuantity-1)/2)*1.5)}deg`, translateX: `${index*6}px`, translateY: `${index*0}px` }}
                         key={index}>
                             <Image width={400} height={600} src={sheetInfo?.snapshot??""}  alt="" />
                     </motion.div>
@@ -90,11 +90,11 @@ export default function Page({}: Props) {
                 <motion.div 
                     initial={{opacity:0,x:300}}
                     animate={{opacity:1,x:0}}
-                    className='space-y-6 w-full p-8 bg-[#fff8] rounded-xl border '>
-                        <h1 className='text-5xl mb-8'>Stickers Sheet</h1>
-                        <h1 className='text-3xl mb-6'>{sheetInfo?.name}</h1>
-                        <p className='text-2xl'>Size : 20cm x 30cm</p>
-                        <p className='text-2xl'>Quantity :</p>
+                    className='md:space-y-6 space-x-2 w-full p-4 md:p-8 bg-[#fff8] rounded-xl border'>
+                        {/* <h1 className='text-5xl mb-8'>Stickers Sheet</h1> */}
+                        <h1 className='md:text-3xl text-2xl mb-6'>{sheetInfo?.name}</h1>
+                        <p className='md:text-2xl text-xl'>Size : <span className='text-sm'>20cm x 30cm</span></p>
+                        <p className='md:text-2xl mb-2 text-xl'>Quantity :</p>
                         <RadioGroup value={String(sheetQuantity)} onValueChange={e=>setSheetQuantity(Number(e))}>
                         {
                         new Array(6).fill(0)
@@ -102,8 +102,8 @@ export default function Page({}: Props) {
                             <div key={q} className="flex items-center space-x-2">
                             <RadioGroupItem value={`${q+1}`} id={`option-${q+1}`} />
                             <Label className="flex w-full" htmlFor={`option-${q+1}`}>
-                                <div className="flex-[1] text-lg">{q+1} Sheet</div>
-                                <div className="flex-[1] text-lg">{PriceByPrice(SheetPrice*(q+1))} Dh</div>
+                                <div className="flex-[1] text-sm md:text-lg">{q+1} Sheet</div>
+                                <div className="flex-[1] text-sm md:text-lg">{PriceByPrice(SheetPrice*(q+1))} Dh</div>
                                 {/* <div className="text-green-700 flex-[1] justify-end flex">
                                 {14}%
                                 </div> */}

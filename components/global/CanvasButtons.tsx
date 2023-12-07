@@ -19,7 +19,7 @@ function CanvasButtons({}: Props) {
     const params = useParams()
   return (
     
-    <div className="absolute top-[50%] -translate-y-1/2 flex flex-col gap-2 left-4">
+    <div className="absolute top-[50%] -translate-y-1/2 flex flex-col gap-2 left-4 z-10">
       <Label
         htmlFor="upload"
         className="hover:bg-secondary cursor-pointer h-12 w-12 bg-white border flex items-center justify-center  hover:scale-105 duration-200 rounded-full scale-100 ease-in-out"

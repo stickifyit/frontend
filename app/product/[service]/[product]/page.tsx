@@ -20,13 +20,7 @@ function Page({}: Props) {
   return (
     <div className="">
       <HeroSectionProduct/>
-      <div className="flex flex-col lg:flex-row gap-6 container mx-auto py-8">
-        {
-          ["die-cut", "circle", "square", "rect", "bumper", "rounded", "oval"].includes(params?.product as keyof typeof productHeroImages) && 
-          <>
-          </>
-        }
-        
+      <div className="flex flex-col lg:flex-row gap-6 container relative px-4  py-8">
           <Canvas type={params?.product as keyof typeof productHeroImages}/>
           <SizeAndQCard />
       </div>

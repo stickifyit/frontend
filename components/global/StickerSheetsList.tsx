@@ -88,11 +88,11 @@ const SheetComp = ({item,index,sheets}:{item:any,index:number,sheets:any}) => {
     >
               <Card 
             //   style={{translate:`0px ${(5 + (index % 5))*(index % 5)}px`}} 
-              key={index} className='w-full rounded-xl relative p-2 shadow-lg overflow-hidden'>
+              key={index} className='w-full rounded-xl relative shadow-lg overflow-hidden'>
                 <Link href={"/sheet/"+item.name.replace(/\s+/g, '-')} >
-                    <Image width={400} height={600} className='w-full rounded-xl aspect-[2/3]' src={item.snapshot} alt="" />
+                    <Image width={400} height={600} className='w-full rounded aspect-[2/3]' src={item.snapshot} alt="" />
                 </Link>
-                <div className='md:h-14 gap-2 px-1 md:items-center flex justify-between flex-col md:flex-row'>
+                <div className='md:h-14 gap-2 p-2 md:p-4 md:items-center flex justify-between flex-col md:flex-row'>
                   <div>
                     <h3 className='opacity-75 text-sm'>{item.name}</h3>
                   </div>
