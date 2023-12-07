@@ -19,15 +19,15 @@ const StickerSheetsList = (props: Props) => {
 
   return (
     sheets &&
-    <div>
-      <div className='container flex justify-between gap-3 my-8 md:my-0 md:items-center flex-col md:flex-row'>
+    <div className='container px-4'>
+      <div className='flex justify-between gap-3 my-8 md:my-0 md:items-center flex-col md:flex-row'>
             <h1 className='md:text-5xl text-3xl opacity-75'>Sticker Sheets</h1>
             <div className='relative h-fit md:ml-auto  flex gap-2 w-fit'>
                 <Search size={18} className='absolute top-1/2 left-3 -translate-y-1/2'/>
                 <Input placeholder='Search sheet' className='w-full flex-1 pl-10'/>
             </div>
       </div>
-      <div className='container mx-auto grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-6 mt-4 p-6'>
+      <div className='md:container mx-auto grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-6 mt-4 md:p-6'>
         {
           (sheets).flat(1).map((item, index) => (
             <SheetComp key={index} item={item} index={index} sheets={sheets}/>

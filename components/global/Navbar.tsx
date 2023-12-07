@@ -8,6 +8,7 @@ import { NavbarNavigation } from './NavbarNavigation'
 import Link from 'next/link'
 import CartSheet from './CartSheet'
 import {motion} from "framer-motion"
+import { usePathname } from 'next/navigation'
 
 type Props = {}
 
@@ -16,7 +17,7 @@ const Navbar = (props: Props) => {
   return (
     <div style={{height: NavbarHight}} className={'flex flex-col items-center border-b bg-white z-50 fixed w-full top-0'}>
         {/* <div className='h-6 text-sm w-full bg-secondary'>Stand with palestine </div> */}
-        <div className='container flex items-center mx-auto flex-1 justify-between'>
+        <div className='container px-4 flex items-center mx-auto flex-1 justify-between'>
             <Link href={"/"} className='flex items-center gap-4'>
                 <Image src={LOGO} className='w-[50px] h-[50px]' alt='logo' width={60} height={60}/>
                 <h1 className='text-lg md:text-2xl tracking-wider md:font-bold text-bblack uppercase'>stickify</h1>
@@ -52,8 +53,8 @@ const Navbar = (props: Props) => {
                             {name:"Explore",href:"/explore"},
                             {name:"contact",href:"/contact"},
                         ].map(({name,href},index)=>
-                            <div key={index} className='h-fit overflow-hidden' onClick={()=>setShow(false)}>
-                                <motion.div initial={{y:100,rotate:0}} animate={{y:0,rotate:-3}} transition={{delay:0.1*index}}>
+                            <div key={index} className='h-fit ' onClick={()=>setShow(false)}>
+                                <motion.div initial={{y:100,rotate:0,opacity:0}} animate={{y:0,rotate:-3,opacity:1}} transition={{delay:0.1*index}}>
                                     <MobileNavbarLink key={name} href={href} name={name}></MobileNavbarLink>
                                 </motion.div>
                             </div>
@@ -68,8 +69,9 @@ const Navbar = (props: Props) => {
 
 
 const MobileNavbarLink = ({href,name}:{href:string,name:string})=>{
+    const pathName = usePathname()
     return (
-        <Link href={href} className='text-6xl uppercase'>{name}</Link>
+        <Link href={href} className={'text-6xl uppercase drop-shadow-sm '+(pathName === href ? " bg-gray-800 px-6 text-secondary drop-shadow-xl " : "")}>{name}</Link>
     )
 }
 

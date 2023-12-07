@@ -70,7 +70,7 @@ const Page = (props: Props) => {
   return (
     stickers &&
     <div className='min-h-screen'>
-        <div className='container mx-auto'>
+        <div className='container px-4 mx-auto'>
             {/* <div className='flex justify-between items-center'>
                 <h1 className='text-4xl py-10'>Pack Stickers</h1>
                 <div className='relative h-fit ml-auto'>
@@ -82,18 +82,35 @@ const Page = (props: Props) => {
             <div className='flex flex-col gap-4 py-8'>
                     <h1 className='text-4xl'>Pack stickers</h1>
                     <div className='flex items-center p-2'>
-                        <div className='w-[300px] h-[300px] p-2 drop-shadow-2xl border-r-[3px]'>
+                        <div className='w-[300px] hidden md:block h-[300px] p-2 drop-shadow-2xl border-r-[3px]'>
                             <Image src={"https://storage.googleapis.com/stickify-storage/"+stickers[selected].imageURL} alt='' width={500} height={500}></Image>
                         </div>
                     <Swiper
                     spaceBetween={0}
                     slidesPerView={5.6}
+                    breakpoints={
+                        {
+                            0:{
+                                slidesPerView:3.5,
+                                spaceBetween:0,
+                            },
+                            640:{
+                                slidesPerView:3.5
+                            },
+                            768:{
+                                slidesPerView:4.5
+                            },
+                            1024:{
+                                slidesPerView:5.5
+                            }
+                        }
+                    }
                     className='flex-1'
                     >
 
                         {
                             stickers?.map((item, index) => (
-                            <SwiperSlide  key={item._id} className='p-2'>
+                            <SwiperSlide  key={item._id} className='md:p-2 p-1'>
                                 <motion.div 
                                     initial={{opacity:0,y:50}}
                                     animate={{opacity:1,y:0}}
@@ -108,8 +125,8 @@ const Page = (props: Props) => {
  
                     </div>
                    <h1 className='text-4xl'>Products</h1>
-                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className='grid grid-cols-5 gap-4'>
-                                <div className='w-full flex flex-col gap-2 p-6 rounded-xl border bg-white h-fit'>
+                    <motion.div initial={{opacity:0}} animate={{opacity:1}} className='grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4'>
+                                <div className='w-full flex flex-col gap-2 p-2 md:p-6 rounded-xl border bg-white h-fit'>
                                     <h1 className='mb-2 text-lg'>Pack Sheet</h1>
                                     <div className=' grid grid-cols-4 '>
                                         {
@@ -123,12 +140,12 @@ const Page = (props: Props) => {
                                 </div>
 
                                 {/* // center chest sticker */}
-                                <div className='bg-white border flex-col rounded-xl p-6 flex items-center justify-center'>
+                                <div className='bg-white border flex-col rounded-xl p-2 md:p-6 flex items-center justify-center'>
                                     <h1 className='mb-2 text-lg w-full'>Center Chest</h1>
                                     <div className='flex-1 flex justify-center items-center'>
                                         <div className='relative -rotate-5'>
                                             <Image alt='' className='w-full drop-shadow-xl' width={300} height={300}  src={TShirt}></Image>
-                                            <Image alt='' className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-80%]' width={60} height={60} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
+                                            <Image alt='' className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-80%]' width={40} height={40} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
                                         </div>
                                     </div>
                                     <div className='flex items-end w-full'>
@@ -136,7 +153,7 @@ const Page = (props: Props) => {
                                     </div>
                                 </div>
                                 {/* // left chest sticker */}
-                                <div className='bg-white border flex-col rounded-xl p-6 flex items-center justify-center'>
+                                <div className='bg-white border flex-col rounded-xl  p-2 md:p-6 flex items-center justify-center'>
                                     <h1 className='mb-2 text-lg w-full'>Left Chest</h1>
                                     <div className='flex-1 flex justify-center items-center'>
                                         <div className='relative -rotate-5'>
@@ -149,12 +166,12 @@ const Page = (props: Props) => {
                                     </div>
                                 </div>
                                 {/* // back side sticker */}
-                                <div className='bg-white border flex-col rounded-xl p-6 flex items-center justify-center'>
+                                <div className='bg-white border flex-col rounded-xl  p-2 md:p-6 flex items-center justify-center'>
                                     <h1 className='mb-2 text-lg w-full'>Back Side</h1>
                                     <div className='flex-1 flex justify-center items-center'>
                                         <div className='relative'>
                                             <Image alt='' className='w-full  drop-shadow-xl' width={300} height={300}  src={backTShirt}></Image>
-                                            <Image alt='' className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-90%]' width={60} height={60} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
+                                            <Image alt='' className='absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-90%]' width={40} height={40} src={"https://storage.googleapis.com/stickify-storage/"+(stickers[selected].imageURL)} ></Image>
                                         </div>
                                     </div>
                                     <div className='flex items-end w-full'>

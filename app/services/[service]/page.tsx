@@ -32,7 +32,7 @@ const Page = (props: Props) => {
   return (
     <div className='min-h-screen'>
       <div className='bg- flex gap-4'>
-          <div className='container flex flex-col md:flex-row md:gap-12 items-center mx-auto space-y-4 '>
+          <div className='container px-4 flex flex-col md:flex-row md:gap-12 items-center mx-auto space-y-4 '>
             <motion.div 
                 initial={{opacity:0,scale:0}}
                 animate={{opacity:1,scale:1}}
@@ -62,10 +62,10 @@ const Page = (props: Props) => {
             <StickerSheetsList/>:
 
       <div>
-        <div className='container flex justify-between items-center'>
+        <div className='container px-4 flex justify-between items-center'>
               <h1 className='md:text-5xl text-3xl opacity-75'>Products</h1>
         </div>
-        <div className='container mx-auto grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6 mt-4 p-6'>
+        <div className='container px-4 mx-auto grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6 mt-4 p-6'>
           {
             getProductsByService(params?.service as string)?.map((item, index) => (
               <motion.div key={index} initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:index*0.1}}>
