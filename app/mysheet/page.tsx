@@ -167,7 +167,7 @@ export const MySheetPhone = () => {
 
 const Ruler = () => {
   return (
-    <div className="h-[50px] md:mt-4 max-w-[800px] w-[calc(100%+26px)] translate-x-[-13px] opacity-60 left-[0] sticky  mx-auto top-0   z-20 flex   justify-between">
+    <div className="h-[50px] md:mt-4 max-w-[800px] md:w-full w-[calc(100%+26px)] md:translate-x-0 translate-x-[-13px] opacity-60 left-[0] sticky  mx-auto top-0   z-20 flex   justify-between">
       {new Array(21).fill(0).map((_, q) => (
         <>
           {q !== 0 &&

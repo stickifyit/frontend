@@ -46,7 +46,7 @@ const Page = (props: Props) => {
               <motion.div initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.4}}>
               {
                 params?.service == "stickers" &&
-                  <Link className='block' href={"/mysheet"} >
+                  <Link className='block w-fit' href={"/mysheet"} >
                     
                     <Button size="lg" variant="secondary" className='text-white  uppercase'>Custom sheet<Stars/></Button>
                   </Link>
