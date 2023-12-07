@@ -125,7 +125,9 @@ export default function Page({}: Props) {
   );
 }
 
-export const MySheetPhone = () => {
+
+
+const MySheetPhone = () => {
   const sheetRef = useRef<HTMLDivElement | null>(null);
   const [w, setW] = useState(0);
   useEffect(() => {
