@@ -16,9 +16,9 @@ export default function ExploreBar({}: Props) {
   return (
     <div className=" h-full overflow-auto flex-1 relative">
       <div className="p-3 flex justify-between items-center text-xl mt-5 z-20  bg-white ">
-        <h2>Explore</h2>
+        <h2 className="">Explore</h2>
       </div>
-      <div className="p-3 flex gap-2 mb-4 justify-between items-center text-xl  z-20 shadow-xl shadow-[#33333307] sticky top-0 bg-white border-b">
+      <div className="p-3 flex gap-2 mb-4 justify-between items-center text-xl  z-20 shadow-xl shadow-[#33333307] sticky -top-1 bg-white border-b">
            
             {
                 selectedPack !== null &&
@@ -29,7 +29,7 @@ export default function ExploreBar({}: Props) {
                 <Input placeholder='Search sticker' className='w-full flex-1 pl-10'/>
             </div>
       </div>
-      <div className="grid grid-cols-2 gap-2 p-2">
+      <div className="grid grid-cols-3 md:grid-cols-2 gap-2 p-2">
             {
                 selectedPack === null &&
                     packs

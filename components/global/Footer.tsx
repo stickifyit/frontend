@@ -1,13 +1,17 @@
+"use client"
 import React from 'react'
 import Logo from "@/public/logo/logo.png"
 import Image from 'next/image'
 import Link from 'next/link'
 import { Facebook, Instagram, Mail, Phone } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 type Props = {}
 
 export default function Footer  (props: Props) {
+    const pathName = usePathname();
   return (
+    pathName !== "/mysheet" &&
     <div 
     className='bg-slate-100 flex flex-col min-h-[30vh] mt-12'
     >
