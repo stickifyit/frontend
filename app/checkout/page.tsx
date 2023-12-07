@@ -171,43 +171,44 @@ export default function Page({}: Props) {
     <motion.div 
     initial={{ opacity: 0 ,y:-200}}
     animate={{ opacity: 1 ,y:0}}
-    className='min-h-[calc(100vh-100px)] container flex justify-center items-center'>
+    className='min-h-[calc(100vh-100px)] py-4 container max-w-5xl px-4 flex justify-center items-center'>
         <Card className='w-full'>
             <CardHeader>
-                <CardTitle className='text-7xl font-thin opacity-75'>Checkout</CardTitle>
+                <CardTitle className='md:text-7xl text-4xl font-thin opacity-75'>Checkout</CardTitle>
             </CardHeader>
-            <CardContent className='  overflow-hidden flex gap-4'>
+            <CardContent className=' p-4 md:p-8 overflow-hidden flex flex-col md:flex-row gap-4'>
                 <div className='flex-1 space-y-2 w-full '>
-                    <div className='flex gap-4 max-w-2xl '>
-                        <div className='flex-1'>
-                            <h4 className='text-xl opacity-75'>First Name</h4>
-                            <Input name='firstName' value={name} onInput={(e:any)=>setName(e.target.value)} className='max-w-2xl'></Input>
-                        </div>
-                        <div className='flex-1'>
-                            <h4 className='text-xl opacity-75'>Last Name</h4>
-                            <Input name='lastName' value={lastName} onInput={(e:any)=>setLastName(e.target.value)} className='max-w-2xl'></Input>
-                        </div>
-                    </div>
-                    <h4 className='text-xl opacity-75'>Phone Number</h4>
-                    <Input name='phone' value={phone} onInput={(e:any)=>setPhone(e.target.value)} className='max-w-2xl'></Input>
-                    <h4 className='text-xl opacity-75'>Full Address</h4>
-                    <Input name='address' value={address} onInput={(e:any)=>setAddress(e.target.value)} className='max-w-2xl'></Input>
-                    <br />
-                    <Button onClick={checkout} disabled={loading|| !name || !address || !phone || !cart.length} size={"lg"} variant="secondary" className='max-w-[800px] '>
-                        {
-                            loading ?
-                            <>Loading <Loader className='animate-spin'/></>
-                            :
-                            <>Checkout <ArrowRight/></>
-                        }
-                    </Button>
+                      <div className='flex gap-2 flex-col md:flex-row max-w-2xl '>
+                          <div className='flex-1'>
+                              <h4 className='md:text-xl text-lg opacity-75'>First Name</h4>
+                              <Input name='firstName' value={name} onInput={(e:any)=>setName(e.target.value)} className='max-w-2xl'></Input>
+                          </div>
+                          <div className='flex-1'>
+                              <h4 className='md:text-xl text-lg opacity-75'>Last Name</h4>
+                              <Input name='lastName' value={lastName} onInput={(e:any)=>setLastName(e.target.value)} className='max-w-2xl'></Input>
+                          </div>
+                      </div>
+                      <h4 className='md:text-xl text-lg opacity-75'>Phone Number</h4>
+                      <Input name='phone' value={phone} onInput={(e:any)=>setPhone(e.target.value)} className='max-w-2xl'></Input>
+                      <h4 className='md:text-xl text-lg opacity-75'>Full Address</h4>
+                      <Input name='address' value={address} onInput={(e:any)=>setAddress(e.target.value)} className='max-w-2xl'></Input>
+                      <br />
+                      <Button onClick={checkout} disabled={loading|| !name || !address || !phone || !cart.length} size={"lg"} variant="secondary" className='max-w-[800px] '>
+                          {
+                              loading ?
+                              <>Loading <Loader className='animate-spin'/></>
+                              :
+                              <>Checkout <ArrowRight/></>
+                          }
+                      </Button>
                 </div>
                 <motion.div 
                     initial={{opacity:0,scale:0,y:200}}
                     animate={{opacity:1,scale:1,y:0}}
                     transition={{delay:0.4}}
+                    className=''
                 >
-                  <Image src={img} alt='thanks' width={350} height={350} className='translate-y-14 drop-shadow-2xl'></Image>
+                  <Image src={img} alt='thanks' width={350} height={350} className='translate-y-14 md:mt-0 mt-[-50px] drop-shadow-2xl'></Image>
                 </motion.div>
             </CardContent>
         </Card>

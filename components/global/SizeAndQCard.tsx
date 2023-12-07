@@ -130,9 +130,9 @@ const SizeAndQCard = (props: Props) => {
       )
   },[setProduct,params?.product,params?.service,setSize])
   return (
-        <Card className="ml-auto h-fit">
+        <Card className="ml-auto h-fit w-full md:w-fit sticky top-[120px]">
           <CardHeader></CardHeader>
-          <CardContent className="min-w-[400px] h-fit">
+          <CardContent className="md:min-w-[400px] h-fit">
             {
               params?.service !== "cup" &&
               <>

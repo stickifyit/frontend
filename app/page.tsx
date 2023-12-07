@@ -8,7 +8,6 @@ export default function Home() {
   return (
     <>
     <HeroSection/>
-    <div className='h-[90vh]'></div>
     </>
   )
 }

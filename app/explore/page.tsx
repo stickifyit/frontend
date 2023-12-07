@@ -16,16 +16,16 @@ const Page = (props: Props) => {
   const {data:packs} = useQuery("packs", fetchPacks)
   return (
     <div className='min-h-screen'>
-        <div className='container mx-auto'>
-            <div className='flex justify-between items-center'>
-                <h1 className='text-6xl py-10 uppercase'>Explore </h1>
-                <div className='relative h-fit ml-auto'>
+        <div className='container px-4 mx-auto'>
+            <div className='flex md:justify-between py-10 gap-3 md:items-center flex-col md:flex-row'>
+                <h1 className='md:text-6xl text-4xl  uppercase'>Explore </h1>
+                <div className=' h-fit md:ml-auto sticky top-[100px]'>
                     <Search size={18} className='absolute top-1/2 left-3 -translate-y-1/2'/>
                     <Input placeholder='Search sticker' className='max-w-md flex-1 pl-10'/>
                 </div>
             </div>
-            <h1 className='text-5xl ml-6 py-8 opacity-75'>Packs</h1>
-            <div className='grid grid-cols-6 gap-3 mb-8'>
+            <h1 className='md:text-5xl text-3xl md:ml-6 py-8 opacity-75'>Packs</h1>
+            <div className='grid md:grid-cols-6 grid-cols-2 gap-2 md:gap-3 mb-8'>
                 {
                     packs?.map((item, index) => (
                         <motion.div 
@@ -45,7 +45,7 @@ const Page = (props: Props) => {
                     ))
                 }
             </div>
-            <StickerSheetsList/>
+            {/* <StickerSheetsList/> */}
         </div>
     </div>
   )

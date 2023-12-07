@@ -30,13 +30,13 @@ const navButtons = [
 
 export default function CustomSheetNavBar({selected,setSelected}: Props) {
   return (
-    <div className='border-r flex flex-col p-2 gap-2 w-fit'>
+    <div className={'md:border-r flex w-full flex-col p-2 gap-2 md:w-fit '}>
         {
             navButtons.map((button,i) => {
                 return (
-                    <Button onClick={()=>{setSelected(i)}} className='w-20 h-20 flex flex-col gap-2 items-center justify-center text-xs' key={button.name} variant={i===selected?"secondary":"outline"} size={"icon"}>
+                    <Button onClick={()=>{setSelected(i)}} className='md:w-20 md:h-20 w-16 h-16  flex flex-col gap-2 items-center justify-center text-xs font-sans' key={button.name} variant={i===selected?"secondary":"outline"} size={"icon"}>
                         {button.icon}
-                        {button.name}
+                        <div className='text-[.6rem]'>{button.name}</div>
                     </Button>
                 )
             })
