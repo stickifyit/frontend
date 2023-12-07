@@ -24,6 +24,7 @@ import { useCanvasProps } from '@/store/canvasProps'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { Sticker } from '@/utils/fetchExplore'
+import { BackendHost } from '@/constant/backend'
   
 type Props = {
     item : Sticker
@@ -62,7 +63,7 @@ const StickerDialog = ({item}: Props) => {
     },[service])
     const handleContinue =async () => {
         try {
-            const response = await axios.post('http://localhost:3001/fetch-image', {
+            const response = await axios.post(BackendHost+'/fetch-image', {
                 url: `https://storage.googleapis.com/stickify-storage/${item.imageURL}`,
             });
             const imageDataUrl = response.data;

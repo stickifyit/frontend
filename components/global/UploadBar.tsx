@@ -6,6 +6,7 @@ import CustomSheetItemCard from './CustomSheetItemCard';
 import { Card } from '../ui/card';
 import Image from 'next/image';
 import axios from '@/lib/axios';
+import { BackendHost } from '@/constant/backend';
 
 type Props = {}
 
@@ -24,7 +25,7 @@ function UploadBar({}: Props) {
             formData.append("image", file);
     
             // Use fetch to send the form data to the server
-            const response = await fetch("http://localhost:3001/images/upload", {
+            const response = await fetch(BackendHost+"/images/upload", {
               method: "POST",
               body: formData,
             });

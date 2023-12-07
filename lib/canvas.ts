@@ -16,7 +16,7 @@ export const handleUpload = async (file:File|null) => {
     formData.append('image', file);
 
     // Use fetch to send the form data to the server
-    await fetch('http://localhost:3001/images/upload', {
+    await fetch('BackendHost+/images/upload', {
       method: 'POST',
       body: formData,
     })

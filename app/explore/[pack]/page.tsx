@@ -22,6 +22,7 @@ import {motion} from "framer-motion"
 // Import Swiper styles
 import 'swiper/css';
 import { useCanvasProps } from '@/store/canvasProps'
+import { BackendHost } from '@/constant/backend'
 
 
 type Props = {}
@@ -52,7 +53,7 @@ const Page = (props: Props) => {
     const handleContinue =async (type:string,ser:string = "t-shirts") => {
         if(!stickers) return
         try {
-            const response = await axios.post('http://localhost:3001/fetch-image', {
+            const response = await axios.post(BackendHost+'/fetch-image', {
                 url: `https://storage.googleapis.com/stickify-storage/${stickers[selected].imageURL}`,
             });
             const imageDataUrl = response.data;

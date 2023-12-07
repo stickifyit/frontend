@@ -17,6 +17,7 @@ import { drawEllipse } from '@/lib/utils';
 import { getProductInfo } from '@/constant/allProductControlers';
 import { useParams } from 'next/navigation';
 import { Cup_Behive, backSide_Behive, bumper_Behive, centerChest_Behive, circle_Behive, dieCut_Behive, drawImageWithMargin, leftChest_Behive, oval_Behive, rect_Behive, rounded_Behive, square_Behive } from '@/lib/canvasProductBehive';
+import { BackendHost } from '@/constant/backend';
 
 
 
@@ -141,7 +142,7 @@ function Canvas({type}: Props) {
         formData.append("image", file);
 
         // Use fetch to send the form data to the server
-        const response = await fetch("http://localhost:3001/images/upload", {
+        const response = await fetch(BackendHost+"/images/upload", {
           method: "POST",
           body: formData,
         });

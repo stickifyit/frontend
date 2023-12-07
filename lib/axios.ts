@@ -1,5 +1,6 @@
+import { BackendHost } from "@/constant/backend";
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "http://localhost:3001",
+    baseURL: BackendHost,
 })
