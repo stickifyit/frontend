@@ -26,6 +26,11 @@ const heroImages = {
   "t-shirts":tshirtHero,
   "cup": cup
 }
+const heroParagraphs = {
+  "stickers":"Transform ordinary surfaces into personalized statements with our vibrant and customizable sticker collection . Express yourself creatively with high-quality designs for every style.",
+  "t-shirts":"Turn your ideas into wearable art with our bespoke custom t-shirt printing services . From single designs to bulk orders, we make fashion a canvas for your unique expression.",
+  "cup":"Elevate your sipping experience with personalized flair . Choose from our curated collection to add a touch of individuality to every beverage moment.",
+}
 
 const Page = (props: Props) => {
   const params = useParams()
@@ -42,7 +47,7 @@ const Page = (props: Props) => {
             </motion.div>
             <div className='space-y-4'>
               <motion.h1 initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} className='text-5xl md:text-7xl capitalize'>{params?.service}</motion.h1>
-              <motion.p initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.2}} className='max-w-2xl md:text-md text-sm font-sans font-medium opacity-60'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere dolorum recusandae voluptates dolor quas ab at dignissimos sint pariatur ut, voluptatum libero, quam minus illo repudiandae similique laudantium vel quasi.</motion.p>
+              <motion.p initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.2}} className='max-w-2xl md:text-lg text-sm font-sans font-medium opacity-60'>{heroParagraphs[params?.service as 'stickers'|'t-shirts'|'cup' ]}</motion.p>
               <motion.div initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.4}}>
               {
                 params?.service == "stickers" &&

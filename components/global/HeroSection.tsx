@@ -2,11 +2,14 @@
 import React from 'react'
 import { Button } from '../ui/button'
 import { HeroImages } from '@/constant/constants'
-import {ArrowRight} from "lucide-react"
+import {ArrowRight, Bold} from "lucide-react"
 import Image from 'next/image'
 import { HeroLinksImages } from '@/constant/constants'
 import Link from 'next/link'
 import {motion} from "framer-motion"
+import offer from "@/public/offer.png"
+import pin from "@/public/cart/pin.png"
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 
 type Props = {}
 
@@ -51,24 +54,87 @@ const HeroSection = (props: Props) => {
         <div className='container px-4 justify-center py-4 mx-auto md:flex gap-2 md:gap-6 grid grid-cols-2 md:flex-row items-center'>
             {
             [
-                {name:"custom stickers",img:HeroLinksImages.Stickers,href:"stickers"},
+                {name:"stickers",img:HeroLinksImages.Stickers,href:"stickers"},
                 // {name:"custom labels",img:HeroLinksImages.Label,href:"labels"},
-                {name:"custom shirts",img:HeroLinksImages.T_Shirt,href:"t-shirts"},
-                {name:"custom cup",img:HeroLinksImages.Cup,href:"cup"},
+                {name:"shirts",img:HeroLinksImages.T_Shirt,href:"t-shirts"},
+                {name:"cups",img:HeroLinksImages.Cup,href:"cup"},
             ].map(({name,img,href},index)=>
             <motion.div key={name}
                 initial={{opacity:0,y:100,scale:0.6}}
                 animate={{opacity:1,y:0,scale:1}}
                 transition={{delay:0.1*index+0.8}}
-                className='w-fit h-full flex flex-col gap-4 drop-shadow-md items-center'
+                className='w-fit h-full flex flex-col gap-4  items-center'
             >
               <Link href={"/services/"+href} className='w-fit p-2 hover:scale-105 duration-300 rounded-2xl border bg-white '>
                   <Image src={img} alt={name} width={200} height={200}/>
-                  <h2 className='text-center text-xl'>{name}</h2>
+                  <h2 className='text-center text-xl capitalize'>{name}</h2>
               </Link>
             </motion.div>
             )
             }
+        </div>
+    </div>
+          
+
+
+
+
+      <div className='container p-4 py-20 space-y-8'>
+
+
+
+
+            <motion.div initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.2}} className='relative'>
+            <Card className='bg-white text-gray-700 overflow-hidden md:overflow-visible text-center relative md:text-start -rotate-1'>
+                <CardContent className='flex md:items-end gap-2 md:gap-8  flex-col md:flex-row-reverse px-4 md:px-8'>
+                  <div className='space-y-4 py-6 flex-1'>
+                      <CardTitle className='md:text-8xl text-4xl uppercase  font-thin'>
+                        - Get 15% OFF -
+                      </CardTitle>
+                      <p className='md:text-xl font-sans font-medium'>💵 Enjoy a <span className='font-bold uppercase'>15% discount</span> on orders over 75_DH!</p>
+                      <p className='md:text-xl font-sans font-medium'>🚗 Plus, qualify for <span className='font-bold uppercase'>free shipping</span> within Morocco on orders exceeding 100_DH.</p>
+                      <Link href={"/services/stickers"} className='w-fit block mx-auto md:mx-0'>
+                          <Button size={"lg"} variant={"secondary"} className=''>Shop Now <ArrowRight size={26}/></Button>
+                      </Link>
+                  </div>
+                  <Image src={offer} alt="" width={350} height={350}  className='md:-mt-40 -mt-16 w-[200px] md:w-[350px] mx-auto  translate-y-16 md:translate-y-0 shadow-secondary drop-shadow-2xl '/>
+                </CardContent>
+
+            </Card>
+                <Image src={pin} alt="" width={80} height={80}  className='absolute top-0 right-0 -translate-y-12'/>
+            </motion.div>
+
+
+
+
+        <div className='flex flex-col gap-4 md:flex-row mx-auto'>
+          {
+            [
+                {
+                  title:"Hot Picks",
+                  content: "🔥 Hot Picks! Explore our trendiest stickers, tees, and cup prints. Limited stock! Shop Now.",
+                },
+                {
+                  title:"Create Your Style",
+                  content: "🎨 Create your own style with our custom stickers sheets. Shop Now.",
+                },
+                {
+                  title:"Wearable Art",
+                  content:"👚 Wearable Art! Elevate your style with our unique t-shirts and matching cups. Make a statement!"
+                }
+            ].map(({title,content},index)=>(
+                <Card key={title} className='flex-1'>
+                    <CardHeader>
+                        <CardTitle className='text-2xl font-medium'>
+                          {title}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className='font-sans font-medium'>
+                      {content}
+                    </CardContent>
+                </Card>
+            ))
+          }
         </div>
     </div>
     </>
