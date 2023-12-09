@@ -108,7 +108,6 @@ const Page = (props: Props) => {
                     }
                     className='flex-1 sticky top-[0px]'
                     >
-
                         {
                             stickers?.map((item, index) => (
                             <SwiperSlide  key={item._id} className='md:p-2 p-1'>
