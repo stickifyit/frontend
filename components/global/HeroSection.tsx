@@ -54,10 +54,10 @@ const HeroSection = (props: Props) => {
         <div className='container px-4 justify-center py-4 mx-auto md:flex gap-2 md:gap-6 grid grid-cols-2 md:flex-row items-center'>
             {
             [
-                {name:"stickers",img:HeroLinksImages.Stickers,href:"stickers"},
-                // {name:"custom labels",img:HeroLinksImages.Label,href:"labels"},
-                {name:"shirts",img:HeroLinksImages.T_Shirt,href:"t-shirts"},
-                {name:"cups",img:HeroLinksImages.Cup,href:"cup"},
+                {name:"stickers",img:HeroLinksImages.Stickers,href:"stickers",commingSoon:false},
+                // {name:"custom labels",img:HeroLinksImages.Label,href:"labels",commingSoon:true},
+                {name:"shirts",img:HeroLinksImages.T_Shirt,href:"t-shirts",commingSoon:false},
+                {name:"cups",img:HeroLinksImages.Cup,href:"cup",commingSoon:false},
             ].map(({name,img,href},index)=>
             <motion.div key={name}
                 initial={{opacity:0,y:100,scale:0.6}}
@@ -65,6 +65,7 @@ const HeroSection = (props: Props) => {
                 transition={{delay:0.1*index+0.8}}
                 className='w-fit h-full flex flex-col gap-4  items-center'
             >
+              
               <Link href={"/services/"+href} className='w-fit p-2 hover:scale-105 duration-300 rounded-2xl border bg-white '>
                   <Image src={img} alt={name} width={200} height={200}/>
                   <h2 className='text-center text-xl capitalize'>{name}</h2>
