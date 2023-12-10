@@ -68,7 +68,7 @@ export default function Page({}: Props) {
     <div>
     <div className='max-w-5xl mx-auto  pt-8 w-full'>
         <div className='flex flex-col md:flex-row w-full py-8 md:gap-8 items-center relative mb-12'>
-            <div className='flex-[1] drop-shadow-2xl relative md:w-full w-[50vw]'>
+            <div className='flex-[1] drop-shadow-2xl relative md:w-full w-[60vw]'>
                 <Image width={400} height={600} src={sheetInfo?.snapshot??""} alt="" className=' mb-12 flex-[2] opacity-0 top-0 left-0 rounded-xl shadow-2xl' />
                 {
                 new Array(sheetQuantity).fill(0).map((item, index) => (
@@ -78,7 +78,7 @@ export default function Page({}: Props) {
                         transition={{
                             duration:0.2,
                         }}
-                        className='overflow-hidden  border-[#fff6] duration-200 flex-[2] absolute top-0 left-0 rounded-[42px] border drop-shadow-lg'
+                        className='overflow-hidden  border-[#fff6] duration-200 flex-[2] absolute top-0 left-0 md:rounded-[42px] rounded-[20px] border drop-shadow-lg'
                         style={{ rotate: `${-((index)*1.5 - ((sheetQuantity-1)/2)*1.5)}deg`, translateX: `${index*6}px`, translateY: `${index*0}px` }}
                         key={index}>
                             <Image width={400} height={600} src={sheetInfo?.snapshot??""}  alt="" />
