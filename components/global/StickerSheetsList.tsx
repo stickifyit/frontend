@@ -34,7 +34,7 @@ const StickerSheetsList = (props: Props) => {
           ))
         }
           {
-          }
+          } 
       </div>
 </div>
   )
