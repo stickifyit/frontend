@@ -21,6 +21,7 @@ import { useParams } from 'next/navigation'
 import { useCart } from '@/store/cart'
 import { sheetPricing } from '@/constant/pricing'
 import { PriceByPrice, SheetPrice, getPrice } from '@/lib/price'
+import { Badge } from '@/components/ui/badge'
 type Props = {}
 
 export default function Page({}: Props) {
@@ -28,14 +29,30 @@ export default function Page({}: Props) {
     const param = useParams()
     const {data:sheetInfo,isLoading} = useQuery("fetchSheet",()=>getStickerSheet((param.sheetId as string).replaceAll("-"," "))) 
     const [added,setAdded] = React.useState(false);
-    const {addToCart} = useCart()
+    const {addToCart,cart} = useCart()
 
+    const [timesInCart,setTimesInCart] = React.useState(0)
+    useEffect(()=>{
+        if(!sheetInfo) return
+        const existingItemIndex = cart.findIndex((_item) => {
+                if (
+                    _item.data.type === "sticker sheet"
+                ) {
+                    // Check if it's a sticker sheet and has the same sheetId
+                    return sheetInfo.name === _item.data.data.sheetId;
+                } else {
+                    // If the types don't match, consider them different items
+                    return false;
+                }
+            });
+        setTimesInCart(existingItemIndex > -1 ? cart[existingItemIndex].quantity : 0)
+    },[cart,sheetInfo])
 
     React.useEffect(()=>{
         if(added){
             setTimeout(() => {
                 setAdded(false)            
-            }, 2000);
+            }, 200);
         }
     },[added])
 
@@ -63,12 +80,11 @@ export default function Page({}: Props) {
         setAdded(true)
     }
 
-
   return (
     <div>
     <div className='max-w-5xl mx-auto  pt-8 w-full'>
-        <div className='flex flex-col md:flex-row w-full py-8 md:gap-8 items-center relative mb-12'>
-            <div className='flex-[1] drop-shadow-2xl relative md:w-full w-[50vw]'>
+        <div className='flex flex-col md:flex-row w-full py-4 md:py-16 md:gap-8 items-center relative mb-12'>
+            <div className='flex-[1] drop-shadow-2xl relative md:w-full w-[60vw]'>
                 <Image width={400} height={600} src={sheetInfo?.snapshot??""} alt="" className=' mb-12 flex-[2] opacity-0 top-0 left-0 rounded-xl shadow-2xl' />
                 {
                 new Array(sheetQuantity).fill(0).map((item, index) => (
@@ -78,19 +94,19 @@ export default function Page({}: Props) {
                         transition={{
                             duration:0.2,
                         }}
-                        className='overflow-hidden  border-[#fff6] duration-200 flex-[2] absolute top-0 left-0 rounded-[42px] border drop-shadow-lg'
-                        style={{ rotate: `${-((index)*1.5 - ((sheetQuantity-1)/2)*1.5)}deg`, translateX: `${index*6}px`, translateY: `${index*0}px` }}
+                        className='overflow-hidden border-[#fff6] duration-200 flex-[2] absolute top-0 left-0 md:rounded-[42px] rounded-[20px] border drop-shadow-lg'
+                        style={{ rotate: `${-((index)*1.5 - ((sheetQuantity-1)/2)*3)}deg`, translateX: `${(index*6)-((sheetQuantity-1)*3)}px`, translateY: `${index*0}px` }}
                         key={index}>
-                            <Image width={400} height={600} src={sheetInfo?.snapshot??""}  alt="" />
+                            <Image width={500} height={700} src={sheetInfo?.snapshot??""}  alt="" className='w-[400px]'/>
                     </motion.div>
                 ))
                 }
             </div>
-            <div className='flex-[1]  sticky top-[120px] h-fit '>
+            <div className='flex-[1]  sticky top-[120px] h-fit'>
                 <motion.div 
                     initial={{opacity:0,x:300}}
                     animate={{opacity:1,x:0}}
-                    className='md:space-y-6 space-x-2 w-full p-4 md:p-8 bg-[#fff8] rounded-xl border'>
+                    className='md:space-y-6 space-x-2 w-full p-4 md:p-8 bg-[#fff8] rounded-xl border '>
                         {/* <h1 className='text-5xl mb-8'>Stickers Sheet</h1> */}
                         <h1 className='md:text-3xl text-2xl mb-6'>{sheetInfo?.name}</h1>
                         <p className='md:text-2xl text-xl'>Size : <span className='text-sm'>20cm x 30cm</span></p>
@@ -111,12 +127,22 @@ export default function Page({}: Props) {
                             </div>
                         ))}
                         </RadioGroup>
+                        {
+                            timesInCart > 0 &&
+                            <motion.div
+                                initial={{opacity:0}}
+                                animate={{opacity:1}}
+                                className={'text-md font-sans absolute top-4 md:top-0 right-4 '}
+                            >
+                                <Badge variant={"secondary"} >{timesInCart} In Cart</Badge>
+                            </motion.div>
+                        }
                         <div className='flex gap-8 items-center justify-between mt-12'>
                             <h1 className='text-4xl'>{sheetPricing[sheetQuantity-1]} Dh</h1>
                             <Button onClick={handleAddToCart} size="lg" variant={"secondary"} className=' w-lg'>
                                 {
                                     added ?
-                                    "sheets Added"
+                                    <><Loader className='w-[30px] h-[30px] animate-spin'></Loader>   Adding</>
                                     :
                                     "Add to cart"
                                 }

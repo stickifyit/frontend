@@ -88,9 +88,9 @@ const SheetComp = ({item,index,sheets}:{item:any,index:number,sheets:any}) => {
     >
               <Card 
             //   style={{translate:`0px ${(5 + (index % 5))*(index % 5)}px`}} 
-              key={index} className='w-full rounded-3xl relative shadow-lg overflow-hidden '>
+              key={index} className='w-full rounded-3xl relative shadow-lg overflow-hidden' >
                 <Link href={"/sheet/"+item.name.replace(/\s+/g, '-')} >
-                    <Image width={400} height={600} className='w-full bg-secondary rounded aspect-[2/3]' src={item.snapshot} alt="" />
+                    <Image width={400} height={600} className='w-full  rounded aspect-[2/3]' src={item.snapshot} alt="" />
                 </Link>
                 <div className='md:h-14 gap-2 p-2 md:p-4 md:items-center flex justify-between flex-col md:flex-row'>
                   <div>
@@ -102,7 +102,7 @@ const SheetComp = ({item,index,sheets}:{item:any,index:number,sheets:any}) => {
                 </div>
                 {
                     timesInCart > 0 &&
-                    <div className='bg-white text-lg text-[#333e] absolute top-1 left-1 px-3 h-8 flex justify-center items-center rounded-sm border '>{timesInCart} <span className='text-sm ml-2'> in cart</span></div>
+                    <div className='bg-white text-sm text-[#333e] absolute top-2 left-2 px-3 h-8 flex justify-center items-center rounded-sm border '>{timesInCart} <span className='text-xs ml-2'> in cart</span></div>
                 }
               </Card>
     </motion.div>
