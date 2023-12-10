@@ -83,7 +83,7 @@ export default function Page({}: Props) {
   return (
     <div>
     <div className='max-w-5xl mx-auto  pt-8 w-full'>
-        <div className='flex flex-col md:flex-row w-full py-8 md:gap-8 items-center relative mb-12'>
+        <div className='flex flex-col md:flex-row w-full py-4 md:py-16 md:gap-8 items-center relative mb-12'>
             <div className='flex-[1] drop-shadow-2xl relative md:w-full w-[60vw]'>
                 <Image width={400} height={600} src={sheetInfo?.snapshot??""} alt="" className=' mb-12 flex-[2] opacity-0 top-0 left-0 rounded-xl shadow-2xl' />
                 {
@@ -94,10 +94,10 @@ export default function Page({}: Props) {
                         transition={{
                             duration:0.2,
                         }}
-                        className='overflow-hidden  border-[#fff6] duration-200 flex-[2] absolute top-0 left-0 md:rounded-[42px] rounded-[20px] border drop-shadow-lg'
-                        style={{ rotate: `${-((index)*1.5 - ((sheetQuantity-1)/2)*1.5)}deg`, translateX: `${index*6}px`, translateY: `${index*0}px` }}
+                        className='overflow-hidden border-[#fff6] duration-200 flex-[2] absolute top-0 left-0 md:rounded-[42px] rounded-[20px] border drop-shadow-lg'
+                        style={{ rotate: `${-((index)*1.5 - ((sheetQuantity-1)/2)*3)}deg`, translateX: `${(index*6)-((sheetQuantity-1)*3)}px`, translateY: `${index*0}px` }}
                         key={index}>
-                            <Image width={400} height={600} src={sheetInfo?.snapshot??""}  alt="" />
+                            <Image width={500} height={700} src={sheetInfo?.snapshot??""}  alt="" className='w-[400px]'/>
                     </motion.div>
                 ))
                 }
@@ -127,7 +127,16 @@ export default function Page({}: Props) {
                             </div>
                         ))}
                         </RadioGroup>
-                        <Badge variant={"secondary"} className={'text-md font-sans absolute top-0 right-4 '}>{timesInCart} In Cart</Badge>
+                        {
+                            timesInCart > 0 &&
+                            <motion.div
+                                initial={{opacity:0}}
+                                animate={{opacity:1}}
+                                className={'text-md font-sans absolute top-4 md:top-0 right-4 '}
+                            >
+                                <Badge variant={"secondary"} >{timesInCart} In Cart</Badge>
+                            </motion.div>
+                        }
                         <div className='flex gap-8 items-center justify-between mt-12'>
                             <h1 className='text-4xl'>{sheetPricing[sheetQuantity-1]} Dh</h1>
                             <Button onClick={handleAddToCart} size="lg" variant={"secondary"} className=' w-lg'>
