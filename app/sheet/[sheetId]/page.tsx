@@ -31,7 +31,6 @@ export default function Page({}: Props) {
     const {addToCart} = useCart()
 
 
-
     React.useEffect(()=>{
         if(added){
             setTimeout(() => {
@@ -42,10 +41,11 @@ export default function Page({}: Props) {
 
 
     if (isLoading) {
-       return 
+       return (
        <div className='w-full h-[calc(100vh-100px)] flex justify-center items-center'>
             <Loader className='w-[30px] h-[30px] animate-spin' />
        </div>
+       )
     }
 
 
@@ -78,7 +78,7 @@ export default function Page({}: Props) {
                         transition={{
                             duration:0.2,
                         }}
-                        className='overflow-hidden border border-[#fff6] shadow-sm duration-200 flex-[2] absolute top-0 left-0 rounded-xl drop-shadow-lg'
+                        className='overflow-hidden  border-[#fff6] duration-200 flex-[2] absolute top-0 left-0 rounded-[42px] border drop-shadow-lg'
                         style={{ rotate: `${-((index)*1.5 - ((sheetQuantity-1)/2)*1.5)}deg`, translateX: `${index*6}px`, translateY: `${index*0}px` }}
                         key={index}>
                             <Image width={400} height={600} src={sheetInfo?.snapshot??""}  alt="" />
