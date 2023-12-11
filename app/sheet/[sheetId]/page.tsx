@@ -95,7 +95,7 @@ export default function Page({}: Props) {
             {
                 !loading &&
             <CatFeet time={500}>
-            <div className='flex-[1] drop-shadow-2xl relative md:w-full w-[80vw]'>
+            <div className='flex-[1] drop-shadow-2xl relative md:w-full w-[70vw]'>
                 <Image width={400} height={600} src={sheetInfo?.snapshot??""} alt="" className=' mb-12 flex-[2] opacity-0 top-0 left-0 rounded-xl shadow-2xl' />
                 {
                 new Array(sheetQuantity).fill(0).map((item, index) => (
