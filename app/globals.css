@@ -16,8 +16,8 @@
     --primary: 49 100% 69%;
     --primary-foreground:  49 100% 25%;
 
-    --secondary:  240 100% 87%;
-    --secondary-foreground: 240 33% 60%;
+    --secondary:  0 0% 60%;
+    --secondary-foreground: 0 0% 30%;
  
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -145,4 +145,10 @@
     border-radius: 50%;
     background-color: white;
     display: block;
+}
+
+
+.grid-bg {
+  background-image: url("../public/hero/grid.png");
+  background-blend-mode: darken;
 }

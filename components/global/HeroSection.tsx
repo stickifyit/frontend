@@ -10,13 +10,15 @@ import {motion} from "framer-motion"
 import offer from "@/public/offer.png"
 import pin from "@/public/cart/pin.png"
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
+import StickerSheetsList from './StickerSheetsList'
+import StickersHomePage from './StickersHomePage'
 
 type Props = {}
 
 const HeroSection = (props: Props) => {
   return (
     <>
-    <div className='min-h-[55vh] bg-gray-50 flex '>
+    <div className='min-h-[55vh] bg-gray-50 flex grid-bg'>
 
     <div className='w-full py-12 '>
       <div className='container px-4 h-full items-center flex gap-0 lg:gap-4 flex-col-reverse lg:flex-row mx-auto'>
@@ -31,26 +33,31 @@ const HeroSection = (props: Props) => {
             </Link>
             </motion.div>
             <motion.div initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.8}}>
-            <Link href={"/mysheet"}>
-                <Button size={'lg'} variant={"outline"} className='uppercase flex gap-2  text-lg '>Make your sheet <ArrowRight size={16}/></Button>
-            </Link>
+            {/* <Link href={"/mysheet"}>
+                <Button size={'lg'} variant={"ghost"} className='uppercase flex gap-2  text-lg '>Make your sheet <ArrowRight size={16}/></Button>
+            </Link> */}
             </motion.div>
           </div>
         </motion.div>
-        <motion.div 
-            initial={{opacity:0,y: -200,x:0,scale:1}}
-            animate={{opacity:1,y: 0,x:14,scale:.9}}
 
-        className='flex items-center max-w-lg justify-center py-8 md:py-0 relative'>
-          <Image src={HeroImages.carrot} alt='logo' className='absolute top-0 -left-20 drop-shadow-lg animate-updown-slow1' width={200} height={200}/>
-          <Image src={HeroImages.doughnut} alt='logo' className='z-20 drop-shadow-xl  animate-updown' width={500} height={500}/>
-          <Image src={HeroImages.watermelon} alt='logo' className='absolute top-0 right-0 drop-shadow-lg  animate-updown-slow' width={200} height={200}/>
-        </motion.div>
+          <div className='relative py-8 '>
+            <Image src={HeroImages.bears} width={300} height={450} className=' opacity-0 w-[150px] md:w-[250px] drop-shadow-xl' alt="bears"></Image>
+            <Image src={HeroImages.cloud} width={300} height={450} className='z-30 absolute -left-20 md:-left-28 top-10  w-[120px] md:w-[250px] drop-shadow' alt="bears"></Image>
+
+            <Image src={HeroImages.kitties} width={300} height={450} className='z-20 absolute left-0 top-0 rotate-12 w-[250px] drop-shadow-xl' alt="bears"></Image>
+            <Image src={HeroImages.bears} width={300} height={450} className='z-10 absolute left-0 top-0 translate-x-4 translate-y-2 rotate-[18deg] w-[250px] drop-shadow-xl' alt="bears"></Image>
+
+            <Image src={HeroImages.rabbits} width={300} height={450} className=' absolute left-0 top-0 translate-x-8 translate-y-4 rotate-[24deg] w-[250px] drop-shadow-xl' alt="bears"></Image>
+
+            <Image src={HeroImages.rabbit} width={100} height={200} className='z-20 absolute -right-20 -rotate-[20deg] bottom-4 w-[70px] md:w-[100px] drop-shadow' alt="bears"></Image>
+
+
+          </div>
       </div>
     </div>
     </div>
 
-    <div className=''>
+    {/* <div className=''>
         <div className='container px-4 justify-center py-4 mx-auto md:flex gap-2 md:gap-6 grid grid-cols-2 md:flex-row items-center'>
             {
             [
@@ -75,9 +82,9 @@ const HeroSection = (props: Props) => {
             }
         </div>
     </div>
-          
+           */}
 
-
+           <StickersHomePage/>
 
 
       <div className='container p-4 py-20 space-y-8'>
