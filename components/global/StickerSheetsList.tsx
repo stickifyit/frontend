@@ -42,7 +42,7 @@ const StickerSheetsList = (props: Props) => {
 
 
 
-const SheetComp = ({item,index,sheets}:{item:any,index:number,sheets:any}) => {
+export const SheetComp = ({item,index,sheets}:{item:any,index:number,sheets:any}) => {
 
     const {addToCart} = useCart()
     const {cart} = useCart()
@@ -88,7 +88,7 @@ const SheetComp = ({item,index,sheets}:{item:any,index:number,sheets:any}) => {
     >
               <Card 
             //   style={{translate:`0px ${(5 + (index % 5))*(index % 5)}px`}} 
-              key={index} className='w-full rounded-3xl relative shadow-lg overflow-hidden' >
+              key={index} className='w-full rounded-3xl relative shadow-lg border-none overflow-hidden' >
                 <Link href={"/sheet/"+item.name.replace(/\s+/g, '-')} >
                     <Image width={400} height={600} className='w-full  rounded aspect-[2/3]' src={item.snapshot} alt="" />
                 </Link>
