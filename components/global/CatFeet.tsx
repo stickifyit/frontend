@@ -12,7 +12,7 @@ function CatFeet({children}: Props) {
      initial={{y:-700,scale:1.2}}
      animate={{y:0,scale:1}}
      transition={{
-         delay:.3,
+         delay:0,
          duration:.6
      }}
      className='relative '>
