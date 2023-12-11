@@ -12,6 +12,7 @@ import pin from "@/public/cart/pin.png"
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import StickerSheetsList from './StickerSheetsList'
 import StickersHomePage from './StickersHomePage'
+import CatFeet from './CatFeet'
 
 type Props = {}
 
@@ -20,7 +21,7 @@ const HeroSection = (props: Props) => {
     <>
     <div className='min-h-[55vh] bg-gray-50 flex grid-bg'>
 
-    <div className='w-full py-12 '>
+    <div className='w-full py-12 overflow-hidden'>
       <div className='container px-4 h-full items-center flex gap-0 lg:gap-4 flex-col-reverse lg:flex-row mx-auto'>
         <motion.div 
         className=' h-full lg:text-start flex-1 text-center lg:items-start flex flex-col gap-6 md:justify-center'>
@@ -39,7 +40,7 @@ const HeroSection = (props: Props) => {
             </motion.div>
           </div>
         </motion.div>
-
+          <CatFeet>
           <div className='relative py-8 md:mr-36 drop-shadow-xl'>
             <Image src={HeroImages.bears} width={300} height={450} className=' opacity-0 w-[150px] md:w-[250px] drop-shadow-xl' alt="bears"></Image>
             <Image src={HeroImages.cloud} width={300} height={450} className='z-30 absolute -left-20 md:-left-28 top-10  w-[120px] md:w-[250px] drop-shadow' alt="bears"></Image>
@@ -50,9 +51,8 @@ const HeroSection = (props: Props) => {
             <Image src={HeroImages.rabbits} width={300} height={450} className=' absolute left-0 top-0 translate-x-8 translate-y-4 rotate-[24deg] w-[250px] drop-shadow-xl' alt="bears"></Image>
 
             <Image src={HeroImages.rabbit} width={100} height={200} className='z-20 absolute -right-20 -rotate-[20deg] bottom-4 w-[70px] md:w-[100px] drop-shadow' alt="bears"></Image>
-
-
           </div>
+          </CatFeet>
       </div>
     </div>
     </div>
