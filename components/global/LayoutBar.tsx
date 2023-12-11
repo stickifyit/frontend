@@ -17,7 +17,7 @@ export default function LayoutBar({}: Props) {
           <Button disabled={!selected} size={"icon"} variant="outline" onClick={()=>{
             const f = sheet.find((item) => selected.includes(item.id) )
             if(!f) return 
-            setSheet([...sheet,{...f,id: f.id.split(" x ")[0]+Math.random()}]) ;
+            setSheet([...sheet,{...f,id: f.id+Math.random()}]) ;
             }}><Copy size={20}/></Button>
         </div>
       </div>

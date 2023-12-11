@@ -9,15 +9,14 @@ export type SheetItem = {
     image: string | StaticImport,
     type: string,
     size: number,
+    width?: number,
+    height?: number,
     color?: string,
     radius?: number,
     id: string,
-    
-
 }
 
 export type UploadType= {
-    file:File,
     image: string | StaticImport
 }
 
@@ -28,6 +27,9 @@ export type State = {
     sheet : SheetItem[]
     setSheet: (sheet:SheetItem[]) => void,
     update: (id:string,props:  SheetItem) => void
+
+    sheetQuantity : number
+    setSheetQuantity : (quantity: number) => void
 
 
     process : PlacedElement[]
@@ -44,6 +46,9 @@ export const useSheet = create<State>((set) => ({
 
     uploads:[],
     setUpload: (uploads: UploadType[]) => set({ uploads }),
+
+    sheetQuantity : 1,
+    setSheetQuantity : (quantity: number) => set({ sheetQuantity : quantity }),
 
     sheet : [],
     setSheet: (sheet:SheetItem[]) => set({ sheet }),

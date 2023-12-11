@@ -3,6 +3,7 @@ import axios from "./axios";
 import { drawEllipse } from "./utils";
 import socket from "./socket";
 import { handleDraw } from "./canvas";
+import { BackendHost } from "@/constant/backend";
 
 export const handleUpload = async (file: File | null) => {
   if (!file) {
@@ -15,7 +16,7 @@ export const handleUpload = async (file: File | null) => {
   formData.append("image", file);
 
   // Use fetch to send the form data to the server
-  await fetch("http://localhost:3001/images/upload", {
+  await fetch("BackendHost+/images/upload", {
     method: "POST",
     body: formData,
   })
@@ -62,7 +63,7 @@ export const handleUploadSticker = async (
         const formData = new FormData();
         formData.append("image", blob, "your_desired_filename.png");
         // Use fetch to send the form data to the server
-        await fetch("http://localhost:3001/images/upload", {
+        await fetch(BackendHost+"/images/upload", {
           method: "POST",
           body: formData,
         })

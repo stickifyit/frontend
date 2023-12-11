@@ -16,7 +16,8 @@ import bg from "@/public/canvas.jpg"
 import { drawEllipse } from '@/lib/utils';
 import { getProductInfo } from '@/constant/allProductControlers';
 import { useParams } from 'next/navigation';
-import { backSide_Behive, bumper_Behive, centerChest_Behive, circle_Behive, dieCut_Behive, drawImageWithMargin, leftChest_Behive, oval_Behive, rect_Behive, rounded_Behive, square_Behive } from '@/lib/canvasProductBehive';
+import { Cup_Behive, backSide_Behive, bumper_Behive, centerChest_Behive, circle_Behive, dieCut_Behive, drawImageWithMargin, leftChest_Behive, oval_Behive, rect_Behive, rounded_Behive, square_Behive } from '@/lib/canvasProductBehive';
+import { BackendHost } from '@/constant/backend';
 
 
 
@@ -24,7 +25,7 @@ import { backSide_Behive, bumper_Behive, centerChest_Behive, circle_Behive, dieC
 function Canvas({type}: Props) {
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const {color,setColor,setRadius,image, setImage,setFile,radius : defaultRadius} = useCanvasProps()
+    const {color,setColor,setRadius,image,setImageUrl, setImage,setFile,radius : defaultRadius} = useCanvasProps()
     const {size,setSize} = useSizeAndQ()
     const params = useParams()
 
@@ -107,6 +108,10 @@ function Canvas({type}: Props) {
                 } else if(params.product == "back-side") {
                   backSide_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
                 }
+            }else if(params.service == "cup"){
+                if (params.product == "cup") {
+                  Cup_Behive(context,img,drawX,drawY,drawWidth,drawHeight,radius,canvas,quality)
+                }
             }
 
 
@@ -123,7 +128,7 @@ function Canvas({type}: Props) {
     
 
 
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (file) {
         setFile(file);
@@ -133,7 +138,18 @@ function Canvas({type}: Props) {
           const imageDataUrl = reader.result as string;
           setImage(imageDataUrl); 
         };
-  
+        const formData = new FormData();
+        formData.append("image", file);
+
+        // Use fetch to send the form data to the server
+        const response = await fetch(BackendHost+"/images/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const url:{name:string} = await response.json();
+    
+        setImageUrl('https://storage.googleapis.com/stickify-storage/'+url.name)
         reader.readAsDataURL(file);
       }
     };
@@ -141,7 +157,7 @@ function Canvas({type}: Props) {
   return (
 
             <>
-        <div className="flex-1 min-h-[500px] pb-4 bg-slate-100 overflow-hidden relative border rounded-2xl group flex flex-col-reverse justify-center items-center">
+        <div className="flex-1  min-h-[300px] md:min-h-[500px] pb-4 bg-slate-100 overflow-hidden relative border rounded-2xl group flex flex-col-reverse justify-center items-center">
                         {/* <input type="range" min="0" max="150" value={radius} onChange={(e) => setRadius(parseInt(e.target.value))} /> */}
                           <input className='hidden' type="file" accept='image/*' id='upload' onChange={handleImageChange} />
                   {
@@ -155,7 +171,7 @@ function Canvas({type}: Props) {
                     <>
                     <CanvasButtons/>
                   <canvas
-                    className='p-1 w-[500px] border-x drop-shadow-xl '
+                    className='p-1 w-4/6 md:w-[500px] border-x drop-shadow-xl '
                     ref={canvasRef}
                   ></canvas>
                   <div style={{width:(500) + "px"}} className='h-[50px] opacity-60 left-[50%] mx-auto top-0  px- flex   justify-between'>

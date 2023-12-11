@@ -9,6 +9,10 @@ type Props = {
     color: string,
     setRadius: (radius: number) => void,
     setColor: (color: string) => void
+
+
+    imageUrl: string,
+    setImageUrl: (imageUrl: string) => void
 }
 
 export const useCanvasProps = create<Props>((set) => ({
@@ -20,4 +24,7 @@ export const useCanvasProps = create<Props>((set) => ({
     setImage: (image: string | null) => set({ image }),
     setRadius: (radius: number) => set({ radius }),
     setColor: (color: string) => set({ color }),
+
+    imageUrl: "",
+    setImageUrl: (imageUrl: string) => set({ imageUrl }),
 }))

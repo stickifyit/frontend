@@ -25,14 +25,15 @@ import heroRect from "@/public/product pages images/rect.png"
 import heroRounded from "@/public/product pages images/rounded.png"
 import heroSquare from "@/public/product pages images/square.png"
 
-
-
+import heroCup from "@/public/product pages images/hero.png"
+import cupProduct from "@/public/custom-cup/Untitled-1.png"
 
 
 
 export interface Services {
     stickers: Service;
     "t-shirts": Service;
+    cup: Service;
 }
 export interface Product {
     name: string;
@@ -50,20 +51,31 @@ export interface Service {
 
 
 const qs = {
-    square:[200,91,50,32,18,15,10,8,8,2],
-    rect:[300,140,75,48,30,24,14,12,3],
-    bumper:[140,75,48,30,24,14,12,3],
+    square:[
+        126, 54, 28, 15,
+         12,  8,  6,  6
+      ]
+      ,
+    rect:[
+        189, 84, 40, 24,
+         21, 12, 10,  8
+      ]
+      ,
+    bumper:[
+        378, 168, 84, 48,
+         42,  24, 20, 18
+      ],
     static:[1,1,1,1,1]
 }
 const sizes = {
     square:[
-        "2x2","3x3","4x4","5x5","6x6","7x7","8x8","9x9","10x10","20x20"
+        "2x2","3x3","4x4","5x5","6x6","7x7","8x8","9x9"
     ],
     rect:[
-        "2x1.33","3x2","4x2.66","5x3.33","6x4","7x4.66","8x5.33","10x6.66","20x13.33"
+        "2x1.33","3x2","4x2.66","5x3.33","6x4","7x4.66","8x5.33","9x6"
     ],
     bumper:[
-        "3x1","4x1.3","5x1.6","6x2","7x2.3","8x2.6","10x3.3","20x6.6"
+        "3x1","4x1.3","5x1.6","6x2","7x2.3","8x2.6","9x3"
     ],
     tShirts:[
         "sm","md","lg"
@@ -164,12 +176,25 @@ const tShirts = {
         hero : backSide
     },
 }
-
+const cup = {
+    "cup": {
+        name: "cup",
+        img: cupProduct, // Switched to using 'img'
+        href: "/product/cup/cup",
+        aspect: "square",
+        sizes : sizes.tShirts,
+        quantities: qs.static,
+        hero : heroCup
+    },
+}
 
 const services: Services = {
     stickers,
-    "t-shirts": tShirts
+    "t-shirts": tShirts,
+    cup: cup
 }
+
+
 
 
 export const getProductInfo = (service :string, product: string) => {

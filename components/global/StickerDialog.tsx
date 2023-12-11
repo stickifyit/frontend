@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Dialog,
     DialogClose,
@@ -24,6 +24,7 @@ import { useCanvasProps } from '@/store/canvasProps'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { Sticker } from '@/utils/fetchExplore'
+import { BackendHost } from '@/constant/backend'
   
 type Props = {
     item : Sticker
@@ -57,9 +58,12 @@ const StickerDialog = ({item}: Props) => {
     const [type, setType] = React.useState(services[0].types[0].value)
     const {setImage} = useCanvasProps()
     const route = useRouter()
+    useEffect(() => {
+        setType(services[services.findIndex((s)=>s.value==service)].types[0].value)
+    },[service])
     const handleContinue =async () => {
         try {
-            const response = await axios.post('http://localhost:3001/fetch-image', {
+            const response = await axios.post(BackendHost+'/fetch-image', {
                 url: `https://storage.googleapis.com/stickify-storage/${item.imageURL}`,
             });
             const imageDataUrl = response.data;
@@ -70,14 +74,21 @@ const StickerDialog = ({item}: Props) => {
           }
     }
   return (
-<Dialog >
-  <DialogTrigger>
-        <Card className={'w-full rounded-xl relative cursor-pointer overflow-hidden duration-150  '}>
-            <Image src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" width={200} height={200} className='aspect-square drop-shadow-lg w-full  object-cover p-4'/>
-            <div className='p-3 text-center'>
-                <h3 className='text-center font-semibold'>{item.name}</h3>
+        <Card className={' rounded-xl relative cursor-pointer overflow-hidden duration-150  '}>
+            <Image src={"https://storage.googleapis.com/stickify-storage/"+item.imageURL} alt="" width={200} height={200} className='aspect-square drop-shadow-lg w-full  object-cover p-2 md:p-4'/>
+            <div className='md:p-3 p-1 text-center'>
+                <h3 className='text-center text-xs md:text-sm font-sans overflow-hidden whitespace-nowrap text-ellipsis'>{item.name}</h3>
             </div>
         </Card>
+
+  )
+}
+
+export default StickerDialog
+
+
+/* 
+</DialogTrigger>
   </DialogTrigger>
   <DialogContent className=''>
     <DialogHeader>
@@ -89,7 +100,6 @@ const StickerDialog = ({item}: Props) => {
                 <h1 className='text-2xl'>Order Sticker</h1>
                 <div className='py-4  flex gap-4'>
                     
-                    {/* <h3 className='text-md'>Select service</h3> */}
                     <Select value={service} onValueChange={(e)=>setService(e)}>
                     <SelectTrigger className="flex-1">
                         <SelectValue placeholder="Service" />
@@ -102,7 +112,6 @@ const StickerDialog = ({item}: Props) => {
                         }
                     </SelectContent>
                     </Select>
-                    {/* <h3 className='text-md'>Select type</h3> */}
                     <Select value={type} onValueChange={setType}>
                     <SelectTrigger className="flex-1">
                         <SelectValue placeholder="Service" />
@@ -129,9 +138,4 @@ const StickerDialog = ({item}: Props) => {
         </DialogClose>
     </DialogFooter>
   </DialogContent>
-</Dialog>
-
-  )
-}
-
-export default StickerDialog
+</Dialog>  */
