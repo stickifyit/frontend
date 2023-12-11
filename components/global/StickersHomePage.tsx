@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
+import { Button } from '../ui/button'
 
 
 type Props = {}
@@ -19,18 +20,23 @@ function StickersHomePage({}: Props) {
 
   return (
     sheets &&
-    <div className='md:w-fit mx-auto overflow-x-hidden px-4 container'>
+    <div className='md:w-full  mx-auto overflow-x-hidden px-4 container'>
         <div className='flex  w-full  justify-end relative gap-3  my-4 '>
-            <Link href='/services/stickers' className=' rounded-full  w-fit  flex gap-2 items-center text-xs font-sans font-medium '>See more <ArrowRight size={18}/></Link>
+            <Link href='/services/stickers' className=' rounded-full  w-fit  flex gap-2 items-center text-xs font-sans font-medium '>
+                <Button>
+                See more
+                <ArrowRight size={18}/>
+                </Button>
+                </Link>
       </div>
       {/* <div className='relative mx-auto flex justify-center gap-2 md:gap-6 mt-4 md:p-6 w-fit '> */}
         <Swiper
             slidesPerView={4}
-            className='md:w-[1000px] w-full '
+            className='w-full'
             breakpoints={
                 {
                     0:{
-                        slidesPerView:1.5,
+                        slidesPerView:1.8,
                         spaceBetween:0,
                     },
                     640:{
@@ -44,7 +50,7 @@ function StickersHomePage({}: Props) {
             >
             {
             (sheets).map((item, index) => (
-                <SwiperSlide key={index} className='w-full px-2 py-4 md:px-2'>
+                <SwiperSlide key={index} className='w-full px-1 py-4 md:px-2'>
                 <SheetComp key={index} item={item} index={index} sheets={sheets}/>
                 </SwiperSlide>
             ))

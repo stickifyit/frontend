@@ -52,7 +52,7 @@ function CartSheet({}: Props) {
         <div className={"flex flex-col gap-2 flex-1 overflow-auto "}>
           {
             cart.length===0 &&
-            <div className='flex items-center flex-col justify-center flex-1 gap-0'>
+            <div className='flex items-center flex-col justify-center flex-1 gap-4'>
             <Image src={cat} width={200} height={200} alt=""></Image>
             <h1 className='text-xl'>Your cart is empty</h1>
             </div>

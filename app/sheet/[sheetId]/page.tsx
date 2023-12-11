@@ -22,10 +22,11 @@ import { useCart } from '@/store/cart'
 import { sheetPricing } from '@/constant/pricing'
 import { PriceByPrice, SheetPrice, getPrice } from '@/lib/price'
 import { Badge } from '@/components/ui/badge'
+import CatFeet from '@/components/global/CatFeet'
 type Props = {}
 
 export default function Page({}: Props) {
-    const [sheetQuantity,setSheetQuantity] = React.useState(3)
+    const [sheetQuantity,setSheetQuantity] = React.useState(1)
     const param = useParams()
     const {data:sheetInfo,isLoading} = useQuery("fetchSheet",()=>getStickerSheet((param.sheetId as string).replaceAll("-"," "))) 
     const [added,setAdded] = React.useState(false);
@@ -84,13 +85,14 @@ export default function Page({}: Props) {
     <div>
     <div className='max-w-5xl mx-auto  pt-8 w-full'>
         <div className='flex flex-col md:flex-row w-full py-4 md:py-16 md:gap-8 items-center relative mb-12'>
+            <CatFeet>
             <div className='flex-[1] drop-shadow-2xl relative md:w-full w-[60vw]'>
                 <Image width={400} height={600} src={sheetInfo?.snapshot??""} alt="" className=' mb-12 flex-[2] opacity-0 top-0 left-0 rounded-xl shadow-2xl' />
                 {
                 new Array(sheetQuantity).fill(0).map((item, index) => (
                     <motion.div  
-                        initial={{scale:1.1,opacity:0.8}}
-                        animate={{scale:1,opacity:1}}
+                        // initial={{scale:1.1,opacity:0.8}}
+                        // animate={{scale:1,opacity:1}}
                         transition={{
                             duration:0.2,
                         }}
@@ -102,6 +104,7 @@ export default function Page({}: Props) {
                 ))
                 }
             </div>
+            </CatFeet>
             <div className='flex-[1]  sticky top-[120px] h-fit'>
                 <motion.div 
                     initial={{opacity:0,x:300}}
