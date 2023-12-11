@@ -32,8 +32,7 @@ export default function CustomSheetItemCard({item}: Props) {
     }, [item.quantity,update,item])
   return (
     <Card onClick={(e:React.MouseEvent)=>{
-    
-            if (e.shiftKey || e.ctrlKey) {
+       if (e.shiftKey || e.ctrlKey) {
                 selectItem(item.id);
             } else {
                 // If the shift key is not pressed, select only the clicked item

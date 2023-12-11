@@ -41,11 +41,12 @@ export default function RenderSheet({w}: Props) {
     },[sheet,w,setProcess])
 
     return(
+
     process.map((item,i) => <motion.div 
         initial={{opacity:0,scale:1.2}}
         animate={{opacity:1,scale:1}}
         transition={{duration:.2}}
-    onClick={(e:React.MouseEvent)=>{
+      onClick={(e:React.MouseEvent)=>{
         e.stopPropagation()
         // if i'm not clicking the shift btn
         if (e.shiftKey || e.ctrlKey) {
