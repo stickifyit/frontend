@@ -25,7 +25,7 @@ import { Badge } from '@/components/ui/badge'
 type Props = {}
 
 export default function Page({}: Props) {
-    const [sheetQuantity,setSheetQuantity] = React.useState(3)
+    const [sheetQuantity,setSheetQuantity] = React.useState(1)
     const param = useParams()
     const {data:sheetInfo,isLoading} = useQuery("fetchSheet",()=>getStickerSheet((param.sheetId as string).replaceAll("-"," "))) 
     const [added,setAdded] = React.useState(false);

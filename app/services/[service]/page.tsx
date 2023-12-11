@@ -49,13 +49,6 @@ const Page = (props: Props) => {
               <motion.h1 initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} className='text-5xl md:text-7xl capitalize'>{params?.service}</motion.h1>
               <motion.p initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.2}} className='max-w-2xl md:text-lg text-sm font-sans font-medium opacity-60'>{heroParagraphs[params?.service as 'stickers'|'t-shirts'|'cup' ]}</motion.p>
               <motion.div initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.4}}>
-              {
-                params?.service == "stickers" &&
-                  <Link className='block w-fit' href={"/mysheet"} >
-                    
-                    <Button size="lg" variant="secondary" className='text-white  uppercase'>Custom sheet<Stars/></Button>
-                  </Link>
-              }
               </motion.div>
             </div>
           </div>

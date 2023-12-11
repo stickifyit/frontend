@@ -29,7 +29,7 @@ const HeroSection = (props: Props) => {
           <div className='flex gap-4 flex-col md:flex-row items-center'>
             <motion.div initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.6}}>
             <Link href={"/services/stickers"}>
-                <Button size={'lg'} variant={"secondary"} className='uppercase flex gap-2   text-lg'>Explore Sheets</Button>
+                <Button size={'lg'} variant={"secondary"} className='uppercase hover:outline outline-1 flex gap-2   text-lg'>Explore Sheets</Button>
             </Link>
             </motion.div>
             <motion.div initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.8}}>
@@ -40,7 +40,7 @@ const HeroSection = (props: Props) => {
           </div>
         </motion.div>
 
-          <div className='relative py-8 '>
+          <div className='relative py-8 md:mr-36 drop-shadow-xl'>
             <Image src={HeroImages.bears} width={300} height={450} className=' opacity-0 w-[150px] md:w-[250px] drop-shadow-xl' alt="bears"></Image>
             <Image src={HeroImages.cloud} width={300} height={450} className='z-30 absolute -left-20 md:-left-28 top-10  w-[120px] md:w-[250px] drop-shadow' alt="bears"></Image>
 

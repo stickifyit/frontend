@@ -26,7 +26,7 @@ function StickersHomePage({}: Props) {
       {/* <div className='relative mx-auto flex justify-center gap-2 md:gap-6 mt-4 md:p-6 w-fit '> */}
         <Swiper
             slidesPerView={4}
-            className='md:w-[1000px] w-full '
+            className='container w-full '
             breakpoints={
                 {
                     0:{
@@ -44,7 +44,7 @@ function StickersHomePage({}: Props) {
             >
             {
             (sheets).map((item, index) => (
-                <SwiperSlide key={index} className='w-full px-2 py-4 md:px-2'>
+                <SwiperSlide key={index} className='w-full px-1 py-4 md:px-2'>
                 <SheetComp key={index} item={item} index={index} sheets={sheets}/>
                 </SwiperSlide>
             ))

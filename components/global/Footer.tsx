@@ -13,12 +13,13 @@ export default function Footer  (props: Props) {
   return (
     pathName !== "/mysheet" &&
     <div 
-    className='bg-slate-100 flex flex-col min-h-[30vh] mt-12'
+    className='bg-gray-100 flex flex-col min-h-[30vh] mt-12'
     >
-        <div className='container gap-8 flex-1 justify-between flex flex-col md:flex-row md:items-center '>
-            <div className='md:p-8 py-8 flex gap-2 items-center w-fit flex-col'>
-                <Image src={Logo} alt="logo" width={200} height={200} className='w-[100px] h-[100px] drop-shadow-2xl'/>
+        <div className='container gap-2 flex-1 justify-between flex flex-col md:flex-row md:items-center '>
+            <div className='md:p-8 py-8 flex max-w-[300px] gap-2  w-fit flex-col'>
+                {/* <Image src={Logo} alt="logo" width={200} height={200} className='w-[100px] h-[100px] drop-shadow-2xl'/> */}
                 <h1 className='text-4xl font-thin  flex items-center gap-2'>Stickify</h1>
+                <p className='text-sm font-sans'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe cumque quam doloremque fugiat. </p>
             </div>
             <div className='flex-1'>
                <div className='md:flex justify-center gap-4 pb-8 md:pb-0 gap-y-8 grid grid-cols-2'>
