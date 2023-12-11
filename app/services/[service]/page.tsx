@@ -43,7 +43,7 @@ const Page = (props: Props) => {
                 animate={{opacity:1,scale:1}}
                 className=' drop-shadow-2xl'>
                   {/* i want to take the service and show image of it  */}
-                  <Image width={450} className='w-[300px] md:w-[450px]' src={heroImages[params?.service as 'stickers'|'t-shirts' ]??''} alt=""></Image>
+                  <Image width={450} className='w-[240px] md:w-[400px]' src={heroImages[params?.service as 'stickers'|'t-shirts' ]??''} alt=""></Image>
             </motion.div>
             <div className='space-y-4'>
               <motion.h1 initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} className='text-5xl md:text-7xl capitalize'>{params?.service}</motion.h1>

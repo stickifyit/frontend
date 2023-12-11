@@ -27,7 +27,7 @@ const StickerSheetsList = (props: Props) => {
                 <Input placeholder='Search sheet' className='w-full flex-1 pl-10'/>
             </div>
       </div>
-      <div className='md:container mx-auto grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-6 mt-4 md:p-6'>
+      <div className='md:container mx-auto grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6 mt-4 md:p-6'>
         {
           (sheets).flat(1).map((item, index) => (
             <SheetComp key={index} item={item} index={index} sheets={sheets}/>
@@ -96,7 +96,7 @@ export const SheetComp = ({item,index,sheets}:{item:any,index:number,sheets:any}
                   <div>
                     <h3 className='opacity-75 capitalize text-xs md:text-sm font-sans font-medium'>{item.name}</h3>
                   </div>
-                  <Button className='py-5 rounded-full' onClick={(e)=>handleAddToCart(index%sheets.length,e)} variant={"secondary"} size={"sm"}>
+                  <Button className='py-5 px-8 rounded-full' onClick={(e)=>handleAddToCart(index%sheets.length,e)} variant={"secondary"} size={"sm"}>
                     Add <ShoppingBasketIcon/>
                   </Button> 
                 </div>
