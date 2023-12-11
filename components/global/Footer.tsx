@@ -17,7 +17,7 @@ export default function Footer  (props: Props) {
     >
         <div className='container gap-2 flex-1 justify-between flex flex-col md:flex-row md:items-center '>
             <div className='md:p-8 py-8 flex max-w-[300px] gap-2  w-fit flex-col'>
-                <Image src={Logo} alt="logo" width={200} height={200} className='w-[100px] h-[100px] drop-shadow-2xl'/>
+                {/* <Image src={Logo} alt="logo" width={200} height={200} className='w-[100px] h-[100px] drop-shadow-2xl'/> */}
                 <h1 className='text-4xl font-thin  flex items-center gap-2'>Stickify</h1>
                 <p className='text-sm font-sans'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe cumque quam doloremque fugiat. </p>
             </div>

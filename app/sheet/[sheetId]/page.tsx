@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import sheet from "@/public/Untitled-1.jpg"
 import Image from 'next/image'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -28,7 +28,8 @@ type Props = {}
 export default function Page({}: Props) {
     const [sheetQuantity,setSheetQuantity] = React.useState(1)
     const param = useParams()
-    const {data:sheetInfo,isLoading} = useQuery("fetchSheet",()=>getStickerSheet((param.sheetId as string).replaceAll("-"," "))) 
+    const [loading,setLoading] = useState(true)
+    const {data:sheetInfo,isLoading} = useQuery("fetchSheet",()=>{return getStickerSheet((param.sheetId as string).replaceAll("-"," "))}) 
     const [added,setAdded] = React.useState(false);
     const {addToCart,cart} = useCart()
 
@@ -57,6 +58,14 @@ export default function Page({}: Props) {
         }
     },[added])
 
+    useEffect(()=>{
+        if(!param.sheetId) return
+        setLoading(true)
+    },[param.sheetId])
+    useEffect(()=>{
+        if(!sheetInfo) return
+        setLoading(false) 
+    },[sheetInfo])
 
     if (isLoading) {
        return (
@@ -65,7 +74,6 @@ export default function Page({}: Props) {
        </div>
        )
     }
-
 
     const  handleAddToCart = ()=>{
         addToCart({
@@ -80,13 +88,14 @@ export default function Page({}: Props) {
         })
         setAdded(true)
     }
-
   return (
     <div>
     <div className='max-w-5xl mx-auto  pt-8 w-full'>
-        <div className='flex flex-col md:flex-row w-full py-4 md:py-16 md:gap-8 items-center relative mb-12'>
-            <CatFeet>
-            <div className='flex-[1] drop-shadow-2xl relative md:w-full w-[60vw]'>
+        <div className='flex flex-col md:flex-row w-full py-0 md:py-16 md:gap-8 items-center relative mb-12'>
+            {
+                !loading &&
+            <CatFeet time={500}>
+            <div className='flex-[1] drop-shadow-2xl relative md:w-full w-[70vw]'>
                 <Image width={400} height={600} src={sheetInfo?.snapshot??""} alt="" className=' mb-12 flex-[2] opacity-0 top-0 left-0 rounded-xl shadow-2xl' />
                 {
                 new Array(sheetQuantity).fill(0).map((item, index) => (
@@ -99,12 +108,13 @@ export default function Page({}: Props) {
                         className='overflow-hidden border-[#fff6] duration-200 flex-[2] absolute top-0 left-0 md:rounded-[42px] rounded-[20px] border drop-shadow-lg'
                         style={{ rotate: `${-((index)*1.5 - ((sheetQuantity-1)/2)*3)}deg`, translateX: `${(index*6)-((sheetQuantity-1)*3)}px`, translateY: `${index*0}px` }}
                         key={index}>
-                            <Image width={500} height={700} src={sheetInfo?.snapshot??""}  alt="" className='w-[400px]'/>
+                            <Image width={600} height={900} src={sheetInfo?.snapshot??""}  alt="" className='w-[600px]'/>
                     </motion.div>
                 ))
                 }
             </div>
             </CatFeet>
+            }
             <div className='flex-[1]  sticky top-[120px] h-fit'>
                 <motion.div 
                     initial={{opacity:0,x:300}}
