@@ -19,8 +19,8 @@ const Navbar = (props: Props) => {
         {/* <div className='h-6 text-sm w-full bg-secondary'>Stand with palestine </div> */}
         <div className='container px-4 flex items-center mx-auto flex-1 justify-between'>
             <Link href={"/"} className='flex items-center gap-4'>
-                <Image src={LOGO} className='w-[50px] h-[50px]' alt='logo' width={60} height={60}/>
-                <h1 className='text-lg md:text-2xl tracking-wider md:font-bold text-bblack uppercase'>stickify</h1>
+                {/* <Image src={LOGO} className='w-[50px] h-[50px]' alt='logo' width={60} height={60}/> */}
+                <h1 className='text-lg md:text-3xl tracking-wider text-bblack'>Stickify</h1>
             </Link>
             <div className='flex-1 pl-8 md:block hidden'>
                 <NavbarNavigation/>
