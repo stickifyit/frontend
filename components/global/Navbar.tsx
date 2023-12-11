@@ -48,8 +48,8 @@ const Navbar = (props: Props) => {
                         [
                             {name:"Home",href:"/"},
                             {name:"stickers",href:"/services/stickers"},
-                            {name:"t'shirts",href:"/services/t-shirts"},
-                            {name:"cups",href:"/services/cup"},
+                            // {name:"t'shirts",href:"/services/t-shirts"},
+                            // {name:"cups",href:"/services/cup"},
                             {name:"Explore",href:"/explore"},
                             {name:"contact",href:"/contact"},
                         ].map(({name,href},index)=>

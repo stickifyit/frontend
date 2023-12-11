@@ -42,37 +42,38 @@ export function NavbarNavigation() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Services</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
-                <NavigationMenuLink asChild>
-                  <Link
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-secondary to-secondary bg-white p-4 no-underline outline-none focus:shadow-md"
-                    href="/services/stickers"
-                  >
-                    <div className="mb-2 mt-4 text-2xl font-medium text-white">
-                      Stickers
-                    </div>
-                    <p className="text-sm leading-tight text-white font-sans font-medium opacity-80">
-                    Express yourself with custom adhesive art and messages.
-                    </p>
-                  </Link>
-                </NavigationMenuLink>
-              </li>
-              <ListItem href="/services/t-shirts" title="T-Shirts">
-              Wear your style with personalized, quality cotton creations.
-              </ListItem>
-              {/* <ListItem href="/docs/installation" title="Labels">
-              Organize and brand with custom, durable adhesive labeling.
-              </ListItem> */}
-              <ListItem href="/services/cup" title="Cups">
-              Sip in style with personalized drinkware for every occasion.
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
+                      {/* <NavigationMenuItem>
+                        <NavigationMenuTrigger>Services</NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                          <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                            <li className="row-span-3">
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-secondary to-secondary bg-white p-4 no-underline outline-none focus:shadow-md"
+                                  href="/services/stickers"
+                                >
+                                  <div className="mb-2 mt-4 text-2xl font-medium text-white">
+                                    Stickers
+                                  </div>
+                                  <p className="text-sm leading-tight text-white font-sans font-medium opacity-80">
+                                  Express yourself with custom adhesive art and messages.
+                                  </p>
+                                </Link>
+                              </NavigationMenuLink>
+                            </li>
+                            <ListItem href="/services/t-shirts" title="T-Shirts">
+                            Wear your style with personalized, quality cotton creations.
+                            </ListItem>
+                            {/* <ListItem href="/docs/installation" title="Labels">
+                            Organize and brand with custom, durable adhesive labeling.
+                            </ListItem> */}
+                            {/* <ListItem href="/services/cup" title="Cups"> */}
+                            {/* Sip in style with personalized drinkware for every occasion. */}
+                            {/* </ListItem> */}
+                          {/* </ul>
+                        </NavigationMenuContent>
+                      </NavigationMenuItem> */} 
+
         {/* <NavigationMenuItem>
           <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -95,6 +96,14 @@ export function NavbarNavigation() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem> */}
+        <NavigationMenuItem>
+          <Link href="/services/stickers" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Stickers
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+
         <NavigationMenuItem>
           <Link href="/explore" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>

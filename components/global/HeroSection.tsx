@@ -10,6 +10,7 @@ import {motion} from "framer-motion"
 import offer from "@/public/offer.png"
 import pin from "@/public/cart/pin.png"
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
+import StickerSheetsList from './StickerSheetsList'
 
 type Props = {}
 
@@ -83,7 +84,7 @@ const HeroSection = (props: Props) => {
            */}
 
 
-
+           <StickerSheetsList/>
 
       <div className='container p-4 py-20 space-y-8'>
 
