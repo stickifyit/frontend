@@ -3,16 +3,17 @@ import {motion} from "framer-motion"
 import Image from 'next/image'
 import catFeet from "@/public/cat-feet.png"
 type Props = {
-    children: React.ReactNode
+    children: React.ReactNode,
+    time?:number
 }
 
-function CatFeet({children}: Props) {
+function CatFeet({children,time=0}: Props) {
   return (
     <motion.div
      initial={{y:-700,scale:1.2}}
      animate={{y:0,scale:1}}
      transition={{
-         delay:0,
+         delay:time/1000,
          duration:.6
      }}
      className='relative '>
@@ -21,7 +22,7 @@ function CatFeet({children}: Props) {
             animate={{y:-700}}
             transition={{
                 delay:1.8,
-                duration:1
+                duration:.6
             }}
             className='absolute bottom-52 z-30 left-1/2 '
         >
