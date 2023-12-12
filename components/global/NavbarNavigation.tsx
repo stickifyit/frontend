@@ -113,9 +113,9 @@ export function NavbarNavigation() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link href="/how-to-order" legacyBehavior passHref>
+          <Link href="/about" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              How to order
+              About
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
