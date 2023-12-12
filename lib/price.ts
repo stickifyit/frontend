@@ -5,6 +5,7 @@ export const getPrice = (price: number , quantity: number) => {
     return price  *  quantity
 }
 
+
 export const PriceByPrice = (price: number) => {
     
     return (

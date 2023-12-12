@@ -25,8 +25,8 @@ const HeroSection = (props: Props) => {
       <div className='container px-4 h-full items-center flex gap-0 lg:gap-4 flex-col-reverse lg:flex-row mx-auto'>
         <motion.div 
         className=' h-full lg:text-start flex-1 text-center lg:items-start flex flex-col gap-6 md:justify-center'>
-          <motion.h1 initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.2}} className='md:text-6xl text-3xl max-w-3xl uppercase font-inter'>Turn Your Designs into Stunning Reality</motion.h1>
-          <motion.h1 initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.4}} className='text-lg md:text-2xl opacity-75 max-w-3xl font-thin'>Experience the joy of holding your creativity with our high-quality printed stickers</motion.h1>
+          <motion.h1 initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.2}} className='md:text-6xl text-3xl max-w-3xl uppercase font-inter'>Unleash the Power of Adorable Productivity</motion.h1>
+          <motion.h1 initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.4}} className='text-lg md:text-2xl opacity-75 max-w-3xl font-thin'>Turn mundane moments into magical memories with our delightful sticker sheets.</motion.h1>
           <div className='flex gap-4 flex-col md:flex-row items-center'>
             <motion.div initial={{opacity:0,y:50}} animate={{opacity:1,y:0}} transition={{delay:0.6}}>
             <Link href={"/services/stickers"}>
@@ -99,8 +99,8 @@ const HeroSection = (props: Props) => {
                       <CardTitle className='md:text-8xl text-4xl uppercase  font-thin'>
                         - Get 15% OFF -
                       </CardTitle>
-                      <p className='md:text-xl font-sans font-medium'>💵 Enjoy a <span className='font-bold uppercase'>15% discount</span> on orders over 75_DH!</p>
-                      <p className='md:text-xl font-sans font-medium'>🚗 Plus, qualify for <span className='font-bold uppercase'>free shipping</span> within Morocco on orders exceeding 100_DH.</p>
+                      <p className='md:text-xl font-sans font-medium'>💵 Enjoy a <span className='font-bold uppercase'>15% discount</span> on orders over 75 DH!</p>
+                      <p className='md:text-xl font-sans font-medium'>🚗 Plus, qualify for <span className='font-bold uppercase'>free shipping</span> within Morocco on orders exceeding 6 sheets.</p>
                       <Link href={"/services/stickers"} className='w-fit block mx-auto md:mx-0'>
                           <Button size={"lg"} variant={"secondary"} className=''>Shop Now <ArrowRight size={26}/></Button>
                       </Link>
