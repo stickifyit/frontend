@@ -99,8 +99,8 @@ const HeroSection = (props: Props) => {
                       <CardTitle className='md:text-8xl text-4xl uppercase  font-thin'>
                         - Get 15% OFF -
                       </CardTitle>
-                      <p className='md:text-xl font-sans font-medium'>💵 Enjoy a <span className='font-bold uppercase'>15% discount</span> on orders over 75_DH!</p>
-                      <p className='md:text-xl font-sans font-medium'>🚗 Plus, qualify for <span className='font-bold uppercase'>free shipping</span> within Morocco on orders exceeding 100_DH.</p>
+                      <p className='md:text-xl font-sans font-medium'>💵 Enjoy a <span className='font-bold uppercase'>15% discount</span> on orders over 75 DH!</p>
+                      <p className='md:text-xl font-sans font-medium'>🚗 Plus, qualify for <span className='font-bold uppercase'>free shipping</span> within Morocco on orders exceeding 6 sheets.</p>
                       <Link href={"/services/stickers"} className='w-fit block mx-auto md:mx-0'>
                           <Button size={"lg"} variant={"secondary"} className=''>Shop Now <ArrowRight size={26}/></Button>
                       </Link>

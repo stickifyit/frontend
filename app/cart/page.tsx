@@ -19,6 +19,7 @@ function Page({}: Props) {
     const [cartPrice,setCartPrice] = useState(0);
     const [deliveryPrice,setDeliveryPrice] = useState(deliveryPriceConst);
     const [totalPrice,setTotalPrice] = useState(0);
+    const [purePrice,setPurePrice] = useState(0);
 
 
     useEffect(()=>{
@@ -47,6 +48,7 @@ function Page({}: Props) {
                 price += CupPrice * item.quantity
             }
         }
+        setPurePrice(price)
         return PriceByPrice(price)
     }
 
@@ -133,7 +135,12 @@ function Page({}: Props) {
                         </div>
                     </div>
                     <span className='text-xl '>Total Price</span>
-                    <h1 className='text-6xl '>{(cartPrice + deliveryPrice).toFixed(2)} Dh</h1>
+                    <h1 className='text-5xl '>{(cartPrice + deliveryPrice).toFixed(2)} Dh 
+                    {
+                        (cartPrice + deliveryPrice) < (purePrice + 35) &&
+                        <span className='text-2xl opacity-40 line-through'> / { purePrice + 35 } Dh</span>
+                    }
+                    </h1>
                     <div className='pt-8'>
                         <Link href={"/checkout"}>
                         <Button size="lg" className='w-full' variant={"secondary"}>CheckOut</Button>
