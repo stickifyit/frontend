@@ -1,6 +1,6 @@
 export const getPrice = (price: number , quantity: number) => {
     
-    if(price * quantity >= 75)
+    if(price * quantity >= 100)
         return (Math.ceil(price - (price * 0.15)) * quantity);
     return price  *  quantity
 }
