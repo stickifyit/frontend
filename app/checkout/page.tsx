@@ -43,7 +43,7 @@ export default function Page({}: Props) {
             }
         }
 
-        return PriceByPrice(price)+(price > 100 ? 0 : deliveryPriceConst)
+        return PriceByPrice(price)+(price > 75 ? 0 : deliveryPriceConst)
     }
 
 
