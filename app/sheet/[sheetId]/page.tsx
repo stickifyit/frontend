@@ -109,7 +109,7 @@ export default function Page({}: Props) {
                         transition={{
                             duration:0.2,
                         }}
-                        className='overflow-hidden border-[#fff6] duration-200 flex-[2] absolute top-0 left-0 md:rounded-[42px] rounded-[20px] border drop-shadow-lg'
+                        className='overflow-hidden border-[#fff6] duration-200 flex-[2] absolute top-0 left-0 md:rounded-[42px] rounded-[20px] border drop-shadow-lg bg-white'
                         style={{ rotate: `${-((index)*1.5 - ((sheetQuantity-1)/2)*3)}deg`, translateX: `${(index*6)-((sheetQuantity-1)*3)}px`, translateY: `${index*0}px` }}
                         key={index}>
                             <Image width={600} height={900} src={sheetInfo?.snapshot??""}  alt="" className='w-[600px]'/>
